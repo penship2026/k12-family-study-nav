@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>学习规划 · 起步线K12</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Crect%20width%3D%2224%22%20height%3D%2224%22%20rx%3D%226%22%20fill%3D%22%233d7a5f%22%2F%3E%3Cpath%20d%3D%22M6.5%205.2v13.6%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222.7%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M10.6%208%2020.6%206.2M10.6%2012h10M10.6%2016%2020.6%2017.8%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%2F%3E%3C%2Fsvg%3E">
+<style>
+  :root{
+    --bg:#f6f4ee; --card:#fff; --ink:#2b2b28; --sub:#6b675e;
+    --line:#e8e3d7; --brand:#3d7a5f; --brand-soft:#e7f1ec;
+    --cn:#b0523f; --math:#3b6fb6; --eng:#b66a3b; --sci:#3f8a7a;
+    --mor:#7a6a3f; --pe:#4a7fa8; --mus:#8a5fa8; --art:#a85f7a;
+    --lab:#618036; --it:#4a6a8a; --call:#6a5fa8; --code:#2f6b4f;
+    --read:#4a8a6a; --ext:#8a6a3b; --think:#7a5a3b;
+    --opera:#9a4a5a; --tech:#3f6b7a; --sport:#4a7a3f;
+    --radius:14px; --shadow:0 1px 4px rgba(60,50,30,.08);
+    --tap:44px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--bg);color:var(--ink);line-height:1.65;
+    font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+    padding-bottom:env(safe-area-inset-bottom)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 16px 64px}
+  header.top{padding:20px 0 12px}
+  header.top h1{font-size:24px;letter-spacing:.5px}
+  header.top p{color:var(--sub);margin-top:6px;font-size:14px}
+  /* ===== 站点头部 ===== */
+  .sitehdr{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:60;
+    transition:box-shadow .18s}
+  .hdr{max-width:1080px;margin:0 auto;padding:11px 16px;display:flex;align-items:center;gap:16px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;flex:0 0 auto}
+  .mark{width:34px;height:34px;border-radius:9px;background:var(--brand);color:#fff;
+    display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .mark svg{display:block;width:20px;height:20px}
+  .mark{padding:0}
+  .bt{display:flex;flex-direction:column;line-height:1.15}
+  .bt b{font-size:16.5px;letter-spacing:.6px}
+  .bt i{font-style:normal;font-size:11.5px;color:var(--sub);margin-top:3px}
+  .navmenu{margin-left:auto;display:flex;gap:2px;align-items:center}
+  .navmenu a{font-size:13.5px;color:var(--sub);text-decoration:none;padding:8px 12px;border-radius:9px;white-space:nowrap}
+  .navmenu a:hover{background:var(--bg);color:var(--ink)}
+  .navmenu a.on{background:var(--brand-soft);color:#2b5a44;font-weight:600}
+  .k12{display:inline-block;margin-left:5px;font-size:11px;font-weight:700;color:#fff;background:var(--brand);border-radius:5px;padding:1px 5px;vertical-align:2px;letter-spacing:.4px}
+  .navbtn{display:none;margin-left:auto;width:42px;height:42px;border:1px solid var(--line);
+    background:#fff;border-radius:10px;font-size:17px;cursor:pointer;color:var(--ink)}
+  .phead{padding:18px 0 6px}
+  .phead h1{font-size:22px;letter-spacing:.4px}
+  .phead .lead{color:var(--sub);font-size:13.5px;margin-top:6px}
+
+  .notice{margin-top:12px;background:var(--brand-soft);border-left:3px solid var(--brand);
+    padding:10px 14px;border-radius:8px;font-size:13px;color:#335647}
+  .subnav{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  .subnav a{display:inline-flex;align-items:center;min-height:38px;
+    background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:8px 16px;font-size:13.5px;color:var(--ink);text-decoration:none;box-shadow:var(--shadow)}
+  .subnav a:hover{border-color:var(--brand);color:var(--brand)}
+
+  /* 三个 tab 区整体吸顶，横向滑动不换行 */
+  .tabs-sticky{position:sticky;top:var(--hdrH,57px);z-index:20;background:var(--bg);
+    padding:8px 0 6px;border-bottom:1px solid transparent}
+  .sitehdr.stuck{box-shadow:0 8px 18px -14px rgba(0,0,0,.45)}
+  .tabs-sticky.stuck{border-bottom-color:var(--line);box-shadow:0 4px 10px -8px rgba(0,0,0,.25)}
+  .grade-tabs,.sec-tabs,.sub-tabs{display:flex;gap:8px;flex-wrap:wrap}
+  .grade-tabs{margin:16px 0 8px}
+  .sec-tabs{margin:0 0 8px}
+  .sub-tabs{margin:0 0 16px}
+  .grade-tabs button,.sec-tabs button,.sub-tabs button{min-height:38px;cursor:pointer;color:var(--ink)}
+  .grade-tabs button{border:1px solid var(--line);background:var(--card);border-radius:999px;
+    padding:8px 18px;font-size:14px}
+  .grade-tabs button.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .sec-tabs button{border:1px solid var(--line);background:var(--card);border-radius:10px;
+    padding:7px 16px;font-size:13.5px;color:var(--sub);font-weight:600}
+  .sec-tabs button.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .sub-tabs button{border:1px solid var(--line);background:var(--card);border-radius:8px;
+    padding:6px 14px;font-size:12.5px;color:var(--sub)}
+  .sub-tabs button.active{background:var(--brand-soft);color:#2b5a44;border-color:#bfd8ca}
+
+  .meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;color:var(--sub);font-size:13px;margin:12px 0 14px}
+  .meta b{color:var(--ink)}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);overflow:hidden}
+  .card-head{padding:16px 18px 10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .dot{width:10px;height:10px;border-radius:50%;flex:0 0 auto}
+  .card-head h2{font-size:17px}
+  .tag{font-size:11px;border-radius:6px;padding:2px 8px;border:1px solid transparent}
+  .tag-in{background:#eef2f7;color:#3d5a78;border-color:#dbe5ef}
+  .tag-out{background:#fbf0e6;color:#8a5230;border-color:#f0dcc9}
+  .badge{margin-left:auto;font-size:12px;color:var(--sub);background:var(--bg);border-radius:8px;padding:3px 10px}
+  .card-body{padding:0 18px 16px}
+  .goal{font-size:14px;color:var(--sub);background:var(--bg);border-radius:10px;padding:10px 12px;margin-bottom:10px}
+  .focus{font-size:12.5px;color:#3d6b57;background:var(--brand-soft);border-radius:8px;padding:7px 10px;margin-bottom:10px}
+  .sec-title{font-size:13px;color:var(--sub);margin:10px 0 4px;letter-spacing:.5px}
+  ul.tasks{list-style:none}
+  ul.tasks li{border-top:1px dashed var(--line)}
+  ul.tasks li:first-child{border-top:none}
+  .task-row{display:flex;gap:12px;align-items:flex-start;padding:11px 0;min-height:var(--tap);
+    font-size:14px;cursor:pointer;line-height:1.55}
+  .task-row input{flex:0 0 auto;margin-top:3px;width:20px;height:20px;accent-color:var(--brand);cursor:pointer}
+  .task-row span{flex:1 1 auto}
+  ul.tasks li.done .task-row span{color:var(--sub);text-decoration:line-through}
+  ul.res{list-style:none}
+  ul.res li{padding:10px 0;border-top:1px dashed var(--line);font-size:14px}
+  ul.res li:first-child{border-top:none}
+  ul.res a{color:var(--math);text-decoration:none;font-weight:600;min-height:var(--tap);
+    display:inline-flex;align-items:center}
+  ul.res .desc{display:block;color:var(--sub);font-size:12.5px;margin-top:2px}
+  footer{margin-top:36px;color:var(--sub);font-size:12.5px;text-align:center;line-height:1.8;
+    padding-bottom:calc(16px + env(safe-area-inset-bottom))}
+  /* ===== 今日打卡磁贴 ===== */
+  .today{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:14px 18px 10px;margin:14px 0 12px;scroll-margin-top:calc(var(--hdrH,57px) + 12px)}
+  .today .t-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .today h2{font-size:16px}
+  .today .date{font-size:12px;color:var(--sub);background:var(--bg);border-radius:8px;padding:2px 10px}
+  .today .t-prog{margin-left:auto;font-size:12.5px;color:var(--brand);font-weight:600;white-space:nowrap}
+  .today ul{list-style:none;margin-top:8px}
+  .today li{border-top:1px dashed var(--line)}
+  .today li:first-child{border-top:none}
+  .today .task-row{padding:10px 0}
+  .today em{font-style:normal;font-size:11.5px;color:var(--sub);background:var(--bg);border-radius:6px;
+    padding:1px 7px;margin-right:8px;white-space:nowrap}
+  .today li.done em{opacity:.6}
+  .today .t-foot{font-size:12px;color:var(--sub);padding-top:8px;border-top:1px dashed var(--line)}
+
+  .plan-note{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin-bottom:18px}
+  .plan-note h3{font-size:15px;margin-bottom:8px}
+  .plan-note ul{padding-left:18px;font-size:13.5px;color:var(--sub)}
+  .legend{font-size:12.5px;color:var(--sub);margin:0 0 14px}
+
+  /* 本页目录 + 折叠卡片 + 锚点偏移 */
+  .quicknav{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0 4px}
+  .quicknav a,.quicknav button{display:inline-flex;align-items:center;gap:6px;min-height:34px;
+    border:1px solid var(--line);background:var(--card);border-radius:999px;padding:5px 14px;
+    font-size:12.5px;color:var(--ink);text-decoration:none;cursor:pointer;box-shadow:var(--shadow)}
+  .quicknav a:hover,.quicknav button:hover{border-color:var(--brand);color:var(--brand)}
+  .quicknav .spacer{flex:1}
+  #noteCard,#grid{scroll-margin-top:calc(var(--hdrH,57px) + 113px)}
+  .card{scroll-margin-top:calc(var(--hdrH,57px) + 113px)}
+  .card-head .more{margin-left:4px;font-size:11.5px;color:var(--sub);border:1px solid var(--line);
+    border-radius:8px;padding:1px 8px;background:var(--bg);white-space:nowrap}
+  .card.collapsed .card-body{display:none}
+  .card.collapsed .card-head{padding-bottom:14px}
+  .card.collapsed .glimpse{display:block;padding:0 18px 14px;font-size:12.5px;color:var(--sub);
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .card .glimpse{display:none}
+
+  /* ===== 窄屏（手机）适配 ===== */
+  @media(max-width:760px){
+    .grid{grid-template-columns:1fr;gap:12px}
+    .subnav,.grade-tabs,.sec-tabs,.sub-tabs{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;
+      -webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .subnav::-webkit-scrollbar,.grade-tabs::-webkit-scrollbar,.sec-tabs::-webkit-scrollbar,
+    .sub-tabs::-webkit-scrollbar{display:none}
+    .subnav a,.grade-tabs button,.sec-tabs button,.sub-tabs button{flex:0 0 auto;white-space:nowrap}
+    .grade-tabs button,.sec-tabs button{min-height:var(--tap)}
+    .wrap{padding:0 14px 48px}
+    header.top{padding:14px 0 8px}
+    header.top h1{font-size:19px}
+    header.top p{font-size:13px}
+    .notice{font-size:12.5px;padding:9px 12px}
+    .card-head{padding:13px 14px 8px;gap:8px}
+    .card-head h2{font-size:16px}
+    .badge{margin-left:auto;font-size:11.5px}
+    .card-body{padding:0 14px 14px}
+    .goal{font-size:13.5px;padding:9px 11px}
+    .task-row{font-size:14px;padding:12px 0}
+    .task-row input{width:22px;height:22px}
+    .meta{font-size:12.5px}
+    .plan-note{padding:13px 14px}
+    .hdr{padding:8px 14px;gap:10px}
+    .navbtn{display:flex;align-items:center;justify-content:center}
+    .navmenu{display:none;position:absolute;left:0;right:0;top:100%;background:#fff;
+      border-bottom:1px solid var(--line);box-shadow:0 10px 22px -16px rgba(0,0,0,.35);
+      padding:8px 12px 12px;flex-direction:column;align-items:stretch;gap:2px}
+    .navmenu.open{display:flex}
+    .navmenu a{padding:12px 10px;min-height:44px;display:flex;align-items:center;font-size:14px}
+    .bt b{font-size:15.5px}
+    .bt i{font-size:11px}
+    .mark{width:30px;height:30px;font-size:15px;border-radius:8px}
+    .phead{padding:14px 0 4px}
+    .phead h1{font-size:19px}
+    .today{padding:13px 14px 8px;margin:12px 0 10px}
+    .today h2{font-size:15.5px}
+
+    .tabs-sticky{padding-top:6px}
+    .quicknav{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+    .quicknav::-webkit-scrollbar{display:none}
+    .quicknav a,.quicknav button{flex:0 0 auto;white-space:nowrap;min-height:40px}
+    .quicknav .spacer{display:none}
+    /* 页面底部悬浮回顶，避免长列表滑到尽头 */
+    .to-top{display:flex}
+  }
+  /* 单栏滚动提示：子学科 chips 右侧渐隐 */
+  @media(min-width:761px){.to-top{display:none}}
+
+  .to-top{position:fixed;right:14px;bottom:calc(18px + env(safe-area-inset-bottom));
+    width:var(--tap);height:var(--tap);border-radius:50%;align-items:center;justify-content:center;
+    background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);
+    font-size:18px;color:var(--sub);cursor:pointer;z-index:30;opacity:0;pointer-events:none;
+    transition:opacity .2s}
+  .to-top.show{opacity:1;pointer-events:auto}
+  @media print{.sitehdr,.navbtn,.tabs-sticky,.quicknav,.to-top{display:none !important}}
+</style>
+</head>
+<body>
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<header class="sitehdr">
+  <div class="hdr">
+    <a class="brand" href="index.html">
+      <span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#fff" stroke-linecap="round"><path d="M6.5 5.2v13.6" stroke-width="2.7"/><path d="M10.6 8 20.6 6.2M10.6 12h10M10.6 16 20.6 17.8" stroke-width="2"/></svg></span>
+      <span class="bt"><b>起步线<span class="k12">K12</span></b><i>家庭学习导航 · 小学到高中</i></span>
+    </a>
+    <nav class="navmenu" id="navMenu">
+      <a href="index.html" class="on">学习规划</a>
+      <a href="courses.html">课程推荐</a>
+      <a href="resources.html">资料清单</a>
+      <a href="textbooks.html">教材目录</a>
+      <a href="standards.html">能力要求</a>
+      <a href="competitions.html">赛事白名单</a>
+      <a href="weekly-check.html">每周打卡</a>
+    </nav>
+    <button class="navbtn" id="navBtn" aria-label="打开菜单" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="phead">
+    <h1>学习规划</h1>
+    <p class="lead">按年级看任务：课内 10 门 + 课外 8 个模块，勾选进度存在本机浏览器。</p>
+    <div class="notice">本页只做 <b>学习规划 + 资源入口导航</b>，不上传、不托管任何课件与视频。课内 10 门按《义务教育课程方案（2022 年版）》小学段设置；课外 8 个模块为家庭自选，按需取用，不必全上。</div>
+  </section>
+
+  <section class="today" id="today">
+    <div class="t-head">
+      <h2>📅 今日打卡</h2>
+      <span class="date" id="todayDate"></span>
+      <span class="t-prog" id="todayProg"></span>
+    </div>
+    <ul id="todayList"></ul>
+    <div class="t-foot">只显示今天该做的 3–5 件小事；勾选与下面学科卡片同步，进度只存在本机。</div>
+  </section>
+
+  <div class="tabs-sticky" id="tabsBar">
+    <nav class="grade-tabs" id="gradeTabs"></nav>
+    <nav class="sec-tabs" id="secTabs"></nav>
+    <nav class="sub-tabs" id="subTabs"></nav>
+  </div>
+
+  <nav class="quicknav" id="quickNav">
+    <a href="#today">📅 今日打卡</a>
+    <a href="#noteCard">📌 本年级节奏</a>
+    <a href="#grid">🎯 学科任务（18 项）</a>
+    <span class="spacer"></span>
+    <button type="button" id="toggleAll">全部展开</button>
+  </nav>
+
+  <div class="meta">
+    <span id="gradeIntro"></span>
+    <span id="progress"></span>
+  </div>
+
+  <section class="plan-note" id="noteCard"></section>
+  <div class="legend" id="legend"></div>
+  <section class="grid" id="grid"></section>
+
+  <footer>
+    资源均为公开教育站点，家庭自用学习导航；不存储、不转载第三方版权内容。<br>
+    建议固定每日时段、短时高频：低年级单科 10–15 分钟，高年级 15–25 分钟；课内跟教材走，课外按兴趣选。
+  </footer>
+</div>
+
+<script>
+/* ---------- 长期稳定的外部资源（只挂主域名） ---------- */
+const RES = {
+  smartedu:{name:"国家中小学智慧教育平台",url:"https://www.zxx.edu.cn",
+    desc:"教育部官方：课内同步微课（含语文、数学、英语、科学、道法、体育、音乐、美术、劳动、信息科技）、电子教材、课后服务。"},
+  smarteduHome:{name:"国家智慧教育公共服务平台",url:"https://www.smartedu.cn",
+    desc:"总入口，含国家智慧教育读书平台、经典阅读、科普与传统文化栏目。"},
+  cstm:{name:"中国科技馆（线上资源）",url:"https://www.cstm.org.cn",
+    desc:"展览、科学课、动手实验视频，配合科学课与家庭小实验。"},
+  digicol:{name:"故宫博物院数字文物库",url:"https://digicol.dpm.org.cn",
+    desc:"高清文物与书画图像，用于美术欣赏、书法临摹的看图入口。"},
+  scratch:{name:"Scratch（MIT 官方）",url:"https://scratch.mit.edu",
+    desc:"图形化编程，中文界面，浏览器直接用；小学编程首选。"},
+  codeorg:{name:"Code.org",url:"https://code.org",
+    desc:"体系化编程课程（有中文），按年龄分课，含不插电活动。"},
+  mathplay:{name:"Math Playground",url:"https://www.mathplayground.com",
+    desc:"数学游戏与思维题，免费，练口算与空间推理。"},
+  lek:{name:"LearnEnglish Kids（英国文化教育协会）",url:"https://learnenglishkids.britishcouncil.org",
+    desc:"儿歌、互动游戏、分级故事与听写，适合磨耳朵与跟读。"},
+  owl:{name:"Oxford Owl 免费电子书",url:"https://www.oxfordowl.co.uk",
+    desc:"3–11 岁英文分级读物，可按级别与自然拼读体系筛选（免费注册）。"},
+  starfall:{name:"Starfall",url:"https://www.starfall.com/h/",
+    desc:"自然拼读、高频词与分级阅读，低年级启蒙；部分免费。"},
+  raz:{name:"Raz-Kids（Reading A-Z）",url:"https://www.learninga-z.com/site/products/raz-kids/overview",
+    desc:"29 级 aa–Z 分级体系，虚构与非虚构都有，坡度缓。"},
+  opera:{name:"央视网 · 戏曲频道",url:"https://opera.cctv.com",
+    desc:"京剧、越剧、豫剧、黄梅戏等各剧种的名家名段与整折戏，看戏入口。"},
+  cdstm:{name:"中国数字科技馆",url:"https://www.cdstm.cn",
+    desc:"线上展厅、科学实验与科普动画，配合家庭小实验与科技项目。"},
+  ncpa:{name:"国家大剧院 · 古典音乐频道",url:"https://www.ncpa-classic.com",
+    desc:"音乐会、歌剧与名曲导赏，做音乐欣赏的免费入口。"},
+  qjmy:{name:"亲近母语",url:"https://www.qjmy.cn",
+    desc:"中文分级阅读标准与年度书目、日有所诵，做选书参考。"}
+};
+
+/* ---------- 课内 / 课外 ---------- */
+const IN_SUBJECTS  = ["语文","数学","英语","科学","道德与法治","体育与健康","音乐","美术","劳动","信息科技"];
+const OUT_SUBJECTS = ["书法","编程","大阅读","英语拓展","数学思维","戏曲","科技","体育运动"];
+const SUB_COLOR = {
+  语文:"var(--cn)",数学:"var(--math)",英语:"var(--eng)",科学:"var(--sci)",
+  道德与法治:"var(--mor)",体育与健康:"var(--pe)",音乐:"var(--mus)",美术:"var(--art)",
+  劳动:"var(--lab)",信息科技:"var(--it)",
+  书法:"var(--call)",编程:"var(--code)",大阅读:"var(--read)",英语拓展:"var(--ext)",数学思维:"var(--think)",
+  戏曲:"var(--opera)",科技:"var(--tech)",体育运动:"var(--sport)"
+};
+const sectionOf = s => IN_SUBJECTS.includes(s) ? "in" : "out";
+
+/* ---------- 学段 ---------- */
+const BAND = {1:"12",2:"12",3:"34",4:"34",5:"56",6:"56"};
+const BAND_LABEL = {"12":"1–2 年级","34":"3–4 年级","56":"5–6 年级"};
+
+/* ---------- 各科分学段规划（同一学段内任务一致，年级差异见「本学期重点」） ---------- */
+const PLAN = {
+  /* ===== 课内 ===== */
+  "语文":{
+    "12":{goal:"拼音过关、识字起步、朗读成句、写字规范：认识约 1600 字、会写 800 字，背浅近古诗。",daily:"15 分钟",tasks:[
+      "每天出声朗读 10 分钟（课文、儿歌、绘本），读到流利",
+      "每天写 8–10 个生字，每字 3 遍，先看笔顺再写",
+      "每周背 1–2 首短古诗，先讲意思再背",
+      "亲子共读一本绘本，读完让孩子说一句感受"],res:["smartedu"]},
+    "34":{goal:"累计认识 2500 字、会写 1600 字；从读句到读篇，开始写段落。",daily:"20 分钟",tasks:[
+      "每天朗读课文或课外短文 10 分钟，读准字音停顿",
+      "每周听写一次本单元词语，错字只重写 3 遍",
+      "每周写一段话（100 字左右），围绕一件事写清楚",
+      "按教材「快乐读书吧」推进整本书阅读"],res:["smartedu","smarteduHome"]},
+    "56":{goal:"累计 3000 字，默读为主；能概括、能表达观点，完成整本书阅读与简单文言启蒙。",daily:"20–25 分钟",tasks:[
+      "每天默读 15 分钟，做批注（划好句、写疑问）",
+      "每周一篇习作，先列提纲再写，写完自己改一遍",
+      "古诗文按教材进度背诵并了解背景",
+      "每读完一本书，用 5 句话概括主要内容"],res:["smartedu","smarteduHome"]}
+  },
+  "数学":{
+    "12":{goal:"数感与运算起步：20/100 以内加减、乘法口诀、图形与时间、简单分类。",daily:"10–15 分钟",tasks:[
+      "每天 10 分钟口算（20 以内加减，后期加口诀）",
+      "做 2 道应用题，先说清已知什么、求什么",
+      "生活里认图形、认钟表、比长短轻重",
+      "错题只重做一道同类题，不抄题"],res:["smartedu"]},
+    "34":{goal:"多位数乘除、分数与小数初步、周长面积；两步应用题与画图分析。",daily:"15 分钟",tasks:[
+      "新课先看懂概念（课本例题或微课），再做练习",
+      "每天一组计算，写完验算一遍",
+      "应用题先画图或列表，理清数量关系",
+      "周末回看本周错题，按「计算错/思路错」归类"],res:["smartedu"]},
+    "56":{goal:"分数小数运算、方程、比例、圆与立体图形；综合应用题与建模意识。",daily:"15–20 分钟",tasks:[
+      "弄懂公式怎么来的，再套用（不背结论）",
+      "每天一组综合计算，控制时间保准确",
+      "每周 2–3 道综合应用题，写清步骤与单位",
+      "错题本：错因 + 正确思路 + 一道变式"],res:["smartedu"]}
+  },
+  "英语":{
+    "12":{goal:"1–2 年级多数地区未开英语课，课内要求为零；只做兴趣启蒙，不提前套教材。",daily:"10–15 分钟",tasks:[
+      "听英文儿歌/绘本音频并跟唱跟读",
+      "认识 26 个字母的大小写与常见物品单词",
+      "看图听故事，不逐词翻译",
+      "不背单词表、不练语法，先保住兴趣"],res:["smartedu","lek","starfall"]},
+    "34":{goal:"课标一级（3–4 年级）：字母与书写、核心句型、简短对话；能听懂课堂指令并跟读。",daily:"15 分钟",tasks:[
+      "跟读课文音频，模仿语音语调（先听后读）",
+      "每周 10–15 个新词，放进句子里记",
+      "读一本对应级别的分级读物并复述一句",
+      "规范书写字母与单词，注意四线格"],res:["smartedu","owl","lek"]},
+    "56":{goal:"课标二级（5–6 年级）：读懂短篇、理解语调、写简单段落；为初中衔接做准备。",daily:"15–20 分钟",tasks:[
+      "读短文，圈生词靠上下文猜义，不查每个词",
+      "整理高频词与固定搭配，隔天滚动复习",
+      "围绕话题写 5 句话，检查时态与拼写",
+      "每周两次跟读纠音，录音对比"],res:["smartedu","owl","raz"]}
+  },
+  "科学":{
+    "12":{goal:"1–2 年级多以观察与绘本渗透（各地设课不同）；重点是「会观察、敢提问」。",daily:"10 分钟",tasks:[
+      "观察并记录天气、植物生长（画或写一句）",
+      "每周做 1 个家庭小实验（水、光、磁铁）",
+      "读一本科普绘本，说说「为什么」",
+      "不背结论，先让孩子猜再验证"],res:["smartedu","cstm"]},
+    "34":{goal:"科学课正式起步：观察、描述、简单实验记录；认识水、空气、声音、电与常见动物植物。",daily:"15 分钟",tasks:[
+      "课前看教材实验，课后复述实验步骤",
+      "每周 1 次动手实验，记录「猜想—做法—结果」",
+      "用一句话解释生活现象（为什么结冰、为什么回声）",
+      "看一集科普视频并提 1 个问题"],res:["smartedu","cstm"]},
+    "56":{goal:"建立概念联系：力、光、热、生物与环境、地球与宇宙；能设计简单对照实验。",daily:"15 分钟",tasks:[
+      "按单元画一张概念图（把零散知识连起来）",
+      "每月 1 个探究小课题，写简单报告",
+      "读非虚构科普（DK、杂志），做 3 条笔记",
+      "区分「现象」与「解释」，不背结论"],res:["smartedu","cstm"]}
+  },
+  "道德与法治":{
+    "12":{goal:"知道基本规则与礼貌：校园规则、家庭责任、公共秩序、安全自护。",daily:"每周 2 次，10 分钟",tasks:[
+      "每天自己整理书包、餐桌礼仪等生活规则",
+      "遇到冲突先说出「我什么感受、我希望怎样」",
+      "认识安全常识：过马路、用电、防走失",
+      "每周和家人聊一件「做得对/可以更好」的事"],res:["smartedu"]},
+    "34":{goal:"理解规则背后的道理：班级公约、诚实守信、尊重他人、爱护公物与环境。",daily:"每周 2 次，10–15 分钟",tasks:[
+      "读教材案例，说说「如果是你会怎么做」",
+      "每周做一件对家庭/班级有用的小事",
+      "讨论一条新闻里的对与错（只讨论不论人）",
+      "记录一次「忍住没做不该做的事」"],res:["smartedu"]},
+    "56":{goal:"法治意识与社会责任：权利义务、公共生活、网络文明、简单法律常识。",daily:"每周 2 次，15 分钟",tasks:[
+      "结合教材读一条法律常识（未成年人保护等）",
+      "每周就一个社会话题说出自己的观点和理由",
+      "网络使用守则：不泄露信息、不传谣、遇事告诉家长",
+      "参与一次公益或志愿服务"],res:["smartedu"]}
+  },
+  "体育与健康":{
+    "12":{goal:"基本动作与协调性：跑跳投、平衡、球感；每天户外活动不少于 1 小时。",daily:"每天 60 分钟（含课间）",tasks:[
+      "每天户外 1 小时，其中 20 分钟连续跑跳",
+      "练跳绳（一年级先单摇连续 30 个）",
+      "练前滚翻、平衡走等基本体操动作",
+      "晚上固定时间睡觉，保证 10 小时睡眠"],res:["smartedu"]},
+    "34":{goal:"体能上升期：跳绳、仰卧起坐、坐位体前屈达标；掌握 1–2 项球类基本技术。",daily:"每天 60 分钟",tasks:[
+      "每天跳绳 3 组，记录一分钟个数",
+      "每周 2 次球类（篮球/足球/羽毛球）基础练习",
+      "练柔韧：坐位体前屈、压腿",
+      "体测项目每月自测一次并记录"],res:["smartedu"]},
+    "56":{goal:"体能与技能并进：耐力、力量、速度；掌握一项可长期坚持的运动。",daily:"每天 60 分钟",tasks:[
+      "每周 3 次有氧（跑、游、骑）每次 30 分钟",
+      "每周 2 次力量/核心（俯卧撑、平板支撑）",
+      "选定 1 项主项长期练（球类、游泳、田径）",
+      "关注体测成绩变化，不只看分数"],res:["smartedu"]}
+  },
+  "音乐":{
+    "12":{goal:"感受节拍与音高，敢唱敢动；认识简单节奏与常见乐器。",daily:"每周 3 次，10 分钟",tasks:[
+      "每天跟唱一首歌，注意节奏与音准",
+      "听不同乐器片段，说出「像什么声音」",
+      "用身体打拍子，区分快慢强弱",
+      "看一次音乐会/演出（线上亦可）"],res:["smartedu"]},
+    "34":{goal:"识谱入门（简谱或五线谱）、合唱与器乐体验；能完整演唱若干歌曲。",daily:"每周 3 次，15 分钟",tasks:[
+      "每周学唱一首歌，先读谱再唱词",
+      "选一件小乐器体验（口风琴、竖笛、尤克里里）",
+      "参加班级合唱或校内演出",
+      "听赏一首名曲，说说感受"],res:["smartedu"]},
+    "56":{goal:"有基本音乐素养：识谱、节奏、简单二声部；能欣赏并描述作品。",daily:"每周 3 次，15 分钟",tasks:[
+      "每周视唱练习 10 分钟",
+      "坚持一件乐器（每周 2–3 次，每次 20 分钟）",
+      "了解一位作曲家与一首代表作",
+      "尝试为班级活动排练一个节目"],res:["smartedu"]}
+  },
+  "美术":{
+    "12":{goal:"敢画、会看：线条与色彩基础，认识形状与画面安排。",daily:"每周 3 次，15 分钟",tasks:[
+      "每天涂画 10 分钟，不要求画得像",
+      "认识三原色，做一次混色实验",
+      "看一幅画，说出「看到什么、什么感觉」",
+      "用剪贴、拼贴做一件小作品"],res:["smartedu","digicol"]},
+    "34":{goal:"造型与色彩表达：能画观察到的物象，尝试水彩、版画、手工等多材料。",daily:"每周 3 次，20 分钟",tasks:[
+      "每周画一幅写生（水果、文具、盆栽）",
+      "练一种色彩工具（水彩/彩铅）的基本技法",
+      "看展或看画册，临摹一幅喜欢的作品",
+      "保留作品，每月对比一次进步"],res:["smartedu","digicol"]},
+    "56":{goal:"有初步审美判断与表现力：构图、透视、主题创作；了解中外美术史常识。",daily:"每周 3 次，20–30 分钟",tasks:[
+      "每月完成一幅主题创作（有构思草图）",
+      "了解 3 位画家与代表作（中外各选）",
+      "去一次美术馆/博物馆（线上亦可）",
+      "尝试设计类任务：海报、书封、班徽"],res:["smartedu","digicol"]}
+  },
+  "劳动":{
+    "12":{goal:"生活自理：整理个人物品、简单清洁、认识食材与工具安全。",daily:"每天 10 分钟",tasks:[
+      "自己整理书包、叠衣服、收玩具",
+      "参与摆碗筷、擦桌子等家务",
+      "认识常见厨具并知道哪些不能碰",
+      "种一盆植物并负责浇水"],res:[]},
+    "34":{goal:"会做简单家务与手工：清洁收纳、简单烹饪、种植养护、传统工艺体验。",daily:"每周 3 次，15–20 分钟",tasks:[
+      "每周独立完成一项家务（扫地、洗碗、晾衣）",
+      "学做 2 道简单菜（凉拌、煎蛋），全程有大人",
+      "做一次手工：缝扣、编织、剪纸、木工",
+      "养护一盆植物或一畦小菜，记录生长"],res:[]},
+    "56":{goal:"独立完成生活任务：一餐饭、一次采购、一次维修；了解常见职业。",daily:"每周 2–3 次，20–30 分钟",tasks:[
+      "独立做一顿简单饭（买菜—备菜—烹饪—收拾）",
+      "学会用螺丝刀、针线、简单工具做小维修",
+      "参与社区劳动或志愿服务一次",
+      "采访一位劳动者，了解他的工作"],res:[]}
+  },
+  "信息科技":{
+    "12":{goal:"1–2 年级未开课；先玩「不插电」思维游戏：排序、分类、找规律、指令游戏。",daily:"每周 2 次，10–15 分钟",tasks:[
+      "玩指令游戏：说清楚「一二三步」让别人照做",
+      "做分类与排序练习（卡片、积木）",
+      "认识设备：开机、关机、不点陌生链接",
+      "屏幕时间控制在每天 20 分钟内"],res:["codeorg"]},
+    "34":{goal:"课标起步（3–4 年级）：数据与编码、身边的算法；能按步骤完成任务。",daily:"每周 2 次，15–20 分钟",tasks:[
+      "用 Scratch 做一个小动画或小游戏",
+      "把一件事写成「步骤清单」（算法意识）",
+      "了解编码：数字、字母、二维码怎么表示信息",
+      "学会文件保存、命名与整理"],res:["scratch","codeorg"]},
+    "56":{goal:"过程与控制、简单编程与数据处理；能调试错误、说明思路。",daily:"每周 2 次，20 分钟",tasks:[
+      "用 Scratch 完成一个带变量与判断的项目",
+      "了解传感器与「输入—处理—输出」",
+      "用表格整理数据并画一张图",
+      "遇到报错先自己找原因，再问人"],res:["scratch","codeorg"]}
+  },
+
+  /* ===== 课外 ===== */
+  "书法":{
+    "12":{goal:"握笔与坐姿正确，练基本笔画，写规范正楷起步字。",daily:"10 分钟",tasks:[
+      "先看范字笔顺与占格，再下笔",
+      "每天只练 3–5 个字，每字 3–5 遍，求稳不求多",
+      "写完对照范字圈出最好的一笔",
+      "在国家平台「美育/课后服务」看硬笔示范"],res:["smartedu"]},
+    "34":{goal:"硬笔正楷工整；3 年级起可选毛笔，从基本笔画与独体字入手。",daily:"10–15 分钟",tasks:[
+      "分析字形结构（比例、偏旁避让、主笔）",
+      "每天临写一页以内，重点改一类问题",
+      "毛笔先练横竖撇捺与简单字，用毛边纸",
+      "每月留一幅作品做对比"],res:["smartedu","digicol"]},
+    "56":{goal:"硬笔楷书匀称美观；毛笔临帖有笔法与章法意识，可完成整幅作品。",daily:"15 分钟",tasks:[
+      "临写与背临结合，减少看一笔写一笔",
+      "研究结体规律：重心、对称、疏密",
+      "选一家楷书碑帖临 3 个月以上",
+      "完成一幅完整作品（正文+落款）"],res:["smartedu","digicol"]}
+  },
+  "编程":{
+    "12":{goal:"兴趣与逻辑启蒙：顺序、循环、条件的生活化理解，不急着写代码。",daily:"每周 2 次，20 分钟",tasks:[
+      "玩不插电游戏：指令卡片、找规律",
+      "Scratch 里拖动积木让角色动起来",
+      "把一个日常流程画成步骤图",
+      "每次做完说说「我改了什么、结果怎样」"],res:["scratch","codeorg"]},
+    "34":{goal:"Scratch 项目式学习：角色、造型、声音、简单循环与判断；能讲清自己的作品。",daily:"每周 2 次，30 分钟",tasks:[
+      "每两周完成一个小项目（动画/问答/小游戏）",
+      "学会用「事件—动作」描述程序运行",
+      "遇到 bug：先复述现象，再逐步排查",
+      "把作品分享给家人并讲解"],res:["scratch","codeorg"]},
+    "56":{goal:"从图形化过渡到 Python 基础（变量、循环、函数），能做小工具与数据小项目。",daily:"每周 2–3 次，30–40 分钟",tasks:[
+      "用 Python 海龟绘图做图形或小游戏",
+      "完成一个实用小工具（计算器、单词卡）",
+      "了解变量、循环、条件、函数四个概念",
+      "整理自己的代码笔记与作品集"],res:["scratch","codeorg"]}
+  },
+  "大阅读":{
+    "12":{goal:"养成每天读的习惯：亲子共读绘本、儿歌、短童话，愿意开口朗读。",daily:"15–20 分钟",tasks:[
+      "每天出声朗读一段（绘本或短篇）",
+      "读完用一句话说讲了什么",
+      "一本书读完再换下一本",
+      "自愿记 1–2 个好词，不强制摘抄"],res:["smarteduHome","qjmy"]},
+    "34":{goal:"从朗读到整本书阅读：能复述章节、区分事实与感受，开始做简单笔记。",daily:"20 分钟",tasks:[
+      "每天读一个章节，保持连贯",
+      "读后口头复述这一章讲了什么",
+      "说说主要人物有什么变化",
+      "轮换体裁：童话、寓言、科普、历史故事"],res:["smarteduHome","qjmy"]},
+    "56":{goal:"深度阅读与表达：把握主题与写法，写读后感，能对比不同作品。",daily:"20–30 分钟",tasks:[
+      "精读一本书，做人物/主题/写法笔记",
+      "写读后感或书评，观点要有文中依据",
+      "对比同一主题的两本书怎么写的",
+      "保持广博：文学、科普、社会历史"],res:["smarteduHome","qjmy"]}
+  },
+  "英语拓展":{
+    "12":{goal:"磨耳朵 + 自然拼读预备：听音辨音、字母音、简单押韵，不背单词表。",daily:"10–15 分钟",tasks:[
+      "每天听儿歌或绘本音频 10 分钟并跟唱",
+      "学字母音（letter sound），配合动作与儿歌",
+      "看图听故事，靠图和语气猜意思",
+      "每周 1 次亲子英文小游戏"],res:["lek","starfall","owl"]},
+    "34":{goal:"系统学自然拼读（选一套走完）：见词能读、听音能写，接分级读物。",daily:"15 分钟",tasks:[
+      "按教材进度学 1 个音组，配 3–5 个例词",
+      "拼读练习：把学过的音拼成词读出来",
+      "每天读 1 本分级读物（同本连读 2–3 天）",
+      "五个手指法则选级：一页超 5 个生词就降级"],res:["owl","raz","lek"]},
+    "56":{goal:"从拼读到流利阅读：章节书起步，兼顾非虚构，用阅读带动写作。",daily:"20 分钟",tasks:[
+      "每天读 20 分钟分级读物/章节书",
+      "读完回答 1–2 个理解问题，不逐句翻译",
+      "每周整理 10 个高频词到词汇本",
+      "读后写 3–5 句摘要"],res:["raz","owl","lek"]}
+  },
+  "数学思维":{
+    "12":{goal:"在生活与游戏里长数感：比较、分类、规律、空间想象，不刷难题。",daily:"每周 2 次，15 分钟",tasks:[
+      "玩数学游戏（Math Playground 或桌游）",
+      "找规律：图形、数列、生活模式",
+      "动手拼搭积木，说清「怎么拼的」",
+      "讲一道「一题多说」：还有别的办法吗"],res:["mathplay"]},
+    "34":{goal:"一题多解与画图思考：把应用题画出来，尝试逆向思考。",daily:"每周 2–3 次，20 分钟",tasks:[
+      "每周 2 道开放题，要求画图或列表",
+      "做「改一个条件」练习：变式题自己做",
+      "玩数独、24 点、七巧板",
+      "讲题给家人听，讲清楚才算会"],res:["mathplay"]},
+    "56":{goal:"建模与推理意识：从生活问题抽象成算式，尝试多种解法并比较优劣。",daily:"每周 2–3 次，20–25 分钟",tasks:[
+      "每周 1 个生活建模题（购物、行程、面积）",
+      "对比两种解法，说说哪种更简便",
+      "接触浅层奥数思维题，但不钻偏题",
+      "整理「思维题本」，记录思路而非答案"],res:["mathplay"]}
+  },
+  "戏曲":{
+    "12":{goal:"认识脸谱与行当（生旦净丑），听得出锣鼓点；当“好听好玩”的艺术，不当功课。",daily:"每周 2 次，15 分钟",tasks:[
+      "看一段戏曲动画或武戏片段，说说哪个角色最有趣",
+      "认识三种脸谱颜色：红忠、白奸、黑直",
+      "跟着锣鼓点拍手，感受“锵—锵—起”的节奏",
+      "不要求学唱腔，先保住“愿意看”"],res:["smartedu","opera"]},
+    "34":{goal:"能听出京剧、越剧、黄梅戏的唱腔差别，知道四大行当与名家。",daily:"每周 2 次，15–20 分钟",tasks:[
+      "每周听一段经典唱段（《说唱脸谱》《天上掉下个林妹妹》）",
+      "画一张脸谱，标出它代表的人物性格",
+      "看一折武戏（《三岔口》），说说“没台词怎么演”",
+      "了解一个剧种和它的代表剧目"],res:["opera","smartedu"]},
+    "56":{goal:"能完整欣赏一折戏，说出剧情、行当与唱腔特点，愿意开口学唱几句。",daily:"每周 2 次，20 分钟",tasks:[
+      "完整看一折戏（《拾玉镯》《空城计》），复述剧情",
+      "学唱 4 句唱段，注意咬字与拖腔",
+      "比较京剧与地方戏（越剧、豫剧、黄梅戏）的差别",
+      "了解一位名家（梅兰芳等）与他的代表作"],res:["opera","smartedu"]}
+  },
+  "科技":{
+    "12":{goal:"用眼和手认识世界：搭、拆、试，先猜再做；不背结论。",daily:"每周 1–2 次，20 分钟",tasks:[
+      "每周 1 个家庭小实验（水、空气、磁铁、光）",
+      "搭一次积木或纸桥，测试能承重多少",
+      "记录三行：我猜什么—我怎么做—我看到什么",
+      "看 1 集科技类动画或纪录片"],res:["cstm","cdstm"]},
+    "34":{goal:"能做“会动”的作品：简单电路、水火箭、风力小车，理解输入与输出。",daily:"每周 1 次，30 分钟",tasks:[
+      "每月完成 1 个小制作（纸电路 / 水火箭 / 风力小车）",
+      "去一次科技馆，或看中国数字科技馆的线上展厅",
+      "画出作品的结构图，标出关键部件",
+      "失败也记录：哪一步出问题、下次怎么改"],res:["cstm","cdstm"]},
+    "56":{goal:"做完整的创客项目：让作品“会感应、会反应”，并能写一页说明。",daily:"每周 1–2 次，40 分钟",tasks:[
+      "每学期 1 个完整项目（自动浇水、避障小车等）",
+      "用 micro:bit 或 Arduino 做一个感应装置",
+      "写项目说明：问题—方案—测试—改进",
+      "参加学校科技节或线上作品展示"],res:["cdstm","cstm"]}
+  },
+  "体育运动":{
+    "12":{goal:"基本动作与协调：跑、跳、投、平衡；每天户外不少于 1 小时。",daily:"每天 60 分钟",tasks:[
+      "每天户外 1 小时，其中 20 分钟连续跑跳",
+      "跳绳连续 30 个，学会自己数",
+      "学会拍球、双手抛接",
+      "每周 1 次亲子运动（骑车、羽毛球）"],res:["smartedu"]},
+    "34":{goal:"掌握 1 项球类基础，有条件学游泳；体测项目逐步达标。",daily:"每天 60 分钟",tasks:[
+      "每周 2 次球类专项（运球 / 传球 / 发球）",
+      "暑期学游泳（有条件），先学换气与漂浮",
+      "跳绳 1 分钟记录成绩，每月对比",
+      "每月自测坐位体前屈、仰卧起坐"],res:["smartedu"]},
+    "56":{goal:"选定主项长期练（球类 / 游泳 / 田径 / 武术），每周 3 次，懂规则会热身。",daily:"每周 3 次，40 分钟",tasks:[
+      "主项每周 3 次、每次 40 分钟，按计划进阶",
+      "每次运动前热身 8 分钟，结束后拉伸",
+      "看 1 场正式比赛，讲清基本规则",
+      "记录月度体能数据（耐力、力量、速度）"],res:["smartedu"]}
+  }
+};
+
+/* ---------- 各年级页面 ---------- */
+const GRADE = {
+  1:{name:"一年级",band:"12",
+    intro:"幼小衔接期：固定作息与学习习惯，姿势握笔优先，不追求量。",
+    weekly:["上学日附加学习总量 40 分钟内，分科短时，中间休息。",
+      "课内只跟教材：看懂、说清、写对，不加额外练习册。",
+      "课外只保留阅读与写字两项，编程/英语以玩为主。"],
+    focus:{语文:"拼音与 1600 识字起步，写字姿势定型",数学:"20 以内加减、认识图形与钟表",
+      英语:"多数地区未开课，只做兴趣启蒙",科学:"以观察与科普绘本为主"}},
+  2:{name:"二年级",band:"12",
+    intro:"巩固基础期：计算与口诀熟练，朗读成句，写字讲结构。",
+    weekly:["数学抓口算准确率与乘法口诀，应用题先读懂题。",
+      "语文抓听写与朗读，每周一段话练表达。",
+      "课外阅读从亲子共读过渡到独立朗读。"],
+    focus:{语文:"1000 字左右认读，开始写完整句子",数学:"100 以内加减、表内乘法、长度与时间",
+      英语:"继续启蒙，不套教材",科学:"观察记录天气与植物"}},
+  3:{name:"三年级",band:"34",
+    intro:"转折起步期：英语正式开课，语文开始习作，数学进入多位数乘除。",
+    weekly:["新课先看懂再练，别用练习册代替理解。",
+      "英语从听说转向字母书写与句型，每天听读。",
+      "开始整本书阅读，练习概括段落意思。"],
+    focus:{语文:"2500 字累计认读，写段落",数学:"多位数乘除、分数初步、面积",
+      英语:"课标一级起点：字母书写与核心句型",科学:"正式开课：水、空气、声音、电"}},
+  4:{name:"四年级",band:"34",
+    intro:"能力上升期：运算律与小数，英语短篇阅读，阅读强调概括与笔记。",
+    weekly:["数学重步骤与检查，错题按「计算错/思路错」分类。",
+      "英语从单词转向短篇理解，开始仿写句子。",
+      "阅读以默读为主，练习概括与简单笔记。"],
+    focus:{语文:"1600 字会写、读篇成段",数学:"运算律、小数加减、图形与面积",
+      英语:"一级深化：短文理解与仿写",科学:"力、光、热与生物环境"}},
+  5:{name:"五年级",band:"56",
+    intro:"综合提升期：分数小数与方程初步，英语篇章阅读，阅读走向经典与科普。",
+    weekly:["数学重概念来源与综合应用，适量思维题。",
+      "英语保持听读输入，积累写作素材。",
+      "阅读关注人物、主题与写法，练表达观点。"],
+    focus:{语文:"3000 字累计，学写完整篇章",数学:"分数小数运算、方程、多边形面积与体积",
+      英语:"课标二级起点：短篇与段落写作",科学:"概念图与对照实验"}},
+  6:{name:"六年级",band:"56",
+    intro:"衔接巩固期：系统梳理小学知识，强化综合与思维，做好初中衔接。",
+    weekly:["数学按专题复习，查漏补缺再加拓展。",
+      "英语整合听说读写，规范篇章写作。",
+      "阅读深度整本书，能联系自身表达观点。"],
+    focus:{语文:"2500 字会写，习作与文言启蒙",数学:"百分数、比例、圆柱圆锥、专题复习",
+      英语:"二级收口：篇章理解与规范写作",科学:"地球宇宙与探究报告"}}
+};
+
+/* ---------- 状态 ---------- */
+let curGrade = 1, curSection = "all", curSub = "全部";
+const expandedSet = new Set();      // 记住哪些学科被手动展开（本会话内有效）
+const isAllView = () => curSub === "全部";
+const $ = id => document.getElementById(id);
+const storeKey = (g,s,i)=>`hub2|${g}|${s}|${i}`;
+
+function renderGradeTabs(){
+  const el = $("gradeTabs"); el.innerHTML = "";
+  Object.keys(GRADE).forEach(g=>{
+    const b=document.createElement("button");
+    b.textContent=GRADE[g].name;
+    if(+g===curGrade) b.classList.add("active");
+    b.onclick=()=>{curGrade=+g; curSub="全部"; render();
+
+/* 吸顶分隔线 + 回顶 */
+const tabsBar=$("tabsBar"), toTop=$("toTop");
+addEventListener("scroll",()=>{
+  const y=scrollY;
+  tabsBar.classList.toggle("stuck", y>8);
+  toTop.classList.toggle("show", y>600);
+},{passive:true});
+toTop.onclick=()=>scrollTo({top:0,behavior:"smooth"});};
+    el.appendChild(b);
+  });
+}
+
+function renderSecTabs(){
+  const el=$("secTabs"); el.innerHTML="";
+  [["all","全部 18 项"],["in","课内 10 门"],["out","课外 8 个模块"]].forEach(([id,name])=>{
+    const b=document.createElement("button");
+    b.textContent=name;
+    if(id===curSection) b.classList.add("active");
+    b.onclick=()=>{curSection=id; curSub="全部"; render();
+
+/* 吸顶分隔线 + 回顶 */
+const tabsBar=$("tabsBar"), toTop=$("toTop");
+addEventListener("scroll",()=>{
+  const y=scrollY;
+  tabsBar.classList.toggle("stuck", y>8);
+  toTop.classList.toggle("show", y>600);
+},{passive:true});
+toTop.onclick=()=>scrollTo({top:0,behavior:"smooth"});};
+    el.appendChild(b);
+  });
+}
+
+function subsOf(){
+  if(curSection==="in") return IN_SUBJECTS;
+  if(curSection==="out") return OUT_SUBJECTS;
+  return [...IN_SUBJECTS,...OUT_SUBJECTS];
+}
+
+function renderSubTabs(){
+  const el=$("subTabs"); el.innerHTML="";
+  ["全部学科",...subsOf()].forEach(s=>{
+    const val = s==="全部学科" ? "全部" : s;
+    const b=document.createElement("button");
+    b.textContent=s;
+    if(val===curSub) b.classList.add("active");
+    b.onclick=()=>{curSub=val; render();
+
+/* 吸顶分隔线 + 回顶 */
+const tabsBar=$("tabsBar"), toTop=$("toTop");
+addEventListener("scroll",()=>{
+  const y=scrollY;
+  tabsBar.classList.toggle("stuck", y>8);
+  toTop.classList.toggle("show", y>600);
+},{passive:true});
+toTop.onclick=()=>scrollTo({top:0,behavior:"smooth"});};
+    el.appendChild(b);
+  });
+}
+
+function renderHead(){
+  const d=GRADE[curGrade];
+  $("gradeIntro").innerHTML=`<b>${d.name}</b>　${d.intro}`;
+  const f=d.focus;
+  $("noteCard").innerHTML=`<h3>📌 本年级节奏建议</h3><ul>${d.weekly.map(x=>`<li>${x}</li>`).join("")}</ul>
+    <h3 style="margin-top:12px">🔎 本学期重点（课内）</h3>
+    <ul>${Object.entries(f).map(([k,v])=>`<li><b>${k}</b>：${v}</li>`).join("")}</ul>`;
+  $("legend").innerHTML=`当前显示：<b>${BAND_LABEL[d.band]}</b> 的任务标准（同一学段内任务一致，年级差异看「本学期重点」）。🟦 课内按教材进度走；🟧 课外按兴趣选，不必全上。`;
+}
+
+function renderGrid(){
+  const d=GRADE[curGrade], band=d.band, grid=$("grid");
+  grid.innerHTML="";
+  let total=0, done=0;
+
+  subsOf().filter(s=>curSub==="全部"||curSub===s).forEach(sub=>{
+    const conf=PLAN[sub][band];
+    const card=document.createElement("div");
+    card.className="card";
+    const sec=sectionOf(sub);
+    const secTag = sec==="in"
+      ? `<span class="tag tag-in">课内</span>`
+      : `<span class="tag tag-out">课外</span>`;
+
+    const tasksHtml=conf.tasks.map((t,i)=>{
+      const key=storeKey(curGrade,sub,i);
+      const checked=localStorage.getItem(key)==="1";
+      total++; if(checked) done++;
+      return `<li class="${checked?"done":""}">
+        <label class="task-row"><input type="checkbox" data-key="${key}" ${checked?"checked":""}><span>${t}</span></label></li>`;
+    }).join("");
+
+    const resHtml = conf.res.length
+      ? conf.res.map(id=>{const r=RES[id];return `<li><a href="${r.url}" target="_blank" rel="noopener">${r.name}</a><span class="desc">${r.desc}</span></li>`;}).join("")
+      : `<li><span class="desc">本科目无必选外链，使用教材与家庭材料即可。</span></li>`;
+
+    const focusHtml = (sec==="in" && d.focus[sub]) ? `<div class="focus">📖 本学期：${d.focus[sub]}</div>` : "";
+
+    card.innerHTML=`
+      <div class="card-head">
+        <span class="dot" style="background:${SUB_COLOR[sub]}"></span>
+        <h2>${sub}</h2>${secTag}
+        <span class="badge">建议 ${conf.daily}</span>
+        <span class="more">展开 ▾</span>
+      </div>
+      <div class="glimpse">🎯 ${conf.goal}</div>
+      <div class="card-body">
+        ${focusHtml}
+        <div class="goal">🎯 ${conf.goal}</div>
+        <div class="sec-title">✅ 每日/每周任务（本机勾选）</div>
+        <ul class="tasks">${tasksHtml}</ul>
+        <div class="sec-title" style="margin-top:12px">🔗 推荐入口</div>
+        <ul class="res">${resHtml}</ul>
+      </div>`;
+    const collapsed = isAllView() && !expandedSet.has(sub);
+    if(collapsed) card.classList.add("collapsed");
+    card.querySelector(".more").textContent = collapsed ? "展开 ▾" : "收起 ▴";
+    card.querySelector(".card-head").addEventListener("click", e=>{
+      if(e.target.tagName==="A"||e.target.tagName==="INPUT") return;
+      const willCollapse = !card.classList.contains("collapsed");
+      card.classList.toggle("collapsed", willCollapse);
+      card.querySelector(".more").textContent = willCollapse ? "展开 ▾" : "收起 ▴";
+      if(willCollapse) expandedSet.delete(sub);
+      else expandedSet.add(sub);
+      syncToggleAll();
+    });
+    grid.appendChild(card);
+  });
+  syncToggleAll();
+
+  $("progress").innerHTML=`本年级任务进度：<b>${done} / ${total}</b>`;
+  grid.querySelectorAll('input[type=checkbox]').forEach(cb=>{
+    cb.onchange=()=>{
+      localStorage.setItem(cb.dataset.key, cb.checked?"1":"0");
+      cb.closest("li").classList.toggle("done",cb.checked);
+      updateProgress();
+    };
+  });
+}
+
+function updateProgress(){
+  const d=GRADE[curGrade], band=d.band;
+  let total=0, done=0;
+  [...IN_SUBJECTS,...OUT_SUBJECTS].forEach(sub=>{
+    PLAN[sub][band].tasks.forEach((_,i)=>{
+      total++;
+      if(localStorage.getItem(storeKey(curGrade,sub,i))==="1") done++;
+    });
+  });
+  $("progress").innerHTML=`本年级任务进度：<b>${done} / ${total}</b>`;
+}
+
+/* ---------- 今日打卡（每天 3–5 件） ---------- */
+const ROTATE = [["科技",0],["书法",0],["编程",0],["大阅读",0],["英语拓展",0],["戏曲",0],["体育运动",0]];
+
+function todayItems(){
+  const band = GRADE[curGrade].band;
+  const core = [["语文",0],["数学", band==="12"?0:1],["英语",0]];
+  const items = core.slice();
+  if(band!=="12") items.push(["体育与健康",0]);
+  items.push(ROTATE[new Date().getDay()]);
+  return items;
+}
+
+function renderToday(){
+  const list=$("todayList"); if(!list) return;
+  const now=new Date(), band=GRADE[curGrade].band;
+  $("todayDate").textContent=`${now.getMonth()+1} 月 ${now.getDate()} 日 · 周${"日一二三四五六"[now.getDay()]}`;
+  list.innerHTML="";
+  todayItems().forEach(([sub,idx])=>{
+    const conf=PLAN[sub][band], task=conf.tasks[idx]||conf.tasks[0], key=storeKey(curGrade,sub,idx);
+    const checked=localStorage.getItem(key)==="1";
+    const li=document.createElement("li");
+    if(checked) li.classList.add("done");
+    li.innerHTML=`<label class="task-row"><input type="checkbox" data-key="${key}" ${checked?"checked":""}><span><em>${sub}</em>${task}</span></label>`;
+    const cb=li.querySelector("input");
+    cb.onchange=()=>{
+      localStorage.setItem(key, cb.checked?"1":"0");
+      li.classList.toggle("done", cb.checked);
+      const box=document.querySelector(`#grid input[data-key="${key}"]`);
+      if(box){ box.checked=cb.checked; box.closest("li").classList.toggle("done", cb.checked); }
+      updateProgress(); syncTodayProg();
+    };
+    list.appendChild(li);
+  });
+  syncTodayProg();
+}
+function syncTodayProg(){
+  const list=$("todayList"); if(!list) return;
+  const n=list.querySelectorAll("input:checked").length;
+  $("todayProg").textContent = n===list.children.length ? `今日全部完成 ✓ ${n}/${list.children.length}` : `今日 ${n} / ${list.children.length}`;
+}
+
+/* ---------- 手机端菜单 ---------- */
+(function(){
+  const btn=$("navBtn"), menu=$("navMenu"); if(!btn||!menu) return;
+  btn.onclick=()=>{
+    const open=menu.classList.toggle("open");
+    btn.setAttribute("aria-expanded",open); btn.textContent=open?"✕":"☰";
+  };
+  menu.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{
+    menu.classList.remove("open"); btn.textContent="☰"; btn.setAttribute("aria-expanded",false);
+  }));
+  document.addEventListener("click",e=>{
+    if(menu.classList.contains("open")&&!menu.contains(e.target)&&!btn.contains(e.target)){
+      menu.classList.remove("open"); btn.textContent="☰"; btn.setAttribute("aria-expanded",false);
+    }
+  });
+})();
+
+function render(){ renderGradeTabs(); renderSecTabs(); renderSubTabs(); renderHead(); renderGrid(); renderToday(); }
+
+function syncToggleAll(){
+  const btn = $("toggleAll");
+  if(!btn) return;
+  const cards = [...document.querySelectorAll("#grid .card")];
+  if(isAllView()){
+    btn.style.display = "";
+    const allExpanded = cards.length>0 && cards.every(c=>!c.classList.contains("collapsed"));
+    btn.textContent = allExpanded ? "全部收起" : "全部展开";
+  } else {
+    btn.style.display = "none";   // 单学科视图只有一张卡，不需要
+  }
+}
+
+$("toggleAll").addEventListener("click", ()=>{
+  const cards = [...document.querySelectorAll("#grid .card")];
+  const allExpanded = cards.every(c=>!c.classList.contains("collapsed"));
+  [...IN_SUBJECTS,...OUT_SUBJECTS].forEach(s=> allExpanded ? expandedSet.delete(s) : expandedSet.add(s));
+  cards.forEach(c=>{
+    c.classList.toggle("collapsed", allExpanded);
+    const m=c.querySelector(".more"); if(m) m.textContent = allExpanded ? "展开 ▾" : "收起 ▴";
+  });
+  syncToggleAll();
+});
+render();
+
+/* 吸顶分隔线 + 回顶 */
+const tabsBar=$("tabsBar"), toTop=$("toTop");
+addEventListener("scroll",()=>{
+  const y=scrollY;
+  tabsBar.classList.toggle("stuck", y>8);
+  toTop.classList.toggle("show", y>600);
+},{passive:true});
+toTop.onclick=()=>scrollTo({top:0,behavior:"smooth"});
+
+/* 固定头部高度变量 + 吸顶阴影 */
+(function(){
+  const hd=document.querySelector(".sitehdr"); if(!hd) return;
+  const set=()=>{
+    document.documentElement.style.setProperty("--hdrH", hd.offsetHeight+"px");
+    hd.classList.toggle("stuck", hd.getBoundingClientRect().top<=0 && scrollY>4);
+  };
+  set(); addEventListener("resize",set);
+  addEventListener("scroll",()=>hd.classList.toggle("stuck", scrollY>4),{passive:true});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>资料清单 · 起步线K12</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Crect%20width%3D%2224%22%20height%3D%2224%22%20rx%3D%226%22%20fill%3D%22%233d7a5f%22%2F%3E%3Cpath%20d%3D%22M6.5%205.2v13.6%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222.7%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M10.6%208%2020.6%206.2M10.6%2012h10M10.6%2016%2020.6%2017.8%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%2F%3E%3C%2Fsvg%3E">
+<style>
+  :root{
+    --bg:#f6f4ee;--card:#fff;--ink:#2b2b28;--sub:#6b675e;--line:#e8e3d7;
+    --brand:#3d7a5f;--eng:#b66a3b;--read:#4a8a6a;--call:#6a5fa8;--math:#3b6fb6;--gov:#a0523f;--media:#3f7a8a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.65}
+  .wrap{max-width:1020px;margin:0 auto;padding:16px 16px 60px}
+  .topbar{display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+  .btn-back{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 14px;font-size:13px;text-decoration:none;color:var(--ink)}
+  h1{font-size:22px;margin:6px 0}
+  .lead{color:var(--sub);font-size:14px;margin-bottom:12px}
+  .notice{background:#e7f1ec;border-left:3px solid var(--brand);padding:10px 14px;border-radius:8px;font-size:13px;color:#335647;margin:12px 0 18px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+  .tabs button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 15px;font-size:13.5px;cursor:pointer;color:var(--sub)}
+  .tabs button.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:0 1px 4px rgba(60,50,30,.06);margin-bottom:16px}
+  .card h2{font-size:17px;margin-bottom:4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .card h2 .bar{width:4px;height:16px;border-radius:2px}
+  .card .sub{color:var(--sub);font-size:13px;margin-bottom:12px}
+  .band{margin:16px 0 6px;font-size:14px;font-weight:600;color:var(--ink);display:flex;gap:8px;align-items:center}
+  .band span{font-size:11.5px;font-weight:400;color:var(--sub);background:var(--bg);border-radius:6px;padding:1px 8px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{border-bottom:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}
+  th{background:#faf8f2;font-weight:600;font-size:13px}
+  tr:last-child td{border-bottom:none}
+  td.g{width:70px;font-weight:600;white-space:nowrap;color:var(--sub)}
+  td.s{color:var(--sub);white-space:nowrap}
+  td.c{width:76px;color:var(--sub);white-space:nowrap}
+  ul.pts{margin:6px 0 0 18px;font-size:13.5px}
+  ul.pts li{margin-bottom:6px}
+  ul.res-li{list-style:none;margin-top:8px}
+  ul.res-li li{padding:8px 0;border-top:1px dashed var(--line);font-size:14px}
+  ul.res-li li:first-child{border-top:none}
+  ul.res-li a{color:var(--math);text-decoration:none;font-weight:600}
+  ul.res-li span{display:block;color:var(--sub);font-size:12.5px;margin-top:2px}
+  .tip{font-size:12.5px;color:var(--sub);background:var(--bg);border-radius:10px;padding:10px 12px;margin-top:10px}
+  .warn{border-left:3px solid #c98f6a;background:#fbf3ec;color:#7b5236;border-radius:8px;padding:10px 14px;font-size:13px;margin-top:10px}
+  .src{font-size:12px;color:var(--sub);margin-top:10px}
+  footer{color:var(--sub);font-size:12.5px;text-align:center;margin-top:26px;line-height:1.8}
+
+  /* ===== 移动端 ===== */
+  @media(max-width:760px){
+    .wrap{padding:12px 14px 48px}
+    h1{font-size:19px}
+    .lead{font-size:13px}
+    .notice{font-size:12.5px;padding:9px 12px}
+    .topbar{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .topbar::-webkit-scrollbar{display:none}
+    .btn-back{flex:0 0 auto;white-space:nowrap;min-height:44px;display:inline-flex;align-items:center}
+    .tabs{flex-wrap:nowrap;overflow-x:auto;padding:6px 0;-webkit-overflow-scrolling:touch;
+      scrollbar-width:none;margin-bottom:6px}
+    .tabs::-webkit-scrollbar{display:none}
+    .tabs button{flex:0 0 auto;white-space:nowrap;min-height:44px;padding:8px 13px;font-size:13px}
+    .secnav{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+    .secnav::-webkit-scrollbar{display:none}
+    .secnav a,.secnav button{flex:0 0 auto;min-height:40px}
+    .secnav .spacer{display:none}
+    .card{scroll-margin-top:calc(var(--hdrH,57px) + 73px)}
+    .bfilter{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+    .bfilter::-webkit-scrollbar{display:none}
+    .bfilter button{flex:0 0 auto;min-height:38px}
+    .bfilter .cnt{display:none}
+    .card{padding:14px;border-radius:12px;margin-bottom:12px}
+    .card h2{font-size:16px}
+    .band{margin:14px 0 4px;font-size:13.5px;flex-wrap:wrap}
+    /* 110 种书单：窄屏隐藏分类列，书名换行，作者同格显示 */
+    .books{white-space:normal;display:block}
+    .books thead{display:none}
+    .books tr{display:block;padding:9px 10px;border-bottom:1px dashed var(--line)}
+    .books td{border:0;padding:0}
+    .books td.c{display:inline-block;font-size:10.5px;color:#8a6b4a;background:#faf8f2;border-radius:4px;
+      padding:1px 6px;margin-right:6px;vertical-align:1px;white-space:nowrap}
+    .books td:nth-child(2){display:inline;font-weight:600}
+    .books td.s{display:block;font-size:12px;color:var(--sub);margin-top:2px;white-space:normal}
+    /* 表格宽了就横向滑动，首列吸住不跟着跑 */
+    table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap}
+    th,td{padding:8px}
+    td.g,td.c,td.s{width:auto}
+    th:first-child,td:first-child{position:sticky;left:0;background:#faf8f2;z-index:2}
+    tbody td:first-child{background:#fff}
+    ul.res-li li{font-size:13.5px}
+    ul.res-li a{min-height:36px;display:inline-flex;align-items:center}
+    .tip,.warn,.src{font-size:12.5px}
+  }
+  .stickyhead{position:sticky;top:var(--hdrH,57px);z-index:20;background:var(--bg);padding:6px 0 2px;
+    border-bottom:1px solid transparent}
+  .sitehdr.stuck{box-shadow:0 8px 18px -14px rgba(0,0,0,.45)}
+  .stickyhead.stuck{border-bottom-color:var(--line);box-shadow:0 4px 10px -8px rgba(0,0,0,.25)}
+  .secnav{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 6px}
+  .secnav a,.secnav button{display:inline-flex;align-items:center;min-height:32px;border:1px solid var(--line);
+    background:#fff;border-radius:999px;padding:4px 12px;font-size:12.5px;color:var(--ink);
+    text-decoration:none;cursor:pointer;white-space:nowrap}
+  .secnav a:hover,.secnav button:hover{border-color:var(--brand);color:var(--brand)}
+  .secnav .spacer{flex:1}
+  .card{scroll-margin-top:calc(var(--hdrH,57px) + 53px)}
+  .card h2 .ctog{margin-left:auto;border:1px solid var(--line);background:var(--bg);border-radius:8px;
+    font-size:11.5px;color:var(--sub);padding:2px 10px;cursor:pointer;font-weight:400}
+  .card.collapsed .card-body{display:none}
+  .card.collapsed h2{margin-bottom:0}
+  .bfilter{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:2px 0 10px}
+  .bfilter button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 12px;
+    font-size:12.5px;color:var(--sub);cursor:pointer;white-space:nowrap}
+  .bfilter button.on{background:var(--brand-soft, #e7f1ec);color:#2f6b4f;border-color:#bfd8ca;font-weight:600}
+  .bfilter .cnt{margin-left:auto;font-size:12px;color:var(--sub);white-space:nowrap}
+  .to-top{position:fixed;right:14px;bottom:calc(18px + env(safe-area-inset-bottom));
+    width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:#fff;border:1px solid var(--line);box-shadow:0 1px 4px rgba(60,50,30,.08);
+    font-size:18px;color:var(--sub);cursor:pointer;z-index:30;opacity:0;pointer-events:none;transition:opacity .2s}
+  .to-top.show{opacity:1;pointer-events:auto}
+
+  /* ===== 站点头部（五页统一） ===== */
+  .sitehdr{background:#fff;border-bottom:1px solid var(--line,#e8e3d7);position:sticky;top:0;z-index:60;
+    transition:box-shadow .18s}
+  .hdr{max-width:1120px;margin:0 auto;padding:11px 16px;display:flex;align-items:center;gap:16px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;flex:0 0 auto}
+  .mark{width:34px;height:34px;border-radius:9px;background:var(--brand,#3d7a5f);color:#fff;
+    display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .mark svg{display:block;width:21px;height:21px}
+  .bt{display:flex;flex-direction:column;line-height:1.15}
+  .bt b{font-size:16.5px;letter-spacing:.6px}
+  .bt i{font-style:normal;font-size:11.5px;color:var(--sub,#6b675e);margin-top:3px}
+  .navmenu{margin-left:auto;display:flex;gap:2px;align-items:center}
+  .navmenu a{font-size:13.5px;color:var(--sub,#6b675e);text-decoration:none;padding:8px 12px;
+    border-radius:9px;white-space:nowrap}
+  .navmenu a:hover{background:var(--bg,#f6f4ee);color:var(--ink,#2b2b28)}
+  .navmenu a.on{background:#e7f1ec;color:#2b5a44;font-weight:600}
+  .k12{display:inline-block;margin-left:5px;font-size:11px;font-weight:700;color:#fff;background:var(--brand);border-radius:5px;padding:1px 5px;vertical-align:2px;letter-spacing:.4px}
+  .navbtn{display:none;margin-left:auto;width:42px;height:42px;border:1px solid var(--line,#e8e3d7);
+    background:#fff;border-radius:10px;font-size:17px;cursor:pointer;color:var(--ink,#2b2b28)}
+  .phead{padding:18px 0 6px}
+  .phead h1{font-size:22px;letter-spacing:.4px}
+  .phead .lead{color:var(--sub,#6b675e);font-size:13.5px;margin-top:6px}
+  @media(max-width:760px){
+    .hdr{padding:8px 14px;gap:10px}
+    .navbtn{display:flex;align-items:center;justify-content:center}
+    .navmenu{display:none;position:absolute;left:0;right:0;top:100%;background:#fff;
+      border-bottom:1px solid var(--line,#e8e3d7);box-shadow:0 10px 22px -16px rgba(0,0,0,.35);
+      padding:8px 12px 12px;flex-direction:column;align-items:stretch;gap:2px}
+    .navmenu.open{display:flex}
+    .navmenu a{padding:12px 10px;min-height:44px;display:flex;align-items:center;font-size:14px}
+    .bt b{font-size:15.5px}
+    .bt i{font-size:11px}
+    .mark{width:30px;height:30px;font-size:15px;border-radius:8px}
+    .phead{padding:14px 0 4px}
+    .phead h1{font-size:19px}
+  }
+  @media print{.sitehdr,.navbtn{display:none !important}}
+  .hdr{max-width:1020px}
+</style>
+</head>
+<body>
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<header class="sitehdr">
+  <div class="hdr">
+    <a class="brand" href="index.html">
+      <span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#fff" stroke-linecap="round"><path d="M6.5 5.2v13.6" stroke-width="2.7"/><path d="M10.6 8 20.6 6.2M10.6 12h10M10.6 16 20.6 17.8" stroke-width="2"/></svg></span>
+      <span class="bt"><b>起步线<span class="k12">K12</span></b><i>家庭学习导航 · 小学到高中</i></span>
+    </a>
+    <nav class="navmenu" id="navMenu">
+      <a href="index.html">学习规划</a>
+      <a href="courses.html">课程推荐</a>
+      <a href="resources.html" class="on">资料清单</a>
+      <a href="textbooks.html">教材目录</a>
+      <a href="standards.html">能力要求</a>
+      <a href="competitions.html">赛事白名单</a>
+      <a href="weekly-check.html">每周打卡</a>
+    </nav>
+    <button class="navbtn" id="navBtn" aria-label="打开菜单" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="phead">
+    <h1>资料清单</h1>
+  <p class="lead">以官方清单打底，用平台热门做补充。官方优先、口碑次之，能借到再考虑买。</p>
+  </section>
+  <div class="notice">
+    查证顺序：<b>① 教育部 / 课标 / 出版社官方 → ② 国家平台与官方场馆 → ③ 抖音、小红书、B站上的高频推荐</b>。第三方推荐只用来"发现候选"，落地前用官方目录或图书馆核对一次。
+  </div>
+
+  <div class="stickyhead" id="stickyhead">
+    <div class="tabs" id="tabs"></div>
+    <nav class="secnav" id="secnav"></nav>
+  </div>
+  <div id="panels"></div>
+
+  <footer>家庭自用学习导航，不含任何付费推广；书单以教育部《中小学生阅读指导目录（2020 年版）》与统编教材为主。</footer>
+</div>
+
+<script>
+const TABS=[
+  {id:"gov",name:"国家书单（110 种）"},
+  {id:"read",name:"语文阅读"},
+  {id:"eng",name:"英语分级"},
+  {id:"math",name:"数学阅读与练习"},
+  {id:"call",name:"书法字帖"},
+  {id:"art",name:"艺术（音乐·美术·戏曲）"},
+  {id:"techsport",name:"科技 / 运动"},
+  {id:"media",name:"动画 / 纪录片"}
+];
+
+/* ==================== 国家书单 ==================== */
+const BOOKS=[
+ ["12","人文社科","五星红旗","华琪等"],
+ ["12","人文社科","读图识中国","人教社地图编辑室"],
+ ["12","人文社科","中华人物故事汇·中华先锋人物故事汇","徐鲁等"],
+ ["12","文学","萝卜回来了","方轶群 文"],
+ ["12","文学","没头脑和不高兴","任溶溶"],
+ ["12","文学","儿歌 300 首","金波等"],
+ ["12","文学","小巴掌童话","张秋生"],
+ ["12","文学","小马过河","彭文席"],
+ ["12","文学","吃黑夜的大象","白冰"],
+ ["12","文学","大头儿子和小头爸爸","郑春华"],
+ ["12","文学","我有友情要出租","方素珍"],
+ ["12","文学","一园青菜成了精","周翔 绘"],
+ ["12","文学","团圆","余丽琼 文"],
+ ["12","文学","格林童话","格林兄弟"],
+ ["12","文学","弗朗兹的故事","涅斯特林格"],
+ ["12","自然科学","小彗星旅行记","徐刚"],
+ ["12","自然科学","嫦娥探月立体书","马莉等"],
+ ["12","自然科学","趣味数学百科图典","田翔仁"],
+ ["12","自然科学","来喝水吧","葛瑞米·贝斯"],
+ ["12","艺术","爸爸的画·沙坪小屋","丰子恺"],
+ ["12","艺术","京剧脸谱","傅学斌"],
+ ["34","人文社科","周恩来寄语：青少年版","周恩来思想生平研究会"],
+ ["34","人文社科","雷锋的故事","陈广生、崔家骏"],
+ ["34","人文社科","林汉达中国历史故事集","林汉达、雪岗"],
+ ["34","人文社科","刘兴诗爷爷给孩子讲中国地理","刘兴诗"],
+ ["34","人文社科","居里夫人的故事","埃列娜·杜尔利"],
+ ["34","人文社科","儿童哲学智慧书","柏尼菲"],
+ ["34","人文社科","哲学鸟飞罗系列","拉贝"],
+ ["34","文学","成语故事","—"],
+ ["34","文学","中国古今寓言","—"],
+ ["34","文学","中国神话故事集","袁珂"],
+ ["34","文学","稻草人","叶圣陶"],
+ ["34","文学","宝葫芦的秘密","张天翼"],
+ ["34","文学","三毛流浪记","张乐平"],
+ ["34","文学","“下次开船”港","严文井"],
+ ["34","文学","孙悟空在我们村里","郭风"],
+ ["34","文学","小英雄雨来","管桦"],
+ ["34","文学","帽子的秘密","柯岩"],
+ ["34","文学","小布头奇遇记","孙幼军"],
+ ["34","文学","推开窗子看见你","金波"],
+ ["34","文学","笨狼的故事","汤素兰"],
+ ["34","文学","盘中餐","于虹呈"],
+ ["34","文学","爱的教育","阿米琪斯"],
+ ["34","文学","夏洛的网","E.B.怀特"],
+ ["34","文学","窗边的小豆豆","黑柳彻子"],
+ ["34","自然科学","少儿科普三字经","亚子"],
+ ["34","自然科学","中国国家博物馆儿童历史百科绘本","国家博物馆"],
+ ["34","自然科学","昆虫漫话","陶秉珍"],
+ ["34","自然科学","中国儿童视听百科·飞向太空","编委会"],
+ ["34","自然科学","异想天开的科学游戏","高云峰"],
+ ["34","自然科学","万物简史：少儿彩绘版","布莱森"],
+ ["34","自然科学","蜡烛的故事","法拉第"],
+ ["34","艺术","地球的红飘带","魏巍 原著"],
+ ["34","艺术","人民音乐家：冼星海","郭冰茹"],
+ ["34","艺术","父与子","卜劳恩"],
+ ["56","人文社科","毛泽东箴言","中央文献研究会"],
+ ["56","人文社科","习近平讲故事：少年版","人民日报评论部"],
+ ["56","人文社科","马克思画传（诞辰 200 周年纪念版）","中央编译局"],
+ ["56","人文社科","中华人民共和国未成年人保护法","全国人大常委会"],
+ ["56","人文社科","中华人物故事汇·中华先烈人物故事汇","张树军等"],
+ ["56","人文社科","我们走在大路上：1949—2019","创作组"],
+ ["56","人文社科","“抵御外侮——中华英豪传奇”丛书","张海鹏 主编"],
+ ["56","人文社科","重读先烈诗章","中宣部宣传教育局"],
+ ["56","人文社科","梦圆大地：袁隆平传","姚昆仑"],
+ ["56","人文社科","思考世界的孩子","希拉尔等"],
+ ["56","人文社科","写给孩子的哲学启蒙书","拉贝"],
+ ["56","文学","声律启蒙","车万育"],
+ ["56","文学","千家诗","谢枋得、王相"],
+ ["56","文学","可爱的中国（单行本）","方志敏"],
+ ["56","文学","寄小读者","冰心"],
+ ["56","文学","大林和小林","张天翼"],
+ ["56","文学","呼兰河传","萧红"],
+ ["56","文学","狐狸打猎人","金近"],
+ ["56","文学","城南旧事","林海音"],
+ ["56","文学","小兵张嘎","徐光耀"],
+ ["56","文学","闪闪的红星","李心田"],
+ ["56","文学","我们的母亲叫中国","苏叔阳"],
+ ["56","文学","美丽的西沙群岛","刘先平"],
+ ["56","文学","非法智慧","张之路"],
+ ["56","文学","一百个孩子的中国梦","董宏猷"],
+ ["56","文学","童年河","赵丽宏"],
+ ["56","文学","草房子","曹文轩"],
+ ["56","文学","男生贾里全传","秦文君"],
+ ["56","文学","今天我是升旗手","黄蓓佳"],
+ ["56","文学","芝麻开门","祁智"],
+ ["56","文学","你是我的妹","彭学军"],
+ ["56","文学","黑焰","格日勒其木格·黑鹤"],
+ ["56","文学","安徒生童话","安徒生"],
+ ["56","文学","汤姆·索亚历险记","马克·吐温"],
+ ["56","文学","假如给我三天光明","海伦·凯勒"],
+ ["56","文学","小王子","圣埃克苏佩里"],
+ ["56","文学","永远讲不完的故事","米切尔·恩德"],
+ ["56","文学","哈利波特与魔法石","J.K.罗琳"],
+ ["56","自然科学","国家版图知识读本","编撰委员会"],
+ ["56","自然科学","大国重器：图说当代中国重大科技成果","贲德 主编"],
+ ["56","自然科学","中国历史上的科学发明：插图本","钱伟长"],
+ ["56","自然科学","中国儿童地图百科全书·世界遗产","编委会"],
+ ["56","自然科学","小学生食品安全知识读本","刘烈刚等"],
+ ["56","自然科学","海错图笔记","张辰亮"],
+ ["56","自然科学","每月之星","陶宏"],
+ ["56","自然科学","寂静的春天","蕾切尔·卡森"],
+ ["56","自然科学","空间简史","马卡卡罗等"],
+ ["56","自然科学","BBC 科普三部曲","斯图尔特等"],
+ ["56","自然科学","昆虫记","法布尔"],
+ ["56","艺术","启功给你讲书法","启功"],
+ ["56","艺术","京剧常识手册","涂沛等"],
+ ["56","艺术","中国戏曲：连环画","汤显祖等 原著"],
+ ["56","艺术","戏曲进校园","郑传寅、黄蓓"],
+ ["56","艺术","中国民歌欣赏","周青青"],
+ ["56","艺术","建筑艺术的语言","刘先觉"]
+];
+const BAND_NAME={12:"小学 1–2 年级（21 种）",34:"小学 3–4 年级（34 种）",56:"小学 5–6 年级（55 种）"};
+
+function buildGov(){
+  const bands=[["12","1–2 年级"],["34","3–4 年级"],["56","5–6 年级"]];
+  const CATS=["人文社科","文学","自然科学","艺术"];
+  const cards=bands.map(([b,label],i)=>{
+    const mine=BOOKS.filter(x=>x[0]===b);
+    const rows=mine.map(x=>
+      `<tr><td class="c">${x[1]}</td><td>${x[2]}</td><td class="s">${x[3]}</td></tr>`).join("");
+    const chips=[["全部",mine.length],...CATS.map(c=>[c,mine.filter(x=>x[1]===c).length])]
+      .map(([c,n],k)=>`<button type="button" data-cat="${c}" class="${k===0?"on":""}">${c} ${n}</button>`).join("");
+    return `<div class="card${i>0?" collapsed":""}" id="g${b}">
+      <h2><span class="bar" style="background:var(--gov)"></span>${label}（${mine.length} 种）</h2>
+      <div class="card-body">
+        <div class="bfilter" data-count="${mine.length}">${chips}<span class="cnt">共 ${mine.length} 种</span></div>
+        <table class="books"><thead><tr><th>分类</th><th>书名</th><th>作者 / 编者</th></tr></thead><tbody>${rows}</tbody></table>
+      </div>
+    </div>`;
+  }).join("");
+
+  return `
+<div class="card" id="gIntro">
+  <h2><span class="bar" style="background:var(--gov)"></span>教育部《中小学生阅读指导目录（2020 年版）》· 小学段</h2>
+  <div class="card-body">
+    <div class="sub">共 300 种，小学 110 种（1–2 年级 21 种、3–4 年级 34 种、5–6 年级 55 种），分人文社科、文学、自然科学、艺术四类。</div>
+    <div class="tip"><b>怎么用：</b>官方目录是"可选范围"，不是必读书。每学期挑 <b>3–5 本</b>（文学 2 本 + 自然/人文 1–2 本 + 艺术 1 本），读完再换；同年级书目不必全买，先去图书馆借。</div>
+    <div class="src">来源：教育部基础教育课程教材发展中心，2020 年 4 月发布。官方原文（含初中 100 种、高中 90 种）见教育部网站与中国政府网。</div>
+  </div>
+</div>
+${cards}
+<div class="card" id="gExtra">
+  <h2><span class="bar" style="background:var(--gov)"></span>官方目录之外：家长圈高频推荐怎么挑</h2>
+  <div class="card-body">
+    <div class="sub">抖音、小红书上流传的"清华附小书单""人民日报推荐书单"属第三方整理，与官方目录互补，但要交叉核对。</div>
+    <table>
+      <thead><tr><th>类型</th><th>常见代表</th><th>怎么用</th></tr></thead>
+      <tbody>
+        <tr><td class="g">官方目录</td><td>《小巴掌童话》《稻草人》《草房子》《夏洛的网》《昆虫记》</td><td>打底；价值观与经典性最稳，学校也常引用</td></tr>
+        <tr><td class="g">名校/机构书单</td><td>清华附小书单里的绘本类：《蚯蚓的日记》《爷爷一定有办法》《落叶跳舞》</td><td>补"绘本与桥梁书"；低年级自主阅读起步好用</td></tr>
+        <tr><td class="g">平台热榜</td><td>《神奇校车》《大中华寻宝记》《历史喵》《神探狗狗》</td><td>用来"勾兴趣"；漫画类比例别超过三分之一</td></tr>
+        <tr><td class="g">教辅伪装</td><td>"XX 天读完 100 本""必买清单"</td><td>直接跳过：书名带"训练/冲刺/打卡"的多是练习册</td></tr>
+      </tbody>
+    </table>
+    <div class="warn"><b>三条核对法：</b>① 书名能否在教育部门目录、出版社官网或国家图书馆检索到；② 是否说清适读年级（不说的一律降一级试读）；③ 是否只在卖货链接里出现。占两条以上，就只当"兴趣线索"。</div>
+  </div>
+</div>`;
+}
+
+/* ==================== 语文阅读 ==================== */
+const READ = `
+<div class="card">
+  <h2><span class="bar" style="background:var(--read)"></span>统编教材「快乐读书吧」推荐书目</h2>
+  <div class="sub">教材内的整本书阅读栏目，跟学期走最稳，不必再叠一堆书单。</div>
+  <table>
+    <thead><tr><th>学期</th><th>主题</th><th>书目</th></tr></thead>
+    <tbody>
+      <tr><td class="g">一上</td><td class="s">读书真快乐</td><td>亲子共读绘本、儿歌为主，不指定书目</td></tr>
+      <tr><td class="g">一下</td><td class="s">童谣儿歌</td><td>《读读童谣和儿歌》</td></tr>
+      <tr><td class="g">二上</td><td class="s">童话故事</td><td>《小鲤鱼跳龙门》《歪脑袋木头桩》《孤独的小螃蟹》《小狗的小房子》《一只想飞的猫》</td></tr>
+      <tr><td class="g">二下</td><td class="s">儿童故事</td><td>《神笔马良》《七色花》《一起长大的玩具》《愿望的实现》</td></tr>
+      <tr><td class="g">三上</td><td class="s">童话</td><td>《安徒生童话》《格林童话》《稻草人》</td></tr>
+      <tr><td class="g">三下</td><td class="s">寓言</td><td>《中国古代寓言》《伊索寓言》《克雷洛夫寓言》</td></tr>
+      <tr><td class="g">四上</td><td class="s">神话</td><td>《中国古代神话》《希腊神话故事》《世界经典神话与传说故事》</td></tr>
+      <tr><td class="g">四下</td><td class="s">科普</td><td>《十万个为什么》（米·伊林）《穿过地平线》《细菌世界历险记》《地球的故事》《森林报》</td></tr>
+      <tr><td class="g">五上</td><td class="s">民间故事</td><td>《中国民间故事》《非洲民间故事》《欧洲民间故事》</td></tr>
+      <tr><td class="g">五下</td><td class="s">古典名著</td><td>《西游记》《三国演义》《水浒传》《红楼梦》（青少年版 / 改写本）</td></tr>
+      <tr><td class="g">六上</td><td class="s">成长故事</td><td>《童年》（高尔基）《小英雄雨来》《爱的教育》</td></tr>
+      <tr><td class="g">六下</td><td class="s">外国名著</td><td>《鲁滨逊漂流记》《骑鹅旅行记》《汤姆·索亚历险记》</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h2><span class="bar" style="background:var(--read)"></span>阅读执行要点</h2>
+  <ul class="pts">
+    <li>每天 <b>15–30 分钟</b>，固定时段；一本读完再开下一本，不同时开好几本。</li>
+    <li>低年级<b>出声朗读</b>为主，高年级<b>默读</b>为主，两种可轮换。</li>
+    <li>读后只做一件事：<b>用几句话说说这段讲了什么</b>，不必每篇写摘抄。</li>
+    <li>愿意写就记 1–2 句好词好句；不愿意，优先保证"读下去"。</li>
+    <li>阅读量比难度重要：能读懂 80%、有兴趣，才会持续。</li>
+  </ul>
+  <ul class="res-li">
+    <li><a href="https://www.smartedu.cn" target="_blank" rel="noopener">国家智慧教育读书平台</a><span>经典阅读、传统文化栏目，免费补充读物入口。</span></li>
+    <li><a href="https://www.qjmy.cn" target="_blank" rel="noopener">亲近母语</a><span>《中国小学生分级阅读书目》每年 4 月发布，可当"选书清单"。</span></li>
+  </ul>
+</div>`;
+
+/* ==================== 英语 ==================== */
+const ENG = `
+<div class="card">
+  <h2><span class="bar" style="background:var(--eng)"></span>分级体系与年级对照（参考）</h2>
+  <div class="sub">不同体系级别编号不同，下表是常见换算区间，按实际阅读能力上下浮动一级即可。</div>
+  <table>
+    <thead><tr><th>年级</th><th>RAZ</th><th>牛津树</th><th>特征</th></tr></thead>
+    <tbody>
+      <tr><td class="g">一年级</td><td class="s">aa – C</td><td class="s">Stage 1–3</td><td>图大字少，一页 1 句；以听读、跟读为主</td></tr>
+      <tr><td class="g">二年级</td><td class="s">C – F</td><td class="s">Stage 3–5</td><td>简单句为主，开始练自然拼读</td></tr>
+      <tr><td class="g">三年级</td><td class="s">F – J</td><td class="s">Stage 5–7</td><td>段落增多，能读完整小故事</td></tr>
+      <tr><td class="g">四年级</td><td class="s">J – M</td><td class="s">Stage 7–9</td><td>短篇情节，读后能回答理解问题</td></tr>
+      <tr><td class="g">五年级</td><td class="s">M – Q</td><td class="s">Stage 9–11</td><td>初级章节书起步</td></tr>
+      <tr><td class="g">六年级</td><td class="s">Q – T</td><td class="s">Stage 11–13</td><td>章节书 / 短篇小说</td></tr>
+    </tbody>
+  </table>
+  <div class="tip">其他常见体系：<b>红火箭</b>（Emergent / Early / Fluency）、<b>培生</b>、<b>海尼曼</b>（GK / G1 / G2）、<b>丽声</b>（外研社）。选一套走稳，不要同时开多套。</div>
+</div>
+
+<div class="card">
+  <h2><span class="bar" style="background:var(--eng)"></span>自然拼读教材（二选一）</h2>
+  <table>
+    <thead><tr><th>对比项</th><th>Oxford Phonics World</th><th>Jolly Phonics</th></tr></thead>
+    <tbody>
+      <tr><td class="g">体系</td><td>5 级 / 44 个音素，规则归纳</td><td>42 个字母音，动作 + 儿歌</td></tr>
+      <tr><td class="g">年龄</td><td>5–9 岁，6 岁以上更合适</td><td>3–6 岁，幼小衔接</td></tr>
+      <tr><td class="g">节奏</td><td>一级 2–3 个月，全套装 1.5 年左右</td><td>约半年走完 42 音</td></tr>
+      <tr><td class="g">适合谁</td><td>能坐 15 分钟、认识字母</td><td>零基础、听力词汇少</td></tr>
+    </tbody>
+  </table>
+  <div class="tip">拼读只解决"读得出"，读懂靠<b>分级读物</b>；两件事别混在一起练。学完拼读再接 RAZ 或牛津树。</div>
+</div>
+
+<div class="card">
+  <h2><span class="bar" style="background:var(--eng)"></span>选级方法和每天怎么读</h2>
+  <ul class="pts">
+    <li><b>五个手指法则：</b>随手翻一页，5 个以上单词不认识 → 太难，降一级。</li>
+    <li><b>同一本连读 2–3 天：</b>第一天听 + 跟读，第二天自己读，第三天复述一句。</li>
+    <li>每天 <b>10–15 分钟</b>，先听后读，不逐词翻译，靠图和语气猜。</li>
+    <li>词汇放句子里记，每次 3–5 个，隔天滚动复习。</li>
+    <li>读完只问 <b>1 个问题</b>（谁？做了什么？为什么？），别变成考问。</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2><span class="bar" style="background:var(--eng)"></span>免费可用入口</h2>
+  <ul class="res-li">
+    <li><a href="https://learnenglishkids.britishcouncil.org" target="_blank" rel="noopener">LearnEnglish Kids（英国文化教育协会）</a><span>儿歌、互动游戏、分级故事与听写，磨耳朵与跟读。</span></li>
+    <li><a href="https://www.oxfordowl.co.uk" target="_blank" rel="noopener">Oxford Owl 免费电子书库</a><span>按 Oxford Level / Book Band / Phonics 筛选，3–11 岁（需免费注册）。</span></li>
+    <li><a href="https://www.starfall.com/h/" target="_blank" rel="noopener">Starfall</a><span>自然拼读与高频词启蒙，低年级适用，部分免费。</span></li>
+    <li><a href="https://www.zxx.edu.cn" target="_blank" rel="noopener">国家中小学智慧教育平台</a><span>检索「小学英语」，有教材同步微课与配套音频。</span></li>
+    <li><a href="https://www.learninga-z.com/site/products/raz-kids/overview" target="_blank" rel="noopener">Raz-Kids（Reading A-Z）</a><span>29 级 aa–Z 体系说明，国内有正版引进套装。</span></li>
+  </ul>
+  <div class="warn"><b>关于测评：</b>剑桥少儿英语（YLE）、KET/PET 可作"阶段性检验"，但小学阶段不建议为考级拉进度；课标二级（5–6 年级）才是课内基准。</div>
+</div>`;
+
+/* ==================== 数学 ==================== */
+const MATH = `
+<div class="card">
+  <h2><span class="bar" style="background:var(--math)"></span>数学阅读书单（课外补充）</h2>
+  <div class="sub">数学也需要阅读：用故事和图解建立"概念感"，比提前刷题更有效。</div>
+  <table>
+    <thead><tr><th>类型</th><th>书名</th><th>适合年级</th><th>怎么用</th></tr></thead>
+    <tbody>
+      <tr><td class="g">图画书</td><td>《汉声数学图画书》（41 册 + 妈妈手册）</td><td>1–6 年级</td><td>讲概念不讲技巧，一册一个主题；按需取用，不必全套读完</td></tr>
+      <tr><td class="g">故事</td><td>李毓佩数学故事（分低 / 中 / 高年级）</td><td>1–6 年级</td><td>童话里夹数学，适合"不爱做题但爱看故事"的孩子</td></tr>
+      <tr><td class="g">绘本</td><td>《数学帮帮忙》系列</td><td>1–4 年级</td><td>生活情境引入概念，读一本做一个同类小任务</td></tr>
+      <tr><td class="g">图解</td><td>DK《图解数学》（清华社）</td><td>2–6 年级</td><td>当工具书查，课上没懂的翻对应页</td></tr>
+      <tr><td class="g">思维</td><td>《走进奇妙的数学世界》（安野光雅）</td><td>1–4 年级</td><td>玩图形与逻辑，适合亲子一起翻</td></tr>
+      <tr><td class="g">练习（英文）</td><td>DK "Maths — No Problem!"</td><td>5–11 岁</td><td>一题多解思路，一次一页</td></tr>
+    </tbody>
+  </table>
+  <div class="tip">官方目录里也有数学向的书：1–2 年级《趣味数学百科图典》、5–6 年级《每月之星》，可与上面的书单交替看。</div>
+</div>
+
+<div class="card">
+  <h2><span class="bar" style="background:var(--math)"></span>每日固定动作</h2>
+  <table>
+    <thead><tr><th>环节</th><th>时长</th><th>要点</th></tr></thead>
+    <tbody>
+      <tr><td class="s">口算</td><td class="s">5–10 分钟</td><td>限时但不催促，重准确率；错题隔天再练一遍</td></tr>
+      <tr><td class="s">新概念</td><td class="s">5–10 分钟</td><td>先看课本 / 微课理解"为什么"，再做练习</td></tr>
+      <tr><td class="s">练习</td><td class="s">10 分钟</td><td>同类型 3–5 题即可，不刷整页</td></tr>
+      <tr><td class="s">错题</td><td class="s">每周 1 次</td><td>原题 + 错因一句话 + 同类题 1 道</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h2><span class="bar" style="background:var(--math)"></span>应用题四步法与各年级重点</h2>
+  <ul class="pts">
+    <li><b>读题：</b>圈出已知条件和问题，用自己的话说一遍。</li>
+    <li><b>画图：</b>线段图 / 表格把数量关系摆出来。</li>
+    <li><b>列式：</b>写清每一步算什么，不跳步。</li>
+    <li><b>检验：</b>答案代回题目看是否合理，单位别忘。</li>
+  </ul>
+  <table style="margin-top:12px">
+    <thead><tr><th>年级</th><th>核心内容</th></tr></thead>
+    <tbody>
+      <tr><td class="g">一年级</td><td>20 以内加减、数的认识、图形与钟表、简单分类</td></tr>
+      <tr><td class="g">二年级</td><td>100 以内加减、表内乘法口诀、长度与时间单位</td></tr>
+      <tr><td class="g">三年级</td><td>多位数乘除、分数初步、周长与面积、两步应用题</td></tr>
+      <tr><td class="g">四年级</td><td>四则运算与运算律、小数意义与加减、图形与角</td></tr>
+      <tr><td class="g">五年级</td><td>小数乘除、分数加减、方程初步、多边形面积与体积</td></tr>
+      <tr><td class="g">六年级</td><td>百分数、比例、圆与圆柱圆锥、小学阶段综合复习</td></tr>
+    </tbody>
+  </table>
+  <ul class="res-li">
+    <li><a href="https://www.zxx.edu.cn" target="_blank" rel="noopener">国家中小学智慧教育平台 · 小学数学</a><span>教材同步微课，按版本和年级筛选。</span></li>
+    <li><a href="https://www.mathplayground.com" target="_blank" rel="noopener">Math Playground</a><span>数学游戏与思维题，免费。</span></li>
+  </ul>
+</div>`;
+
+/* ==================== 书法 ==================== */
+const CALL = `
+<div class="card">
+  <h2><span class="bar" style="background:var(--call)"></span>硬笔（1–6 年级主线）</h2>
+  <div class="sub">课标要求：3–4 年级能用硬笔熟练书写正楷字，5–6 年级保持规范并有一定速度。</div>
+  <table>
+    <thead><tr><th>字帖类型</th><th>用途</th><th>怎么用</th></tr></thead>
+    <tbody>
+      <tr><td class="s">同步字帖</td><td>跟教材生字走</td><td>每天 3–5 个字，写完对照</td></tr>
+      <tr><td class="s">笔画 / 偏旁专项</td><td>低年级打基础</td><td>一周专攻一类</td></tr>
+      <tr><td class="s">结构专项</td><td>左右 / 上下 / 包围</td><td>中年级抓重心与比例</td></tr>
+      <tr><td class="s">整篇临写</td><td>高年级练排布与速度</td><td>每周 1 次，写完自评一处</td></tr>
+    </tbody>
+  </table>
+  <div class="tip">硬笔范本选 <b>田英章 / 卢中南 / 荆霄鹏 / 顾仲安</b> 之一，风格统一才有效；别今天一本明天一本。</div>
+</div>
+
+<div class="card">
+  <h2><span class="bar" style="background:var(--call)"></span>毛笔（3 年级起可选）</h2>
+  <table>
+    <thead><tr><th>楷书四家</th><th>代表碑帖</th><th>特点</th></tr></thead>
+    <tbody>
+      <tr><td class="s">欧阳询</td><td>《九成宫醴泉铭》</td><td>结构严谨、险峻</td></tr>
+      <tr><td class="s">颜真卿</td><td>《多宝塔碑》</td><td>笔画厚重、端正</td></tr>
+      <tr><td class="s">柳公权</td><td>《玄秘塔碑》</td><td>骨力劲健、结体紧凑</td></tr>
+      <tr><td class="s">赵孟頫</td><td>《胆巴碑》</td><td>流畅秀润，行楷过渡</td></tr>
+    </tbody>
+  </table>
+  <ul class="pts">
+    <li>顺序：<b>基本笔画 → 独体字 → 偏旁 → 短句</b>，不要一上来临整篇。</li>
+    <li>工具：兼毫中楷笔、毛边纸（或水写布）、墨、毡垫。</li>
+    <li>节奏：每周 2–3 次、每次 20–30 分钟。</li>
+  </ul>
+  <div class="tip">官方目录里有 <b>《启功给你讲书法》</b>（5–6 年级，艺术类），可作为家长与孩子的书法常识读本。</div>
+</div>
+
+<div class="card">
+  <h2><span class="bar" style="background:var(--call)"></span>每次练字的固定四步</h2>
+  <ul class="pts">
+    <li><b>看：</b>先看范字，说清笔顺、哪一笔最长、占哪一格。</li>
+    <li><b>写：</b>一次只写 3–5 个字，每个 3–5 遍。</li>
+    <li><b>比：</b>与范字并排对照，圈出写得最好的一笔。</li>
+    <li><b>改：</b>只说一个最明显的问题，下一遍改它。</li>
+  </ul>
+  <ul class="res-li">
+    <li><a href="https://www.zxx.edu.cn" target="_blank" rel="noopener">国家平台 · 书法 / 美育</a><span>检索「书法」「硬笔」，看示范视频。</span></li>
+    <li><a href="https://digicol.dpm.org.cn" target="_blank" rel="noopener">故宫数字文物库</a><span>看高清书画，培养"看帖"的眼力。</span></li>
+  </ul>
+</div>`;
+
+
+/* ==================== 艺术（音乐 / 美术 / 戏曲） ==================== */
+const ART = `
+<div class="card">
+  <h2><span class="bar" style="background:var(--call)"></span>音乐：先听，再唱，最后才是一样乐器</h2>
+  <div class="sub">音乐的家庭入口只有三个：听、唱、练一样便宜乐器。不必先报班。</div>
+  <table>
+    <thead><tr><th>资源</th><th>类型</th><th>适合</th><th>怎么用</th></tr></thead>
+    <tbody>
+      <tr><td class="s">国家中小学智慧教育平台 · 音乐</td><td>官方平台</td><td>1–6 年级</td><td>跟教材同课题的欣赏课与示范课，免费；一节 10–15 分钟</td></tr>
+      <tr><td class="s">国家大剧院古典音乐频道</td><td>官网</td><td>3 年级以上</td><td>名曲导赏 + 音乐会片段，每周 1 次；听完说“像什么画面”</td></tr>
+      <tr><td class="s">《给孩子的音乐》刘雪枫</td><td>图书</td><td>家长 + 3 年级以上</td><td>按作曲家/曲目讲，挑孩子感兴趣的曲目先听再读</td></tr>
+      <tr><td class="s">口风琴 / 竖笛 / 电子琴</td><td>器材</td><td>1 年级起</td><td>100–800 元；每周 2 次、每次 15 分钟，只练一小句</td></tr>
+    </tbody>
+  </table>
+  <div class="tip"><b>别从“考级”开始：</b>先把音唱准、节奏打稳，再选乐器。考级只在校外需要时再报。</div>
+</div>
+
+<div class="card">
+  <h2><span class="bar" style="background:var(--call)"></span>美术：多看真迹，多画自己的东西</h2>
+  <table>
+    <thead><tr><th>资源</th><th>类型</th><th>适合</th><th>怎么用</th></tr></thead>
+    <tbody>
+      <tr><td class="s">故宫博物院数字文物库</td><td>官方平台</td><td>全学段</td><td>高清书画可放大看笔触；每周看 1 幅，问“画里在做什么”</td></tr>
+      <tr><td class="s">国家中小学智慧教育平台 · 美术</td><td>官方平台</td><td>1–6 年级</td><td>教材同步的欣赏与手工课，课后画一张</td></tr>
+      <tr><td class="s">中国美术馆 / 本地美术馆</td><td>场馆</td><td>2 年级以上</td><td>每学期一次实地看展，先看"最想带走哪一幅"</td></tr>
+      <tr><td class="s">蒋勋《写给大家的中国美术史》</td><td>图书</td><td>家长 / 5 年级以上</td><td>家长先读，讲给孩子听；别当儿童读物硬塞</td></tr>
+      <tr><td class="s">A4 素描本 + 彩铅 / 水彩</td><td>材料</td><td>全学段</td><td>50 元内；每周画 1 张，主题自选，不评价“像不像”</td></tr>
+    </tbody>
+  </table>
+  <div class="warn"><b>儿童画的边界：</b>6–9 岁不要急着教透视与素描技法，先保住“敢画、愿意画”；临摹课每周 ≤1 次。</div>
+</div>
+
+<div class="card">
+  <h2><span class="bar" style="background:var(--call)"></span>戏曲：从武戏和脸谱进入，从唱腔退出</h2>
+  <table>
+    <thead><tr><th>资源</th><th>类型</th><th>适合</th><th>怎么用</th></tr></thead>
+    <tbody>
+      <tr><td class="s">央视网 · 戏曲频道</td><td>官方平台</td><td>3 年级以上</td><td>整折戏与名家名段；先看武戏（《三岔口》），再看文戏</td></tr>
+      <tr><td class="s">《京剧脸谱》傅学斌</td><td>图书（官方目录）</td><td>1–6 年级</td><td>认脸谱颜色与人物性格：红忠、白奸、黑直</td></tr>
+      <tr><td class="s">《说唱脸谱》等戏歌</td><td>音频</td><td>1–3 年级</td><td>当儿歌听，边听边拍节奏，不要求唱腔</td></tr>
+      <tr><td class="s">本地“戏曲进校园” / 剧院开放日</td><td>活动</td><td>全学段</td><td>一年 1–2 次现场，看后台化妆比看视频有效</td></tr>
+      <tr><td class="s">《戏曲进校园》郑传寅等</td><td>图书（官方目录）</td><td>5–6 年级</td><td>介绍剧种、行当、程式，适合大孩子自己读</td></tr>
+    </tbody>
+  </table>
+  <div class="tip"><b>一条节奏：</b>每月看 1 折戏 + 画 1 张脸谱即可；愿意学唱再找老师，不要一上来压腿吊嗓。</div>
+</div>`;
+
+/* ==================== 科技 / 运动 ==================== */
+const TECHSPORT = `
+<div class="card">
+  <h2><span class="bar" style="background:var(--math)"></span>科技：场馆 + 实验 + 一个创客项目</h2>
+  <table>
+    <thead><tr><th>资源</th><th>类型</th><th>适合</th><th>怎么用</th></tr></thead>
+    <tbody>
+      <tr><td class="s">中国数字科技馆（cdstm.cn）</td><td>官方平台</td><td>1–6 年级</td><td>线上展厅 + “动手做”栏目；每月挑 1 个家里能做的小实验</td></tr>
+      <tr><td class="s">中国科技馆（北京）</td><td>场馆</td><td>全学段</td><td>免费预约；按"儿童科学乐园 → 探索与发现"顺序逛，一次 3 小时</td></tr>
+      <tr><td class="s">本地科技馆 / 天文馆 / 自然博物馆</td><td>场馆</td><td>全学段</td><td>每学期 1 次；提前选 3 个展项，看完做笔记</td></tr>
+      <tr><td class="s">《十万个为什么》（第六版）</td><td>图书</td><td>3 年级以上</td><td>按问题查，不从头读；配合实验找答案</td></tr>
+      <tr><td class="s">micro:bit（BBC）</td><td>器材</td><td>3–6 年级</td><td>150–260 元；网页拖拽编程，先做“按键亮笑脸”</td></tr>
+      <tr><td class="s">Arduino 入门套件</td><td>器材</td><td>5–6 年级</td><td>100–300 元；避障小车、温湿度显示，家长陪做</td></tr>
+      <tr><td class="s">纸电路 / 导电胶带</td><td>材料</td><td>1–3 年级</td><td>几十元；点亮 LED、做贺卡，理解“电路”</td></tr>
+    </tbody>
+  </table>
+  <div class="warn"><b>不要买“科学实验大礼包”：</b>一次买整套 100 个实验，通常做 5 个就闲置。按学期买 1 个主题的材料。</div>
+</div>
+
+<div class="card">
+  <h2><span class="bar" style="background:var(--math)"></span>运动：体测项目 + 1 个主项 + 每天户外</h2>
+  <table>
+    <thead><tr><th>项目</th><th>为什么</th><th>频率 / 成本</th><th>要点</th></tr></thead>
+    <tbody>
+      <tr><td class="s">跳绳</td><td>协调、心肺、耐力，体测必考</td><td>每天 3 组，20–50 元</td><td>1 分钟计数，只和孩子上月比</td></tr>
+      <tr><td class="s">坐位体前屈 / 仰卧起坐</td><td>柔韧与核心，体测项目</td><td>每周 2–3 次，免费</td><td>拉伸到位不硬压，避免受伤</td></tr>
+      <tr><td class="s">50 米跑 / 折返跑</td><td>速度与爆发</td><td>每周 1 次，免费</td><td>先热身 8 分钟，再全力跑 2–3 次</td></tr>
+      <tr><td class="s">游泳</td><td>唯一“能救命”的技能</td><td>暑期 10–12 次，800–2000 元</td><td>先换气与漂浮，能连续游 25 米即可</td></tr>
+      <tr><td class="s">球类 / 田径 / 武术（选 1 项主项）</td><td>长期、有教练、有同伴</td><td>每周 2–3 次</td><td>优先校队与社区俱乐部，通勤 20 分钟内</td></tr>
+      <tr><td class="s">每天户外 ≥1 小时（近视防控要 2 小时光照）</td><td>视力、体态、情绪</td><td>每天，免费</td><td>骑行、羽毛球、爬山，周末半天全家</td></tr>
+    </tbody>
+  </table>
+  <div class="tip"><b>体测标准：</b>《国家学生体质健康标准（2014 年修订）》按年级给项目与评分，学校每年上报；家长只需按项目逐项练，不必买“体测培训班”。</div>
+</div>
+
+<div class="card">
+  <h2><span class="bar" style="background:var(--math)"></span>纪录片与节目（配科技 / 运动一起看）</h2>
+  <ul class="res-li">
+    <li><a href="https://www.cctv.com" target="_blank" rel="noopener">央视网纪录频道</a><span>《科学的七个瞬间》《我的牛顿教练》《大国重器》，官方免费。</span></li>
+    <li><a href="https://www.cdstm.cn" target="_blank" rel="noopener">中国数字科技馆 · 科普动画</a><span>短、密、带实验，适合 1–4 年级。</span></li>
+    <li><a href="https://www.cctv.com" target="_blank" rel="noopener">央视体育 · 教学与赛事</a><span>看一场正式比赛学规则，比看讲解更直观。</span></li>
+  </ul>
+</div>`;
+
+/* ==================== 影单 ==================== */
+const MEDIA = `
+<div class="card">
+  <h2><span class="bar" style="background:var(--media)"></span>人文历史类（语文 / 历史 / 艺术）</h2>
+  <div class="sub">从 5 分钟一集开始，看完说一句话就够，不做"观后感作业"。</div>
+  <table>
+    <thead><tr><th>片名</th><th>体量</th><th>适合</th><th>为什么推荐</th></tr></thead>
+    <tbody>
+      <tr><td class="s">如果国宝会说话</td><td>100 集 × 5 分钟</td><td>1 年级以上</td><td>用 100 件文物讲文明史，短、密、文案好；配套《国家宝藏》看实物</td></tr>
+      <tr><td class="s">“字”从遇见你</td><td>25 集 × 5 分钟</td><td>1–6 年级</td><td>讲汉字来源，和识字、书法直接相关</td></tr>
+      <tr><td class="s">中国唱诗班</td><td>短片，单集约 10 分钟</td><td>2 年级以上</td><td>把古诗拍成动画故事，《元日》《相思》等，理解诗境</td></tr>
+      <tr><td class="s">跟着唐诗去旅行</td><td>5 集 × 45 分钟</td><td>4 年级以上</td><td>诗人 + 地理 + 名篇，适合当"诗旅"看</td></tr>
+      <tr><td class="s">故宫 100</td><td>100 集 × 6 分钟</td><td>2 年级以上</td><td>建筑与文物入门，短小好消化</td></tr>
+      <tr><td class="s">此画怎讲</td><td>单集 5–8 分钟</td><td>3 年级以上</td><td>名画"活起来"，练看图与细节观察</td></tr>
+      <tr><td class="s">跟着书本去旅行</td><td>单集 20 分钟</td><td>1 年级以上</td><td>把课文里的地点走一遍，课文与实景对应</td></tr>
+      <tr><td class="s">河西走廊</td><td>10 集 × 50 分钟</td><td>5 年级以上</td><td>史地贯通，适合假期分集看</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h2><span class="bar" style="background:var(--media)"></span>自然 / 科学类</h2>
+  <table>
+    <thead><tr><th>片名</th><th>体量</th><th>适合</th><th>为什么推荐</th></tr></thead>
+    <tbody>
+      <tr><td class="s">国家公园·小小世界</td><td>单集 5 分钟</td><td>3 岁以上</td><td>中国国家公园里的动物，短、萌、门槛低</td></tr>
+      <tr><td class="s">遇见最极致的中国</td><td>7 集</td><td>2 年级以上</td><td>地貌与生态，配合科学课"地球与宇宙"</td></tr>
+      <tr><td class="s">航拍中国</td><td>每季 6–10 集</td><td>2 年级以上</td><td>地理视角看家乡与全国，写作文有素材</td></tr>
+      <tr><td class="s">蓝色星球 II</td><td>7 集 × 50 分钟</td><td>3 年级以上</td><td>海洋生态，画面极佳，适合周末一节</td></tr>
+      <tr><td class="s">地球脉动</td><td>每季 6–8 集</td><td>3 年级以上</td><td>生物与环境，建立"生态"概念</td></tr>
+      <tr><td class="s">科学的七个瞬间 / 奇妙中国</td><td>短集</td><td>3 年级以上</td><td>中国科技成就，和"大国重器"类读物配套</td></tr>
+      <tr><td class="s">我的牛顿教练</td><td>6 集</td><td>4 年级以上</td><td>用运动讲物理，适合男孩与体育迷</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h2><span class="bar" style="background:var(--media)"></span>英语启蒙动画（看动画也能学）</h2>
+  <table>
+    <thead><tr><th>片名</th><th>用途</th><th>适合</th><th>怎么用</th></tr></thead>
+    <tbody>
+      <tr><td class="s">Alphablocks</td><td>字母音 + 拼读</td><td>1–3 年级</td><td>配 Oxford Phonics World 进度看，一集 5 分钟</td></tr>
+      <tr><td class="s">Numberblocks</td><td>数感 + 简单英语</td><td>1–3 年级</td><td>数学与英语一起练，配合口算</td></tr>
+      <tr><td class="s">Bluey（布鲁伊）</td><td>日常口语</td><td>1–4 年级</td><td>家庭对话场景，适合亲子跟说</td></tr>
+      <tr><td class="s">Peppa Pig（小猪佩奇）</td><td>听力磨耳朵</td><td>1–2 年级</td><td>只听不看字幕，一次 2 集</td></tr>
+    </tbody>
+  </table>
+  <div class="warn"><b>看动画的边界：</b>每天 ≤20–30 分钟，优先"原声 + 无字幕或英文字幕"；看完不考试，能跟着说一句就是收获。不要用动画替代分级阅读。</div>
+</div>
+
+<div class="card">
+  <h2><span class="bar" style="background:var(--media)"></span>一周边看边学的排法</h2>
+  <table>
+    <thead><tr><th>时间</th><th>看什么</th><th>配套动作</th></tr></thead>
+    <tbody>
+      <tr><td class="g">周一 / 三</td><td>如果国宝会说话 1 集</td><td>说一句"这件东西是干什么用的"</td></tr>
+      <tr><td class="g">周二 / 四</td><td>Alphablocks 或 Numberblocks 2 集</td><td>跟读 3 个单词 / 玩一局口算</td></tr>
+      <tr><td class="g">周五</td><td>中国唱诗班 1 集</td><td>把那首诗读一遍</td></tr>
+      <tr><td class="g">周六</td><td>自然类纪录片 1 集</td><td>提 1 个问题，家长一起查答案</td></tr>
+      <tr><td class="g">周日</td><td>自选或重看</td><td>不安排新内容，保持轻松</td></tr>
+    </tbody>
+  </table>
+  <div class="tip"><b>渠道：</b>央视网 / 央视频（官方免费）、B站官方账号；短视频平台上的切片只当"发现片名"，完整片还是回官方看。</div>
+</div>
+
+<div class="card">
+  <h2><span class="bar" style="background:var(--media)"></span>抖音 / 小红书 采集方法（可复制）</h2>
+  <div class="sub">这两个平台的价值是"发现候选"和"看同龄人实际在读什么"，不是权威结论。</div>
+  <ul class="pts">
+    <li><b>检索模板：</b>「小学 二年级 书单」「小学生 纪录片 推荐」「自然拼读 教材 对比」「数学绘本 一题多解」——加年级、加"对比/避坑"更容易搜到干货。</li>
+    <li><b>看什么信号：</b>同一本书被不同博主反复提到 → 进候选；只有一条爆款、评论区全是"求链接" → 大概率是带货。</li>
+    <li><b>怎么落地：</b>把书名抄下来 → 教育部目录 / 出版社官网 / 图书馆检索 → 借到先读 → 孩子真喜欢再买。</li>
+    <li><b>直接跳过：</b>"3 天读完 100 本""XX 天突破 3000 词""限时 1 元领全套""内部书单不外传"。</li>
+  </ul>
+  <div class="warn"><b>结论：</b>抖音、小红书的书单 ≈ 名校书单 + 绘本畅销榜，偏"好读、好看"；官方目录偏"经典、价值观"。两者不冲突：<b>用平台选兴趣，用官方定底线</b>。</div>
+</div>`;
+
+const PANELS={gov:buildGov(),read:READ,eng:ENG,math:MATH,call:CALL,art:ART,techsport:TECHSPORT,media:MEDIA};
+let cur = "gov";
+
+function renderTabs(){
+  const el=document.getElementById("tabs"); el.innerHTML="";
+  TABS.forEach(t=>{
+    const b=document.createElement("button");
+    b.textContent=t.name;
+    if(t.id===cur) b.classList.add("active");
+    b.onclick=()=>{cur=t.id;render()};
+    el.appendChild(b);
+  });
+}
+function render(){
+  renderTabs();
+  document.getElementById("panels").innerHTML = PANELS[cur];
+  decorate();
+}
+
+/* 卡片折叠 + 卡片锚点导航 */
+function decorate(){
+  const cards=[...document.querySelectorAll("#panels .card")];
+  cards.forEach((c,i)=>{
+    if(!c.id) c.id="r"+(i+1);
+    const h=c.querySelector("h2");
+    if(h && !h.querySelector(".ctog")){
+      const btn=document.createElement("button");
+      btn.type="button"; btn.className="ctog"; btn.textContent=c.classList.contains("collapsed")?"展开":"收起";
+      btn.onclick=e=>{e.stopPropagation(); toggleCard(c)};
+      h.appendChild(btn);
+    }
+  });
+  cards.forEach(bindFilter);
+  buildNav(cards);
+}
+
+/* 书单分类筛选（每个学段卡各一套，互不影响） */
+function bindFilter(card){
+  const bar=card.querySelector(".bfilter");
+  if(!bar || bar.dataset.bound) return;
+  bar.dataset.bound="1";
+  const rows=[...card.querySelectorAll(".books tbody tr")];
+  const cnt=bar.querySelector(".cnt");
+  bar.addEventListener("click",e=>{
+    const btn=e.target.closest("button[data-cat]");
+    if(!btn) return;
+    const cat=btn.dataset.cat;
+    bar.querySelectorAll("button").forEach(b=>b.classList.toggle("on",b===btn));
+    let shown=0;
+    rows.forEach(tr=>{
+      const c=(tr.querySelector("td.c")||tr.cells[0]).textContent.trim();
+      const hit = cat==="全部" || c===cat;
+      tr.style.display = hit ? "" : "none";
+      if(hit) shown++;
+    });
+    if(cnt) cnt.textContent=`当前显示 ${shown} / 共 ${rows.length} 种`;
+  });
+}
+
+function toggleCard(c,force){
+  const willCollapse = force===undefined ? !c.classList.contains("collapsed") : force;
+  c.classList.toggle("collapsed", willCollapse);
+  const b=c.querySelector(".ctog"); if(b) b.textContent = willCollapse ? "展开" : "收起";
+  syncNav(cardsAll());
+}
+const cardsAll=()=>[...document.querySelectorAll("#panels .card")];
+
+function buildNav(cards){
+  const nav=document.getElementById("secnav"); nav.innerHTML="";
+  if(!cards.length) return;
+  cards.forEach(c=>{
+    const raw=(c.querySelector("h2")||{}).textContent||"";
+    let name=raw.replace(/收起|展开/g,"").trim().replace(/(课内|课外)$/,"");
+    name=name.split(/[：:（(]/)[0];
+    name=name.length>9 ? name.slice(0,8)+"…" : name;
+    if(!name) name="模块";
+    const a=document.createElement("a");
+    a.href="#"+c.id; a.textContent=name;
+    a.onclick=e=>{e.preventDefault(); toggleCard(c,false); c.scrollIntoView({behavior:"smooth",block:"start"});};
+    nav.appendChild(a);
+  });
+  const sp=document.createElement("span"); sp.className="spacer"; nav.appendChild(sp);
+  const btn=document.createElement("button"); btn.type="button"; btn.id="allTog";
+  btn.onclick=()=>{
+    const cards=cardsAll();
+    const allExp=cards.every(c=>!c.classList.contains("collapsed"));
+    cards.forEach(c=>toggleCard(c,allExp));
+  };
+  nav.appendChild(btn);
+  syncNav(cards);
+}
+function syncNav(cards){
+  const btn=document.getElementById("allTog"); if(!btn) return;
+  btn.textContent = cards.every(c=>!c.classList.contains("collapsed")) ? "全部收起" : "全部展开";
+}
+
+const sh=document.getElementById("stickyhead");
+addEventListener("scroll",()=>sh && sh.classList.toggle("stuck",scrollY>8),{passive:true});
+
+render();
+
+const toTop=document.getElementById("toTop");
+addEventListener("scroll",()=>toTop.classList.toggle("show",scrollY>600),{passive:true});
+toTop.onclick=()=>scrollTo({top:0,behavior:"smooth"});
+
+/* 移动端菜单 */
+const navBtn=document.getElementById("navBtn"), navMenu=document.getElementById("navMenu");
+if(navBtn && navMenu){
+  navBtn.onclick=()=>{
+    const open=navMenu.classList.toggle("open");
+    navBtn.setAttribute("aria-expanded", open?"true":"false");
+    navBtn.textContent = open ? "✕" : "☰";
+  };
+  navMenu.addEventListener("click",e=>{ if(e.target.tagName==="A"){ navMenu.classList.remove("open"); navBtn.textContent="☰"; } });
+}
+
+/* 固定头部高度变量 + 吸顶阴影 */
+(function(){
+  const hd=document.querySelector(".sitehdr"); if(!hd) return;
+  const set=()=>{
+    document.documentElement.style.setProperty("--hdrH", hd.offsetHeight+"px");
+    hd.classList.toggle("stuck", hd.getBoundingClientRect().top<=0 && scrollY>4);
+  };
+  set(); addEventListener("resize",set);
+  addEventListener("scroll",()=>hd.classList.toggle("stuck", scrollY>4),{passive:true});
+})();
+</script>
+</body>
+</html>

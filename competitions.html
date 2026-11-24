@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>赛事白名单 · 起步线K12</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Crect%20width%3D%2224%22%20height%3D%2224%22%20rx%3D%226%22%20fill%3D%22%233d7a5f%22%2F%3E%3Cpath%20d%3D%22M6.5%205.2v13.6%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222.7%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M10.6%208%2020.6%206.2M10.6%2012h10M10.6%2016%2020.6%2017.8%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%2F%3E%3C%2Fsvg%3E">
+<style>
+  :root{
+    --bg:#f6f4ee;--card:#fff;--ink:#2b2b28;--sub:#6b675e;--line:#e8e3d7;
+    --brand:#3d7a5f;--math:#3b6fb6;--radius:14px;--shadow:0 1px 4px rgba(60,50,30,.06);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);line-height:1.65;
+    font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;padding-bottom:env(safe-area-inset-bottom)}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 16px 60px}
+  .sitehdr{background:#fff;border-bottom:1px solid var(--line,#e8e3d7);position:sticky;top:0;z-index:60;
+    transition:box-shadow .18s}
+  .hdr{max-width:1060px;margin:0 auto;padding:11px 16px;display:flex;align-items:center;gap:16px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;flex:0 0 auto}
+  .mark{width:34px;height:34px;border-radius:9px;background:var(--brand,#3d7a5f);color:#fff;
+    display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .mark svg{display:block;width:21px;height:21px}
+  .bt{display:flex;flex-direction:column;line-height:1.15}
+  .bt b{font-size:16.5px;letter-spacing:.6px}
+  .bt i{font-style:normal;font-size:11.5px;color:var(--sub);margin-top:3px}
+  .k12{display:inline-block;margin-left:5px;font-size:11px;font-weight:700;color:#fff;background:var(--brand,#3d7a5f);border-radius:5px;padding:1px 5px;vertical-align:2px;letter-spacing:.4px}
+  .navmenu{margin-left:auto;display:flex;gap:2px;align-items:center}
+  .navmenu a{font-size:13.5px;color:var(--sub);text-decoration:none;padding:8px 12px;border-radius:9px;white-space:nowrap}
+  .navmenu a:hover{background:var(--bg);color:var(--ink)}
+  .navmenu a.on{background:#e7f1ec;color:#2b5a44;font-weight:600}
+  .navbtn{display:none;margin-left:auto;width:42px;height:42px;border:1px solid var(--line);
+    background:#fff;border-radius:10px;font-size:17px;cursor:pointer;color:var(--ink)}
+  .sitehdr.stuck{box-shadow:0 8px 18px -14px rgba(0,0,0,.45)}
+  .phead{padding:18px 0 6px}
+  .phead h1{font-size:22px;letter-spacing:.4px}
+  .phead .lead{color:var(--sub);font-size:13.5px;margin-top:6px}
+  .notice{margin-top:12px;background:#e7f1ec;border-left:3px solid var(--brand,#3d7a5f);
+    padding:10px 14px;border-radius:8px;font-size:13px;color:#335647}
+  .stickyhead{position:sticky;top:var(--hdrH,57px);z-index:20;background:var(--bg);padding:8px 0 6px;
+    border-bottom:1px solid transparent}
+  .stickyhead.stuck{border-bottom-color:var(--line);box-shadow:0 4px 10px -8px rgba(0,0,0,.25)}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap}
+  .tabs button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:7px 14px;
+    font-size:13px;cursor:pointer;color:var(--sub)}
+  .tabs button.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .stages{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;align-items:center}
+  .stages span{font-size:12px;color:var(--sub);margin-right:2px}
+  .stages button{border:1px dashed var(--line);background:transparent;border-radius:999px;padding:4px 12px;
+    font-size:12.5px;color:var(--sub);cursor:pointer}
+  .stages button.active{border-style:solid;border-color:var(--brand,#3d7a5f);color:#2b5a44;background:#eef6f1}
+  .meta{display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:12.5px;color:var(--sub);margin:8px 0 4px}
+  .meta b{color:var(--ink)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:6px 18px 10px;box-shadow:var(--shadow)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top}
+  th{background:#faf8f2;font-weight:600;font-size:13px}
+  tr:last-child td{border-bottom:none}
+  td.n{width:44px;color:var(--sub);white-space:nowrap}
+  td.name b{font-weight:600}
+  .tagc{display:inline-block;margin-left:8px;font-size:11px;border:1px solid;border-radius:5px;padding:0 6px;white-space:nowrap}
+  td.org{color:var(--sub);font-size:13px}
+  td.st{width:118px;color:var(--sub);white-space:nowrap}
+  td.go{width:92px;white-space:nowrap}
+  td.go a{color:var(--math);text-decoration:none;font-size:13px}
+  .note{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;
+    box-shadow:var(--shadow);margin-top:16px}
+  .note h2{font-size:16px;margin-bottom:8px}
+  .note ul{margin:4px 0 0 18px;font-size:13.5px;color:var(--sub)}
+  .note ul li{margin-bottom:6px}
+  .warn{border-left:3px solid #c98f6a;background:#fbf3ec;color:#7b5236;border-radius:8px;padding:10px 14px;font-size:13px;margin-top:12px}
+  .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  .cta a{display:inline-flex;align-items:center;min-height:40px;background:#fff;border:1px solid var(--line);
+    border-radius:10px;padding:8px 14px;font-size:13.5px;color:var(--ink);text-decoration:none;box-shadow:var(--shadow)}
+  .cta a.primary{background:var(--brand,#3d7a5f);border-color:var(--brand,#3d7a5f);color:#fff}
+  .src{font-size:12px;color:var(--sub);margin-top:12px}
+  footer{color:var(--sub);font-size:12.5px;text-align:center;margin-top:24px;line-height:1.8}
+  .to-top{position:fixed;right:16px;bottom:20px;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);
+    background:#fff;color:var(--ink);font-size:18px;box-shadow:0 6px 16px -10px rgba(0,0,0,.5);cursor:pointer;
+    opacity:0;pointer-events:none;transition:opacity .2s;z-index:80}
+  .to-top.show{opacity:1;pointer-events:auto}
+  @media(max-width:760px){
+    .wrap{padding:0 14px 48px}
+    .hdr{padding:8px 14px;gap:10px}
+    .navbtn{display:flex;align-items:center;justify-content:center}
+    .navmenu{display:none;position:absolute;left:0;right:0;top:100%;background:#fff;
+      border-bottom:1px solid var(--line);box-shadow:0 10px 22px -16px rgba(0,0,0,.35);
+      padding:8px 12px 12px;flex-direction:column;align-items:stretch;gap:2px}
+    .navmenu.open{display:flex}
+    .navmenu a{padding:12px 10px;min-height:44px;display:flex;align-items:center;font-size:14px}
+    .bt b{font-size:15.5px} .bt i{font-size:11px}
+    .mark{width:30px;height:30px;border-radius:8px} .mark svg{width:19px;height:19px}
+    .phead{padding:14px 0 4px} .phead h1{font-size:19px}
+    .notice{font-size:12.5px;padding:9px 12px}
+    .tabs{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+    .tabs::-webkit-scrollbar{display:none}
+    .tabs button{flex:0 0 auto;white-space:nowrap;min-height:40px}
+    .stages{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+    .stages::-webkit-scrollbar{display:none}
+    .stages button{flex:0 0 auto;white-space:nowrap}
+    .card{padding:12px 14px 6px}
+    table,thead,tbody,tr,td{display:block}
+    thead{display:none}
+    tr{border-bottom:1px solid var(--line);padding:10px 0}
+    tr:last-child{border-bottom:none}
+    td{border:none;padding:3px 0}
+    td.n{display:none}
+    td.name b{font-size:14.5px;line-height:1.5;display:block}
+    .tagc{margin:6px 0 0 0}
+    td.org{font-size:12.5px}
+    td.org::before{content:"主办 · ";color:#a9a397}
+    td.st{width:auto;white-space:normal}
+    td.st::before{content:"学段 · ";color:#a9a397}
+    td.go{padding-top:6px}
+    td.go a{border:1px solid var(--line);border-radius:8px;padding:4px 10px;display:inline-block}
+  }
+  @media print{.sitehdr,.navbtn,.to-top,.tabs,.stages,.cta{display:none !important}
+    body{background:#fff} .card,.note{box-shadow:none;border-color:#ddd}}
+</style>
+</head>
+<body>
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<header class="sitehdr">
+  <div class="hdr">
+    <a class="brand" href="index.html">
+      <span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#fff" stroke-linecap="round"><path d="M6.5 5.2v13.6" stroke-width="2.7"/><path d="M10.6 8 20.6 6.2M10.6 12h10M10.6 16 20.6 17.8" stroke-width="2"/></svg></span>
+      <span class="bt"><b>起步线<span class="k12">K12</span></b><i>家庭学习导航 · 小学到高中</i></span>
+    </a>
+    <nav class="navmenu" id="navMenu">
+      <a href="index.html">学习规划</a>
+      <a href="courses.html">课程推荐</a>
+      <a href="resources.html">资料清单</a>
+      <a href="textbooks.html">教材目录</a>
+      <a href="standards.html">能力要求</a>
+      <a href="competitions.html" class="on">赛事白名单</a>
+      <a href="weekly-check.html">每周打卡</a>
+    </nav>
+    <button class="navbtn" id="navBtn" aria-label="打开菜单" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="phead">
+    <h1>赛事白名单</h1>
+    <p class="lead">教育部《2025—2028 学年面向中小学生的全国性竞赛活动名单》共 47 项，按类别和学段查，直接跳报名入口。</p>
+    <div class="notice">
+      <b>政策口径</b>：名单依据教监管厅函〔2025〕7 号（2025 年 10 月 22 日印发），举办期原则上为 <b>2025 年 10 月—2028 年 8 月</b>，每学年举办不超过 1 次、累计不超过 3 次；<b>竞赛及结果不得作为中小学招生入学依据和高考加分项目</b>。名单外赛事一律不参加。
+    </div>
+  </section>
+
+  <div class="stickyhead" id="stickyhead">
+    <div class="tabs" id="tabs">
+      <button data-cat="0" class="active">全部 47 项</button>
+      <button data-cat="1">自然科学素养类 22</button>
+      <button data-cat="2">人文综合素养类 12</button>
+      <button data-cat="3">艺术体育类 13</button>
+    </div>
+    <div class="stages" id="stages">
+      <span>学段：</span>
+      <button data-stage="0" class="active">全部</button>
+      <button data-stage="小学">小学</button>
+      <button data-stage="初中">初中</button>
+      <button data-stage="普高">普高</button>
+      <button data-stage="中职">中职</button>
+    </div>
+  </div>
+
+  <div class="meta"><span id="count">共 47 项</span><span>·</span><span>报名与赛程以教育部监管平台和主办方公告为准</span></div>
+
+  <div class="card">
+    <table id="tbl">
+      <thead><tr><th>序号</th><th>竞赛名称</th><th>主办单位</th><th>面向学段</th><th>入口</th></tr></thead>
+      <tbody>
+      <tr data-cat="1" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">1</td>
+        <td class="name" data-l="竞赛名称"><b>全国青少年人工智能创新挑战赛</b><span class="tagc" style="color:#3b6fb6;border-color:#3b6fb622;background:#3b6fb60f">自然科学素养类</span></td>
+        <td class="org" data-l="主办单位">中国少年儿童发展服务中心</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="1" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">2</td>
+        <td class="name" data-l="竞赛名称"><b>世界机器人大会青少年机器人设计与信息素养大赛</b><span class="tagc" style="color:#3b6fb6;border-color:#3b6fb622;background:#3b6fb60f">自然科学素养类</span></td>
+        <td class="org" data-l="主办单位">中国电子学会</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="1" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">3</td>
+        <td class="name" data-l="竞赛名称"><b>全国青少年无人机大赛</b><span class="tagc" style="color:#3b6fb6;border-color:#3b6fb622;background:#3b6fb60f">自然科学素养类</span></td>
+        <td class="org" data-l="主办单位">中国航空学会</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="1" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">4</td>
+        <td class="name" data-l="竞赛名称"><b>宋庆龄少年儿童发明奖</b><span class="tagc" style="color:#3b6fb6;border-color:#3b6fb622;background:#3b6fb60f">自然科学素养类</span></td>
+        <td class="org" data-l="主办单位">中国宋庆龄基金会、中国发明协会</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://www.sclf.org/" target="_blank" rel="noopener">主办方官网</a></td>
+      </tr>
+      <tr data-cat="1" data-stage="初中 普高 中职">
+        <td class="n" data-l="序号">5</td>
+        <td class="name" data-l="竞赛名称"><b>全国中学生天文知识竞赛</b><span class="tagc" style="color:#3b6fb6;border-color:#3b6fb622;background:#3b6fb60f">自然科学素养类</span></td>
+        <td class="org" data-l="主办单位">中国天文学会</td>
+        <td class="st" data-l="面向学段">初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="1" data-stage="普高">
+        <td class="n" data-l="序号">6</td>
+        <td class="name" data-l="竞赛名称"><b>“地球小博士”全国地理科普知识大赛活动</b><span class="tagc" style="color:#3b6fb6;border-color:#3b6fb622;background:#3b6fb60f">自然科学素养类</span></td>
+        <td class="org" data-l="主办单位">中国地理学会</td>
+        <td class="st" data-l="面向学段">普高</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="1" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">7</td>
+        <td class="name" data-l="竞赛名称"><b>全国中学生水科技发明比赛暨斯德哥尔摩青少年水奖中国区选拔赛</b><span class="tagc" style="color:#3b6fb6;border-color:#3b6fb622;background:#3b6fb60f">自然科学素养类</span></td>
+        <td class="org" data-l="主办单位">生态环境部宣传教育中心、水利部宣传教育中心</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://www.ceec.cn/" target="_blank" rel="noopener">主办方官网</a></td>
+      </tr>
+      <tr data-cat="1" data-stage="普高">
+        <td class="n" data-l="序号">8</td>
+        <td class="name" data-l="竞赛名称"><b>全国中学生地球科学奥林匹克竞赛</b><span class="tagc" style="color:#3b6fb6;border-color:#3b6fb622;background:#3b6fb60f">自然科学素养类</span></td>
+        <td class="org" data-l="主办单位">中国地震学会、中国地球物理学会</td>
+        <td class="st" data-l="面向学段">普高</td>
+        <td class="go" data-l="报名入口"><a href="https://www.ssoc.org.cn/" target="_blank" rel="noopener">主办方官网</a></td>
+      </tr>
+      <tr data-cat="1" data-stage="普高">
+        <td class="n" data-l="序号">9</td>
+        <td class="name" data-l="竞赛名称"><b>全国中学生数学奥林匹克竞赛</b><span class="tagc" style="color:#3b6fb6;border-color:#3b6fb622;background:#3b6fb60f">自然科学素养类</span></td>
+        <td class="org" data-l="主办单位">中国数学会</td>
+        <td class="st" data-l="面向学段">普高</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="1" data-stage="普高">
+        <td class="n" data-l="序号">10</td>
+        <td class="name" data-l="竞赛名称"><b>全国中学生物理奥林匹克竞赛</b><span class="tagc" style="color:#3b6fb6;border-color:#3b6fb622;background:#3b6fb60f">自然科学素养类</span></td>
+        <td class="org" data-l="主办单位">中国物理学会</td>
+        <td class="st" data-l="面向学段">普高</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="1" data-stage="普高">
+        <td class="n" data-l="序号">11</td>
+        <td class="name" data-l="竞赛名称"><b>全国中学生化学奥林匹克竞赛</b><span class="tagc" style="color:#3b6fb6;border-color:#3b6fb622;background:#3b6fb60f">自然科学素养类</span></td>
+        <td class="org" data-l="主办单位">中国化学会</td>
+        <td class="st" data-l="面向学段">普高</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="1" data-stage="普高">
+        <td class="n" data-l="序号">12</td>
+        <td class="name" data-l="竞赛名称"><b>全国中学生生物学奥林匹克竞赛</b><span class="tagc" style="color:#3b6fb6;border-color:#3b6fb622;background:#3b6fb60f">自然科学素养类</span></td>
+        <td class="org" data-l="主办单位">中国植物学会、中国动物学会</td>
+        <td class="st" data-l="面向学段">普高</td>
+        <td class="go" data-l="报名入口"><a href="https://www.czs.org.cn/" target="_blank" rel="noopener">主办方官网</a></td>
+      </tr>
+      <tr data-cat="1" data-stage="普高">
+        <td class="n" data-l="序号">13</td>
+        <td class="name" data-l="竞赛名称"><b>全国中学生信息学奥林匹克竞赛</b><span class="tagc" style="color:#3b6fb6;border-color:#3b6fb622;background:#3b6fb60f">自然科学素养类</span></td>
+        <td class="org" data-l="主办单位">中国计算机学会</td>
+        <td class="st" data-l="面向学段">普高</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="1" data-stage="普高 中职">
+        <td class="n" data-l="序号">14</td>
+        <td class="name" data-l="竞赛名称"><b>全国青少年科技创新大赛</b><span class="tagc" style="color:#3b6fb6;border-color:#3b6fb622;background:#3b6fb60f">自然科学素养类</span></td>
+        <td class="org" data-l="主办单位">中国科协</td>
+        <td class="st" data-l="面向学段">普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="1" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">15</td>
+        <td class="name" data-l="竞赛名称"><b>全国青少年航天创新大赛</b><span class="tagc" style="color:#3b6fb6;border-color:#3b6fb622;background:#3b6fb60f">自然科学素养类</span></td>
+        <td class="org" data-l="主办单位">中国航天科技国际交流中心</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="1" data-stage="普高">
+        <td class="n" data-l="序号">16</td>
+        <td class="name" data-l="竞赛名称"><b>丘成桐中学科学奖</b><span class="tagc" style="color:#3b6fb6;border-color:#3b6fb622;background:#3b6fb60f">自然科学素养类</span></td>
+        <td class="org" data-l="主办单位">清华大学</td>
+        <td class="st" data-l="面向学段">普高</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="1" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">17</td>
+        <td class="name" data-l="竞赛名称"><b>全球发明大会（中国）竞赛活动</b><span class="tagc" style="color:#3b6fb6;border-color:#3b6fb622;background:#3b6fb60f">自然科学素养类</span></td>
+        <td class="org" data-l="主办单位">中国友好和平发展基金会</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="1" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">18</td>
+        <td class="name" data-l="竞赛名称"><b>全国青少年人工智能大赛</b><span class="tagc" style="color:#3b6fb6;border-color:#3b6fb622;background:#3b6fb60f">自然科学素养类</span></td>
+        <td class="org" data-l="主办单位">中国福利会、中国妇女发展基金会</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="http://www.cwi.org.cn/" target="_blank" rel="noopener">主办方官网</a></td>
+      </tr>
+      <tr data-cat="1" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">19</td>
+        <td class="name" data-l="竞赛名称"><b>全国青少年科学实验能力大赛</b><span class="tagc" style="color:#3b6fb6;border-color:#3b6fb622;background:#3b6fb60f">自然科学素养类</span></td>
+        <td class="org" data-l="主办单位">中国教育装备行业协会</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="1" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">20</td>
+        <td class="name" data-l="竞赛名称"><b>全国青少年科学探究建模能力大赛</b><span class="tagc" style="color:#3b6fb6;border-color:#3b6fb622;background:#3b6fb60f">自然科学素养类</span></td>
+        <td class="org" data-l="主办单位">北京师范大学</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="1" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">21</td>
+        <td class="name" data-l="竞赛名称"><b>全国青少年心理成长知识与应用创新大赛</b><span class="tagc" style="color:#3b6fb6;border-color:#3b6fb622;background:#3b6fb60f">自然科学素养类</span></td>
+        <td class="org" data-l="主办单位">中国心理卫生协会</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="1" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">22</td>
+        <td class="name" data-l="竞赛名称"><b>全国青少年安全与应急科普创新大赛</b><span class="tagc" style="color:#3b6fb6;border-color:#3b6fb622;background:#3b6fb60f">自然科学素养类</span></td>
+        <td class="org" data-l="主办单位">中国灾害防御协会</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="2" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">23</td>
+        <td class="name" data-l="竞赛名称"><b>全国青少年禁毒知识竞赛</b><span class="tagc" style="color:#b66a3b;border-color:#b66a3b22;background:#b66a3b0f">人文综合素养类</span></td>
+        <td class="org" data-l="主办单位">中国禁毒基金会</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="2" data-stage="普高">
+        <td class="n" data-l="序号">24</td>
+        <td class="name" data-l="竞赛名称"><b>世界华人学生作文大赛</b><span class="tagc" style="color:#b66a3b;border-color:#b66a3b22;background:#b66a3b0f">人文综合素养类</span></td>
+        <td class="org" data-l="主办单位">中华全国归国华侨联合会、中华全国台湾同胞联谊会</td>
+        <td class="st" data-l="面向学段">普高</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="2" data-stage="普高 中职">
+        <td class="n" data-l="序号">25</td>
+        <td class="name" data-l="竞赛名称"><b>“外研社杯”全国中学生外语素养大赛</b><span class="tagc" style="color:#b66a3b;border-color:#b66a3b22;background:#b66a3b0f">人文综合素养类</span></td>
+        <td class="org" data-l="主办单位">北京外国语大学</td>
+        <td class="st" data-l="面向学段">普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="2" data-stage="普高">
+        <td class="n" data-l="序号">26</td>
+        <td class="name" data-l="竞赛名称"><b>高中生创新能力大赛</b><span class="tagc" style="color:#b66a3b;border-color:#b66a3b22;background:#b66a3b0f">人文综合素养类</span></td>
+        <td class="org" data-l="主办单位">中国老教授协会</td>
+        <td class="st" data-l="面向学段">普高</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="2" data-stage="普高 中职">
+        <td class="n" data-l="序号">27</td>
+        <td class="name" data-l="竞赛名称"><b>全国中学生环境保护优秀作文征集活动</b><span class="tagc" style="color:#b66a3b;border-color:#b66a3b22;background:#b66a3b0f">人文综合素养类</span></td>
+        <td class="org" data-l="主办单位">中华环保联合会</td>
+        <td class="st" data-l="面向学段">普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="2" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">28</td>
+        <td class="name" data-l="竞赛名称"><b>“美丽中国”全国版图知识竞赛（中小学组）</b><span class="tagc" style="color:#b66a3b;border-color:#b66a3b22;background:#b66a3b0f">人文综合素养类</span></td>
+        <td class="org" data-l="主办单位">自然资源部宣传教育中心</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="2" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">29</td>
+        <td class="name" data-l="竞赛名称"><b>全国青少年劳动技能与智能设计大赛</b><span class="tagc" style="color:#b66a3b;border-color:#b66a3b22;background:#b66a3b0f">人文综合素养类</span></td>
+        <td class="org" data-l="主办单位">中国自动化学会</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="2" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">30</td>
+        <td class="name" data-l="竞赛名称"><b>中华诗词美育大赛</b><span class="tagc" style="color:#b66a3b;border-color:#b66a3b22;background:#b66a3b0f">人文综合素养类</span></td>
+        <td class="org" data-l="主办单位">中华诗词学会</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="2" data-stage="普高">
+        <td class="n" data-l="序号">31</td>
+        <td class="name" data-l="竞赛名称"><b>鲁迅青少年文学大赛</b><span class="tagc" style="color:#b66a3b;border-color:#b66a3b22;background:#b66a3b0f">人文综合素养类</span></td>
+        <td class="org" data-l="主办单位">鲁迅文化基金会</td>
+        <td class="st" data-l="面向学段">普高</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="2" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">32</td>
+        <td class="name" data-l="竞赛名称"><b>全国青少年红色文化传承与实践创新大赛</b><span class="tagc" style="color:#b66a3b;border-color:#b66a3b22;background:#b66a3b0f">人文综合素养类</span></td>
+        <td class="org" data-l="主办单位">中国红色文化研究会</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="2" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">33</td>
+        <td class="name" data-l="竞赛名称"><b>“讲好中国故事”全国中小学语文素养大赛</b><span class="tagc" style="color:#b66a3b;border-color:#b66a3b22;background:#b66a3b0f">人文综合素养类</span></td>
+        <td class="org" data-l="主办单位">中国教育电视协会</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="2" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">34</td>
+        <td class="name" data-l="竞赛名称"><b>同颂中华·全国青少年志愿文学创作与诵读大赛</b><span class="tagc" style="color:#b66a3b;border-color:#b66a3b22;background:#b66a3b0f">人文综合素养类</span></td>
+        <td class="org" data-l="主办单位">中国青年报社</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="3" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">35</td>
+        <td class="name" data-l="竞赛名称"><b>全国中小学生绘画书法作品比赛</b><span class="tagc" style="color:#6a5fa8;border-color:#6a5fa822;background:#6a5fa80f">艺术体育类</span></td>
+        <td class="org" data-l="主办单位">中国儿童中心（全国妇联儿童事业发展集团）</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="3" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">36</td>
+        <td class="name" data-l="竞赛名称"><b>“我爱祖国海疆”全国青少年航海模型教育竞赛</b><span class="tagc" style="color:#6a5fa8;border-color:#6a5fa822;background:#6a5fa80f">艺术体育类</span></td>
+        <td class="org" data-l="主办单位">中国航海模型运动协会</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="3" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">37</td>
+        <td class="name" data-l="竞赛名称"><b>“驾驭未来”全国青少年车辆模型教育竞赛</b><span class="tagc" style="color:#6a5fa8;border-color:#6a5fa822;background:#6a5fa80f">艺术体育类</span></td>
+        <td class="org" data-l="主办单位">中国车辆模型运动协会</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="3" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">38</td>
+        <td class="name" data-l="竞赛名称"><b>全国青少年模拟飞行锦标赛</b><span class="tagc" style="color:#6a5fa8;border-color:#6a5fa822;background:#6a5fa80f">艺术体育类</span></td>
+        <td class="org" data-l="主办单位">国家体育总局航空无线电模型运动管理中心</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="3" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">39</td>
+        <td class="name" data-l="竞赛名称"><b>“飞向北京·飞向太空”全国青少年航空航天模型教育竞赛活动</b><span class="tagc" style="color:#6a5fa8;border-color:#6a5fa822;background:#6a5fa80f">艺术体育类</span></td>
+        <td class="org" data-l="主办单位">中国航空运动协会</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="3" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">40</td>
+        <td class="name" data-l="竞赛名称"><b>全国青少年传统体育项目比赛</b><span class="tagc" style="color:#6a5fa8;border-color:#6a5fa822;background:#6a5fa80f">艺术体育类</span></td>
+        <td class="org" data-l="主办单位">中国青少年宫协会</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="3" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">41</td>
+        <td class="name" data-l="竞赛名称"><b>“希望颂”——全国青少年书画艺术大展</b><span class="tagc" style="color:#6a5fa8;border-color:#6a5fa822;background:#6a5fa80f">艺术体育类</span></td>
+        <td class="org" data-l="主办单位">中国国际书画艺术研究会</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="3" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">42</td>
+        <td class="name" data-l="竞赛名称"><b>全国中小学生海洋文化创意设计大赛</b><span class="tagc" style="color:#6a5fa8;border-color:#6a5fa822;background:#6a5fa80f">艺术体育类</span></td>
+        <td class="org" data-l="主办单位">中国海洋发展基金会、中国海洋大学、自然资源部北海局</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="3" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">43</td>
+        <td class="name" data-l="竞赛名称"><b>全国青少年国防素养大赛</b><span class="tagc" style="color:#6a5fa8;border-color:#6a5fa822;background:#6a5fa80f">艺术体育类</span></td>
+        <td class="org" data-l="主办单位">南京理工大学</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="3" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">44</td>
+        <td class="name" data-l="竞赛名称"><b>“戏剧中国”全国青少年戏剧文化艺术大赛</b><span class="tagc" style="color:#6a5fa8;border-color:#6a5fa822;background:#6a5fa80f">艺术体育类</span></td>
+        <td class="org" data-l="主办单位">中国戏剧文学学会</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="3" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">45</td>
+        <td class="name" data-l="竞赛名称"><b>全国青少年人工智能辅助生成数字艺术创作者大赛</b><span class="tagc" style="color:#6a5fa8;border-color:#6a5fa822;background:#6a5fa80f">艺术体育类</span></td>
+        <td class="org" data-l="主办单位">文化和旅游部艺术发展中心</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="3" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">46</td>
+        <td class="name" data-l="竞赛名称"><b>学校美育助力行动——青少年视觉艺术传承与创新工作坊展示</b><span class="tagc" style="color:#6a5fa8;border-color:#6a5fa822;background:#6a5fa80f">艺术体育类</span></td>
+        <td class="org" data-l="主办单位">中国艺术教育促进会</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      <tr data-cat="3" data-stage="小学 初中 普高 中职">
+        <td class="n" data-l="序号">47</td>
+        <td class="name" data-l="竞赛名称"><b>“常青藤”全国青少年校园戏剧创意大赛</b><span class="tagc" style="color:#6a5fa8;border-color:#6a5fa822;background:#6a5fa80f">艺术体育类</span></td>
+        <td class="org" data-l="主办单位">中央戏剧学院</td>
+        <td class="st" data-l="面向学段">小学/初中/普高/中职</td>
+        <td class="go" data-l="报名入口"><a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">平台查询</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <h2>怎么用这张表</h2>
+    <ul>
+      <li>先按学段筛：小学可报的多是科创、模型、书画、诗词类；奥赛（数学/物理/化学/生物/信息学/地球科学）只面向普通高中。</li>
+      <li>再看类别：自然科学素养类偏科创与奥林匹克；人文综合素养类偏作文、外语、诗词、禁毒知识；艺术体育类偏绘画书法、航模车模、戏剧。</li>
+      <li>报名三步：① 在<a href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">全国校外教育培训监管与服务综合平台</a>查该赛事的报名时间与当前阶段 → ② 到主办单位官网/公众号看当届通知（省赛通常先由学校或区县组织）→ ③ 按通知提交材料，留意初赛、复赛、决赛时间节点。</li>
+      <li>学校组织为主：多数赛事通过学校、青少年宫、科协等渠道统一报名，个人报名通道以主办方公告为准。</li>
+    </ul>
+    <div class="warn">凡是承诺「包获奖」「交钱保名额」「内部推荐」的，都不属于白名单正规流程，直接排除；白名单赛事要求坚持公益属性，不得违规收费。</div>
+    <div class="cta">
+      <a class="primary" href="https://xwpx.eduyun.cn/tol/toHomePageCompetitionActivities" target="_blank" rel="noopener">查报名与赛程（监管平台）</a>
+      <a href="http://www.moe.gov.cn/srcsite/A29/202510/t20251029_1418393.html" target="_blank" rel="noopener">教育部通知原文</a>
+    </div>
+    <div class="src">名单来源：教育部办公厅《关于公布 2025—2028 学年面向中小学生的全国性竞赛活动的通知》（教监管厅函〔2025〕7 号，2025-10-22），共 47 项；本页仅做整理与导航，报名以官方发布为准。</div>
+  </div>
+
+  <footer>起步线K12 · 家庭自用学习导航，不含付费推广；名单每年由教育部复核公布，如有调整以最新通知为准。</footer>
+</div>
+
+<script>
+const rows=[...document.querySelectorAll("#tbl tbody tr")];
+let fCat="0", fStage="0";
+function apply(){
+  let n=0;
+  rows.forEach(r=>{
+    const okC = fCat==="0" || r.dataset.cat===fCat;
+    const okS = fStage==="0" || (" "+r.dataset.stage+" ").includes(" "+fStage+" ");
+    const show = okC && okS;
+    r.style.display = show?"":"none";
+    if(show) n++;
+  });
+  document.getElementById("count").innerHTML = n===47 ? "共 47 项" : "当前显示 <b>"+n+"</b> / 47 项";
+}
+document.querySelectorAll("#tabs button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("#tabs button").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active"); fCat=b.dataset.cat; apply();
+});
+document.querySelectorAll("#stages button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("#stages button").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active"); fStage=b.dataset.stage; apply();
+});
+
+/* 吸顶阴影 */
+const sh=document.getElementById("stickyhead");
+addEventListener("scroll",()=>sh.classList.toggle("stuck",scrollY>8),{passive:true});
+const hd=document.querySelector(".sitehdr");
+addEventListener("scroll",()=>hd.classList.toggle("stuck",scrollY>4),{passive:true});
+addEventListener("resize",()=>document.documentElement.style.setProperty("--hdrH",hd.offsetHeight+"px"));
+document.documentElement.style.setProperty("--hdrH",hd.offsetHeight+"px");
+
+/* 回顶 */
+const toTop=document.getElementById("toTop");
+addEventListener("scroll",()=>toTop.classList.toggle("show",scrollY>600),{passive:true});
+toTop.onclick=()=>scrollTo({top:0,behavior:"smooth"});
+
+/* 手机菜单 */
+const btn=document.getElementById("navBtn"), menu=document.getElementById("navMenu");
+btn.onclick=()=>{
+  const open=menu.classList.toggle("open");
+  btn.setAttribute("aria-expanded",open); btn.textContent=open?"✕":"☰";
+};
+menu.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{
+  menu.classList.remove("open"); btn.textContent="☰";
+}));
+document.addEventListener("click",e=>{
+  if(menu.classList.contains("open")&&!menu.contains(e.target)&&!btn.contains(e.target)){
+    menu.classList.remove("open"); btn.textContent="☰";
+  }
+});
+</script>
+</body>
+</html>

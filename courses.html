@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课程推荐 · 起步线K12</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Crect%20width%3D%2224%22%20height%3D%2224%22%20rx%3D%226%22%20fill%3D%22%233d7a5f%22%2F%3E%3Cpath%20d%3D%22M6.5%205.2v13.6%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222.7%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M10.6%208%2020.6%206.2M10.6%2012h10M10.6%2016%2020.6%2017.8%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%2F%3E%3C%2Fsvg%3E">
+<style>
+  :root{
+    --bg:#f6f4ee;--card:#fff;--ink:#2b2b28;--sub:#6b675e;--line:#e8e3d7;
+    --brand:#3d7a5f;--cn:#b0523f;--math:#3b6fb6;--eng:#b66a3b;--sci:#3f8a7a;
+    --mor:#7a6a3f;--pe:#4a7fa8;--art:#a85f7a;--lab:#618036;--it:#4a6a8a;
+    --call:#6a5fa8;--code:#2f6b4f;--read:#4a8a6a;--ext:#8a6a3b;--think:#7a5a3b;
+    --opera:#9a4a5a;--tech:#3f6b7a;--sport:#4a7a3f;--mus2:#8a5fa8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.65}
+  .wrap{max-width:1000px;margin:0 auto;padding:16px 16px 60px}
+  .topbar{display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+  .btn-back{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 14px;font-size:13px;text-decoration:none;color:var(--ink)}
+  h1{font-size:22px;margin:6px 0}
+  .lead{color:var(--sub);font-size:14px;margin-bottom:12px}
+  .notice{background:#e7f1ec;border-left:3px solid var(--brand);padding:10px 14px;border-radius:8px;font-size:13px;color:#335647;margin:12px 0 18px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+  .tabs button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 16px;font-size:14px;cursor:pointer;color:var(--sub)}
+  .tabs button.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:0 1px 4px rgba(60,50,30,.06);margin-bottom:16px}
+  .card h2{font-size:17px;margin-bottom:4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .card h2 .bar{width:4px;height:16px;border-radius:2px}
+  .card h2 .st{font-size:11px;font-weight:400;border-radius:6px;padding:2px 8px;margin-left:2px}
+  .st-in{background:#eef2f7;color:#3d5a78}
+  .st-out{background:#fbf0e6;color:#8a5230}
+  .card .sub{color:var(--sub);font-size:13px;margin-bottom:12px}
+  .items{display:grid;gap:10px}
+  .item{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fdfcf8}
+  .ihead{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:6px}
+  .iname{font-size:14.5px;font-weight:600}
+  .tag{font-size:11.5px;border-radius:6px;padding:2px 8px;white-space:nowrap}
+  .t-ch{background:#eef2fa;color:#3b5f8f}
+  .t-gr{background:#f3efe4;color:#7a6a3f}
+  .t-free{background:#e9f4ee;color:#2f6b4f}
+  .t-paid{background:#fbeceb;color:#a34b40}
+  .t-book{background:#f1ecf8;color:#694a92}
+  .idesc{font-size:13.5px;color:#3c3a34}
+  .icase{font-size:12.5px;color:var(--sub);margin-top:6px;background:#f6f4ee;border-radius:8px;padding:7px 10px}
+  .ilink{font-size:12.5px;margin-top:6px}
+  .ilink a{color:var(--math);text-decoration:none}
+  .ilink a:hover{text-decoration:underline}
+  .homework{background:#faf8f2;border:1px dashed var(--line);border-radius:10px;padding:10px 14px;font-size:13px;color:var(--sub);margin-top:12px}
+  .homework b{color:var(--ink)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  th,td{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top}
+  th{background:#faf8f2;font-weight:600;font-size:13px}
+  tr:last-child td{border-bottom:none}
+  td.k{width:88px;font-weight:600;white-space:nowrap}
+  ul.pts{margin:6px 0 0 18px;font-size:13.5px}
+  ul.pts li{margin-bottom:6px}
+  .anchor{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:16px;font-size:13px}
+  .anchor a{color:var(--brand);text-decoration:none;margin-right:12px;white-space:nowrap}
+  footer{color:var(--sub);font-size:12.5px;text-align:center;margin-top:26px;line-height:1.8}
+
+  /* ===== 移动端 ===== */
+  @media(max-width:760px){
+    .wrap{padding:12px 14px 48px}
+    h1{font-size:19px}
+    .lead{font-size:13px}
+    .notice{font-size:12.5px;padding:9px 12px}
+    .topbar{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .topbar::-webkit-scrollbar{display:none}
+    .btn-back{flex:0 0 auto;white-space:nowrap;min-height:44px;display:inline-flex;align-items:center}
+    .tabs{flex-wrap:nowrap;overflow-x:auto;padding:6px 0;-webkit-overflow-scrolling:touch;
+      scrollbar-width:none;margin-bottom:6px}
+    .tabs::-webkit-scrollbar{display:none}
+    .tabs button{flex:0 0 auto;white-space:nowrap;min-height:44px;padding:8px 14px}
+    .secnav{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+    .secnav::-webkit-scrollbar{display:none}
+    .secnav a,.secnav button{flex:0 0 auto;min-height:40px}
+    .secnav .spacer{display:none}
+    .card{scroll-margin-top:calc(var(--hdrH,57px) + 73px)}
+    .card{padding:14px;border-radius:12px;margin-bottom:12px}
+    .card h2{font-size:16px}
+    .item{padding:11px 12px}
+    .idesc,.icase{font-size:13px}
+    .anchor{display:flex;flex-wrap:wrap;gap:8px 12px;padding:10px 12px}
+    .anchor a{margin-right:0;min-height:36px;display:inline-flex;align-items:center;padding:2px 6px}
+    .homework{font-size:12.5px}
+    /* 宽表在手机上横向滑动，不压缩文字 */
+    table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:normal}
+    th,td{padding:8px}
+    td.k{width:auto}
+    th:first-child,td:first-child{position:sticky;left:0;background:#faf8f2;z-index:2}
+    tbody td:first-child{background:#fff}
+  }
+  .stickyhead{position:sticky;top:var(--hdrH,57px);z-index:20;background:var(--bg);padding:6px 0 2px;
+    border-bottom:1px solid transparent}
+  .sitehdr.stuck{box-shadow:0 8px 18px -14px rgba(0,0,0,.45)}
+  .stickyhead.stuck{border-bottom-color:var(--line);box-shadow:0 4px 10px -8px rgba(0,0,0,.25)}
+  .secnav{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 6px}
+  .secnav a,.secnav button{display:inline-flex;align-items:center;min-height:32px;border:1px solid var(--line);
+    background:#fff;border-radius:999px;padding:4px 12px;font-size:12.5px;color:var(--ink);
+    text-decoration:none;cursor:pointer;white-space:nowrap}
+  .secnav a:hover,.secnav button:hover{border-color:var(--brand);color:var(--brand)}
+  .secnav .spacer{flex:1}
+  .card{scroll-margin-top:calc(var(--hdrH,57px) + 53px)}
+  .card h2 .ctog{margin-left:auto;border:1px solid var(--line);background:var(--bg);border-radius:8px;
+    font-size:11.5px;color:var(--sub);padding:2px 10px;cursor:pointer;font-weight:400}
+  .card.collapsed .card-body{display:none}
+  .card.collapsed .card h2{margin-bottom:0}
+  .to-top{position:fixed;right:14px;bottom:calc(18px + env(safe-area-inset-bottom));
+    width:44px;height:44px;border-radius:50%;align-items:center;justify-content:center;
+    background:#fff;border:1px solid var(--line);box-shadow:0 1px 4px rgba(60,50,30,.08);
+    font-size:18px;color:var(--sub);cursor:pointer;z-index:30;opacity:0;pointer-events:none;transition:opacity .2s;display:flex}
+  .to-top.show{opacity:1;pointer-events:auto}
+
+  /* ===== 站点头部（五页统一） ===== */
+  .sitehdr{background:#fff;border-bottom:1px solid var(--line,#e8e3d7);position:sticky;top:0;z-index:60;
+    transition:box-shadow .18s}
+  .hdr{max-width:1120px;margin:0 auto;padding:11px 16px;display:flex;align-items:center;gap:16px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;flex:0 0 auto}
+  .mark{width:34px;height:34px;border-radius:9px;background:var(--brand,#3d7a5f);color:#fff;
+    display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .mark svg{display:block;width:21px;height:21px}
+  .bt{display:flex;flex-direction:column;line-height:1.15}
+  .bt b{font-size:16.5px;letter-spacing:.6px}
+  .bt i{font-style:normal;font-size:11.5px;color:var(--sub,#6b675e);margin-top:3px}
+  .navmenu{margin-left:auto;display:flex;gap:2px;align-items:center}
+  .navmenu a{font-size:13.5px;color:var(--sub,#6b675e);text-decoration:none;padding:8px 12px;
+    border-radius:9px;white-space:nowrap}
+  .navmenu a:hover{background:var(--bg,#f6f4ee);color:var(--ink,#2b2b28)}
+  .navmenu a.on{background:#e7f1ec;color:#2b5a44;font-weight:600}
+  .k12{display:inline-block;margin-left:5px;font-size:11px;font-weight:700;color:#fff;background:var(--brand);border-radius:5px;padding:1px 5px;vertical-align:2px;letter-spacing:.4px}
+  .navbtn{display:none;margin-left:auto;width:42px;height:42px;border:1px solid var(--line,#e8e3d7);
+    background:#fff;border-radius:10px;font-size:17px;cursor:pointer;color:var(--ink,#2b2b28)}
+  .phead{padding:18px 0 6px}
+  .phead h1{font-size:22px;letter-spacing:.4px}
+  .phead .lead{color:var(--sub,#6b675e);font-size:13.5px;margin-top:6px}
+  @media(max-width:760px){
+    .hdr{padding:8px 14px;gap:10px}
+    .navbtn{display:flex;align-items:center;justify-content:center}
+    .navmenu{display:none;position:absolute;left:0;right:0;top:100%;background:#fff;
+      border-bottom:1px solid var(--line,#e8e3d7);box-shadow:0 10px 22px -16px rgba(0,0,0,.35);
+      padding:8px 12px 12px;flex-direction:column;align-items:stretch;gap:2px}
+    .navmenu.open{display:flex}
+    .navmenu a{padding:12px 10px;min-height:44px;display:flex;align-items:center;font-size:14px}
+    .bt b{font-size:15.5px}
+    .bt i{font-size:11px}
+    .mark{width:30px;height:30px;font-size:15px;border-radius:8px}
+    .phead{padding:14px 0 4px}
+    .phead h1{font-size:19px}
+  }
+  @media print{.sitehdr,.navbtn{display:none !important}}
+  .hdr{max-width:1000px}
+</style>
+</head>
+<body>
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<header class="sitehdr">
+  <div class="hdr">
+    <a class="brand" href="index.html">
+      <span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#fff" stroke-linecap="round"><path d="M6.5 5.2v13.6" stroke-width="2.7"/><path d="M10.6 8 20.6 6.2M10.6 12h10M10.6 16 20.6 17.8" stroke-width="2"/></svg></span>
+      <span class="bt"><b>起步线<span class="k12">K12</span></b><i>家庭学习导航 · 小学到高中</i></span>
+    </a>
+    <nav class="navmenu" id="navMenu">
+      <a href="index.html">学习规划</a>
+      <a href="courses.html" class="on">课程推荐</a>
+      <a href="resources.html">资料清单</a>
+      <a href="textbooks.html">教材目录</a>
+      <a href="standards.html">能力要求</a>
+      <a href="competitions.html">赛事白名单</a>
+      <a href="weekly-check.html">每周打卡</a>
+    </nav>
+    <button class="navbtn" id="navBtn" aria-label="打开菜单" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="phead">
+    <h1>推荐课程</h1>
+  <p class="lead">分两类：<b>课内</b>（10 门，跟教材与学校进度走）和 <b>课外</b>（8 个模块，按兴趣选）。每门给 1 条主线 + 少量加餐，不要求全学。</p>
+  </section>
+  <div class="notice">
+    推荐原则：<b>官方平台 / 出版社教材 / 有署名的正式课程</b>优先；公众号、小红书、视频号只给<b>检索关键词与甄别标准</b>，不点名具体博主——这类账号内容质量波动大，且常与带货绑定。
+  </div>
+
+  <div class="stickyhead" id="stickyhead">
+    <div class="tabs" id="tabs"></div>
+    <nav class="secnav" id="secnav"></nav>
+  </div>
+  <div id="panels"></div>
+
+  <section class="card">
+    <h2><span class="bar" style="background:var(--brand)"></span>各渠道怎么用：一句话取舍</h2>
+    <table>
+      <thead><tr><th>渠道</th><th>适合拿来做什么</th><th>注意</th></tr></thead>
+      <tbody>
+        <tr><td class="k">国家平台</td><td>课内同步微课、电子教材、美育/科学/劳动资源</td><td>最稳、免费、无版权风险，做主线</td></tr>
+        <tr><td class="k">出版社 / 图书</td><td>体系化教材与练习（DK、牛津、Jolly 等）</td><td>买正版；图书可反复用，比网课便宜</td></tr>
+        <tr><td class="k">GitHub</td><td>开源工具：口算练习、错题本、教材检索</td><td>看 star 数、最近提交时间、有无 issue 回复</td></tr>
+        <tr><td class="k">B站</td><td>成套免费课程、示范视频（书法、讲解）</td><td>优先"合集/系列"，看是否成体系而非碎片</td></tr>
+        <tr><td class="k">公众号</td><td>书单、方法文、导读</td><td>当"选书参考"用，别当课程主线</td></tr>
+        <tr><td class="k">小红书 / 视频号</td><td>书单、经验、避坑、示范片段</td><td>信息密度低、软广多；只取"书名/教材名"再自己核实</td></tr>
+      </tbody>
+    </table>
+    <div class="homework">
+      <b>通用甄别三条：</b>① 是否说清"适合几年级、什么基础"；② 是否给出可执行节奏（每天多少分钟、几周完成）；③ 是否只在卖课。三条缺两条，就只当参考，不进主线。
+    </div>
+  </section>
+
+  <footer>本页仅作课程与资源方向参考，不构成购买建议；付费课程请先试听，书单以统编教材与正规出版社为主。</footer>
+</div>
+
+<script>
+const TABS=[
+  {id:"in",name:"课内（10 门 · 跟教材走）"},
+  {id:"out",name:"课外（8 模块 · 按兴趣选）"}
+];
+
+/* ==================== 课内 ==================== */
+const K_CN=`
+<div class="card">
+  <h2><span class="bar" style="background:var(--cn)"></span>语文<span class="st st-in">课内</span></h2>
+  <div class="sub">语文的主线只有一条：教材。国家平台提供同名教材的同步微课，用来补"没听懂的那一课"。</div>
+  <div class="items">
+    <div class="item">
+      <div class="ihead"><span class="iname">国家中小学智慧教育平台 · 小学语文同步课</span><span class="tag t-ch">官方平台</span><span class="tag t-gr">1–6年级</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">按教材版本、年级、单元筛课，一课一知识点，配套电子课本。<b>这是课内主线</b>：预习看一遍，没懂的再回看。</p>
+      <p class="icase">用法：不整册刷完，只在"今天要上的这一课"里挑 10 分钟看；看完立刻回到课本读课文。</p>
+      <p class="ilink"><a href="https://www.zxx.edu.cn" target="_blank" rel="noopener">zxx.edu.cn → 课程教学 → 小学语文</a></p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">统编教材「快乐读书吧」</span><span class="tag t-book">随课本</span><span class="tag t-gr">1–6年级</span></div>
+      <p class="idesc">每学期一个整本书主题（童谣、童话、寓言、神话、科普、民间故事、古典名著、成长故事、外国名著），书目固定跟学期走。</p>
+      <p class="icase">用法：学期读完该主题即可，具体书单见 <a href="resources.html">资料清单页</a>。</p>
+    </div>
+  </div>
+  <div class="homework"><b>加餐（可选）：</b>《日有所诵》（亲近母语，一天一首，5 分钟）用来补语感；古诗背诵以课标 1–6 年级 75 篇为准，不必超纲加量。</div>
+</div>`;
+
+const K_MATH=`
+<div class="card">
+  <h2><span class="bar" style="background:var(--math)"></span>数学<span class="st st-in">课内</span></h2>
+  <div class="sub">数学重点不是刷题量，而是"把概念看懂"。主线两条，其余都是加餐。</div>
+  <div class="items">
+    <div class="item">
+      <div class="ihead"><span class="iname">国家中小学智慧教育平台 · 小学数学同步微课</span><span class="tag t-ch">官方平台</span><span class="tag t-gr">1–6年级</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">一课一知识点，按教材版本筛课。<b>课内主线</b>：新课前当预习，卡住的地方回看。</p>
+      <p class="icase">用法：每节 10–20 分钟，看的是"为什么这样算"，不是看完就算学完。</p>
+      <p class="ilink"><a href="https://www.zxx.edu.cn" target="_blank" rel="noopener">zxx.edu.cn → 课程教学 → 小学数学</a></p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">DK《图解数学》（清华大学出版社）</span><span class="tag t-book">图书</span><span class="tag t-gr">2–6年级</span><span class="tag t-paid">购买</span></div>
+      <p class="idesc">用图示讲运算、测量、几何、统计、代数，覆盖小学核心知识点。适合"文字看不进去、对图敏感"的孩子。</p>
+      <p class="icase">用法：当工具书查，不按顺序读；课上没懂的章节翻对应页。中高年级收益更大。</p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">ChinaTextbook · 中小学教材 PDF 合集</span><span class="tag t-ch">GitHub</span><span class="tag t-gr">1–12年级</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">按版本/学段/年级/学科整理的人教版、北师大版、苏教版教材电子版，找课本方便。</p>
+      <p class="icase">用法：忘带课本、想提前看下学期内容时查；<b>长期使用仍建议备纸质正版课本</b>。</p>
+      <p class="ilink"><a href="https://github.com/TapXWorld/ChinaTextbook" target="_blank" rel="noopener">github.com/TapXWorld/ChinaTextbook</a></p>
+    </div>
+  </div>
+  <div class="homework"><b>加餐（可选其一）：</b>口算类小工具见「课外 · 数学思维」；奥数类课程只在学有余力时接触，<b>不替代课内练习</b>。</div>
+</div>`;
+
+const K_ENG=`
+<div class="card">
+  <h2><span class="bar" style="background:var(--eng)"></span>英语<span class="st st-in">课内</span></h2>
+  <div class="sub">课内主线是"教材 + 分级读物"；自然拼读放在课外模块，两者不冲突。</div>
+  <div class="items">
+    <div class="item">
+      <div class="ihead"><span class="iname">国家平台 · 小学英语同步课 + 教材音频</span><span class="tag t-ch">官方平台</span><span class="tag t-gr">3–6年级</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">按教材版本筛课，含配套音频与课件。<b>课内主线</b>：先听教材音频，再跟读，最后看书。</p>
+      <p class="icase">用法：每天 10–15 分钟"听—跟读—读一遍"，比做练习册有用。</p>
+      <p class="ilink"><a href="https://www.zxx.edu.cn" target="_blank" rel="noopener">zxx.edu.cn → 课程教学 → 小学英语</a></p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">分级读物主线：RAZ 或牛津树（二选一）</span><span class="tag t-book">分级读物</span><span class="tag t-gr">1–6年级</span><span class="tag t-paid">订阅或购书</span></div>
+      <p class="idesc">RAZ 29 级 aa–Z 坡度缓；牛津树故事性强。课内学教材，课外靠分级读物积累阅读量。</p>
+      <p class="icase">用法：每天 1–2 本，同一本连读 2–3 天；级别对照见 <a href="resources.html">资料清单</a>。</p>
+    </div>
+  </div>
+  <div class="homework"><b>免费配套：</b>Oxford Owl（免费电子书，可对齐牛津级别）、LearnEnglish Kids（儿歌与互动游戏）、Starfall（低年级拼读启蒙）。三选二即可，别开太多。</div>
+</div>`;
+
+const K_SCI=`
+<div class="card">
+  <h2><span class="bar" style="background:var(--sci)"></span>科学<span class="st st-in">课内</span></h2>
+  <div class="sub">科学课（多数地区 3 年级起独立开设）的核心是"动手 + 记录"，视频只做补充。</div>
+  <div class="items">
+    <div class="item">
+      <div class="ihead"><span class="iname">国家平台 · 小学科学同步课</span><span class="tag t-ch">官方平台</span><span class="tag t-gr">3–6年级</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">按教科版/苏教版等版本筛课，含实验演示。<b>课内主线</b>：先看实验怎么做，再自己动手复现。</p>
+      <p class="icase">用法：每周 1 次，看完写下"猜想—做法—结果"三行，比背结论有用。</p>
+      <p class="ilink"><a href="https://www.zxx.edu.cn" target="_blank" rel="noopener">zxx.edu.cn → 课程教学 → 小学科学</a></p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">中国科技馆 · 线上科学课与实验</span><span class="tag t-ch">官方场馆</span><span class="tag t-gr">1–6年级</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">展览导览、动手实验视频、科学课，适合周末当"科学加餐"。</p>
+      <p class="ilink"><a href="https://www.cstm.org.cn" target="_blank" rel="noopener">cstm.org.cn</a></p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">DK 儿童百科 / 科普绘本</span><span class="tag t-book">图书</span><span class="tag t-gr">1–6年级</span><span class="tag t-paid">购买或借阅</span></div>
+      <p class="idesc">图解式非虚构读物，补"科学阅读"的量；图书馆借阅最划算。</p>
+      <p class="icase">用法：当作自由阅读，不要求做笔记；读完让他提一个问题，家长一起查答案。</p>
+    </div>
+  </div>
+  <div class="homework"><b>提醒：</b>家庭实验只用厨房材料（水、盐、醋、小苏打、磁铁、手电），<b>不碰电、火、化学试剂</b>；全程有大人。</div>
+</div>`;
+
+const K_MOR=`
+<div class="card">
+  <h2><span class="bar" style="background:var(--mor)"></span>道德与法治<span class="st st-in">课内</span></h2>
+  <div class="sub">这门课不靠刷题，靠"讨论 + 做到"。教材案例就是最好的话题库。</div>
+  <div class="items">
+    <div class="item">
+      <div class="ihead"><span class="iname">统编教材 + 国家平台同步课</span><span class="tag t-ch">官方平台</span><span class="tag t-gr">1–6年级</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">教材每课一个小情境，平台有配套微课。<b>主线</b>：读完情境，问"如果是你，会怎么做，为什么"。</p>
+      <p class="icase">用法：每周 2 次、每次 10 分钟，重在说理由，不背标准答案。</p>
+      <p class="ilink"><a href="https://www.zxx.edu.cn" target="_blank" rel="noopener">zxx.edu.cn → 课程教学 → 道德与法治</a></p>
+    </div>
+  </div>
+  <div class="homework"><b>家庭加餐：</b>① 每周一件"对家庭有用的小事"（倒垃圾、照顾老人）；② 讨论一条新闻里的对与错（只讨论行为，不评价人）；③ 网络安全三条：不泄露信息、不传谣、遇事告诉家长。</div>
+</div>`;
+
+const K_PE=`
+<div class="card">
+  <h2><span class="bar" style="background:var(--pe)"></span>体育与健康<span class="st st-in">课内</span></h2>
+  <div class="sub">每天户外 1 小时，比任何"课程"都重要。体测项目从一年级就可以开始练。</div>
+  <div class="items">
+    <div class="item">
+      <div class="ihead"><span class="iname">学校体育课 + 每天户外 1 小时</span><span class="tag t-gr">1–6年级</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">课内主线就是体育课与课间活动，家庭只负责"补足户外时间"和"陪练体测项目"。</p>
+      <p class="icase">用法：每天固定时段出门（跑、跳、球、骑车），雨天改室内跳绳与核心练习。</p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">《国家学生体质健康标准》测试项目</span><span class="tag t-ch">国家标准</span><span class="tag t-gr">1–6年级</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">小学主要测：一分钟跳绳、坐位体前屈、50 米跑、仰卧起坐（3 年级起）、肺活量等。评分标准公开，可按年级查。</p>
+      <p class="icase">用法：每月自测一次记录成绩，只和自己上月比，不做横向排名。</p>
+    </div>
+  </div>
+  <div class="homework"><b>提醒：</b>睡眠是"体育"的一部分——小学生每天 10 小时。运动后不立刻坐下、不空腹剧烈运动。</div>
+</div>`;
+
+const K_ART=`
+<div class="card">
+  <h2><span class="bar" style="background:var(--art)"></span>音乐 · 美术<span class="st st-in">课内</span></h2>
+  <div class="sub">艺术两科在课内是"体验 + 表达"，家庭只需要提供材料与看展机会。</div>
+  <div class="items">
+    <div class="item">
+      <div class="ihead"><span class="iname">国家平台 · 音乐 / 美术同步课 + 美育资源</span><span class="tag t-ch">官方平台</span><span class="tag t-gr">1–6年级</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">教材同步课、名曲名画赏析、书法篆刻欣赏。课内主线：跟着教材唱、画、看。</p>
+      <p class="ilink"><a href="https://www.zxx.edu.cn" target="_blank" rel="noopener">zxx.edu.cn → 课程教学 → 音乐 / 美术</a></p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">故宫博物院 · 数字文物库</span><span class="tag t-ch">官方场馆</span><span class="tag t-gr">1–6年级</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">高清书画与器物图像，看真迹细节；配合美术欣赏与书法临摹。</p>
+      <p class="icase">用法：每周看一件，问"你最喜欢哪里、为什么"。</p>
+      <p class="ilink"><a href="https://digicol.dpm.org.cn" target="_blank" rel="noopener">digicol.dpm.org.cn</a></p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">一件小乐器（口风琴 / 竖笛 / 尤克里里）</span><span class="tag t-book">乐器</span><span class="tag t-gr">2年级起</span><span class="tag t-paid">购买</span></div>
+      <p class="idesc">课内音乐课的延伸：能自己吹/弹一首完整的曲子，比"学过很多乐器"更有成就感。</p>
+    </div>
+  </div>
+  <div class="homework"><b>提醒：</b>艺术不要考级驱动。小学阶段的目标是"敢唱、敢画、看得懂"，每周留 2–3 次自由创作时间。</div>
+</div>`;
+
+const K_LAB=`
+<div class="card">
+  <h2><span class="bar" style="background:var(--lab)"></span>劳动<span class="st st-in">课内</span></h2>
+  <div class="sub">劳动课标有 10 个任务群，家庭最容易落地的是前四个。</div>
+  <div class="items">
+    <div class="item">
+      <div class="ihead"><span class="iname">课标 10 个任务群（1–6 年级逐步覆盖）</span><span class="tag t-ch">课程标准</span><span class="tag t-gr">1–6年级</span></div>
+      <p class="idesc">清洁与卫生、整理与收纳、烹饪与营养、家用器具使用与维护、农业生产劳动、传统工艺制作、工业生产劳动、新技术体验与应用、现代服务业劳动、公益劳动与志愿服务。</p>
+      <p class="icase">用法：每学期挑 2 个任务群做到"能独立完成"，比如"整理与收纳 + 烹饪与营养"。</p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">国家平台 · 劳动教育 / 课后服务资源</span><span class="tag t-ch">官方平台</span><span class="tag t-gr">1–6年级</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">劳动课程示范、手工与种植教程，学校布置劳动作业时看示范。</p>
+      <p class="ilink"><a href="https://www.zxx.edu.cn" target="_blank" rel="noopener">zxx.edu.cn（检索"劳动"）</a></p>
+    </div>
+  </div>
+  <div class="homework"><b>家庭清单（按年级递进）：</b>1–2 年级整理书包与餐桌；3–4 年级洗碗、晾衣、做凉拌菜；5–6 年级独立做一顿饭、简单维修、参与一次志愿服务。</div>
+</div>`;
+
+const K_IT=`
+<div class="card">
+  <h2><span class="bar" style="background:var(--it)"></span>信息科技<span class="st st-in">课内</span></h2>
+  <div class="sub">信息科技课（3 年级起独立开设）不是"学软件"，是"懂原理、会调试"。</div>
+  <div class="items">
+    <div class="item">
+      <div class="ihead"><span class="iname">国家平台 · 信息科技同步课</span><span class="tag t-ch">官方平台</span><span class="tag t-gr">3–8年级</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">覆盖数据与编码、身边的算法、过程与控制等内容模块。<b>课内主线</b>，按教材单元走。</p>
+      <p class="ilink"><a href="https://www.zxx.edu.cn" target="_blank" rel="noopener">zxx.edu.cn → 课程教学 → 信息科技</a></p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">Code.org · 不插电活动与分龄课程</span><span class="tag t-ch">官网</span><span class="tag t-gr">1–6年级</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">有中文，含"不插电"纸面活动（排序、指令、模式识别），1–2 年级没有信息科技课时正好用这个。</p>
+      <p class="ilink"><a href="https://code.org" target="_blank" rel="noopener">code.org</a></p>
+    </div>
+  </div>
+  <div class="homework"><b>屏幕时间：</b>1–2 年级每天不超过 20 分钟，3–4 年级不超过 30 分钟；用完即走，不在床上用。</div>
+</div>`;
+
+const IN_PANEL=`
+<div class="anchor">
+  <b>课内 10 门：</b>
+  <a href="#k-cn">语文</a><a href="#k-math">数学</a><a href="#k-eng">英语</a><a href="#k-sci">科学</a><a href="#k-mor">道德与法治</a><a href="#k-pe">体育与健康</a><a href="#k-art">音乐·美术</a><a href="#k-lab">劳动</a><a href="#k-it">信息科技</a>
+</div>
+<div id="k-cn">${K_CN}</div>
+<div id="k-math">${K_MATH}</div>
+<div id="k-eng">${K_ENG}</div>
+<div id="k-sci">${K_SCI}</div>
+<div id="k-mor">${K_MOR}</div>
+<div id="k-pe">${K_PE}</div>
+<div id="k-art">${K_ART}</div>
+<div id="k-lab">${K_LAB}</div>
+<div id="k-it">${K_IT}</div>
+<div class="card">
+  <h2><span class="bar" style="background:var(--brand)"></span>课内的时间怎么分</h2>
+  <table>
+    <thead><tr><th>科目</th><th>九年课时占比</th><th>家庭每天要做什么</th></tr></thead>
+    <tbody>
+      <tr><td class="k">语文</td><td>20%–22%</td><td>朗读 10–15 分钟 + 写字/听写</td></tr>
+      <tr><td class="k">数学</td><td>13%–15%</td><td>口算/计算一组 + 应用题 1–2 道</td></tr>
+      <tr><td class="k">体育与健康</td><td>10%–11%</td><td>户外 1 小时（不含屏幕）</td></tr>
+      <tr><td class="k">艺术（音乐/美术）</td><td>9%–11%</td><td>每周 2–3 次，每次 15–20 分钟</td></tr>
+      <tr><td class="k">科学</td><td>8%–10%</td><td>每周 1 次实验 + 观察记录</td></tr>
+      <tr><td class="k">外语</td><td>6%–8%</td><td>每天听读 10–15 分钟</td></tr>
+      <tr><td class="k">道德与法治</td><td>6%–8%</td><td>每周 2 次讨论（10 分钟）</td></tr>
+      <tr><td class="k">劳动</td><td>每周 ≥1 课时</td><td>每天 10 分钟家务</td></tr>
+      <tr><td class="k">信息科技</td><td>1%–3%</td><td>每周 2 次，20 分钟以内</td></tr>
+    </tbody>
+  </table>
+  <div class="homework"><b>一句话：</b>课内按课时占比分配家庭时间——语文最多，其次数学，体育要"真出门"；信息科技与劳动每周有固定动作即可。</div>
+</div>`;
+
+/* ==================== 课外 ==================== */
+const O_CALL=`
+<div class="card">
+  <h2><span class="bar" style="background:var(--call)"></span>书法<span class="st st-out">课外</span></h2>
+  <div class="sub">书法最大的坑是"报了课但不练"。选一条跟课本生字同步的，学一课练一课。</div>
+  <div class="items">
+    <div class="item">
+      <div class="ihead"><span class="iname">荆霄鹏《零基础学楷书》（B站课堂 · 墨点课堂）</span><span class="tag t-ch">B站</span><span class="tag t-gr">2–6年级</span><span class="tag t-paid">付费</span></div>
+      <p class="idesc">262 课时，从握笔讲起：基础知识 → 笔画（37 课）→ 偏旁部首（160 课）→ 间架结构（53 课）→ 章法作品。主讲人为国标书法教材副主编，体系完整。</p>
+      <p class="icase">用法：<b>按章节挑着看</b>，孩子本周写什么字就看对应偏旁那几节；一次 10 分钟，看完立刻动笔。</p>
+      <p class="ilink"><a href="https://www.bilibili.com/cheese/play/ep22395" target="_blank" rel="noopener">bilibili.com · 课程页</a></p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">《童嘉优 · 小学生写好字》</span><span class="tag t-ch">课程</span><span class="tag t-gr">1–5年级</span><span class="tag t-paid">付费</span></div>
+      <p class="idesc">按年级与教材生字同步，每学期一册，附字帖。"今天学哪课，就练哪课的生字"，家长不用另找内容。</p>
+      <p class="icase">用法：跟语文进度走，一课练 15–20 分钟；字帖留存，一学期对比一次。</p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">国家平台 · 书法 / 美育资源</span><span class="tag t-ch">官方平台</span><span class="tag t-gr">1–6年级</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">教学频道有书法教学资源，美育频道有书法篆刻欣赏，课后服务频道有院校书法课。</p>
+      <p class="ilink"><a href="https://www.zxx.edu.cn" target="_blank" rel="noopener">zxx.edu.cn（检索"书法/硬笔"）</a></p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">毛笔：楷书四家碑帖（3 年级起可选）</span><span class="tag t-book">碑帖</span><span class="tag t-gr">3–6年级</span><span class="tag t-paid">购买</span></div>
+      <p class="idesc">《九成宫醴泉铭》（欧阳询，严谨）、《多宝塔碑》（颜真卿，厚重）、《玄秘塔碑》（柳公权，劲健）、《胆巴碑》（赵孟頫，秀润）。</p>
+      <p class="icase">用法：<b>只选一家、一本，临 3 个月以上再谈换</b>；每周 2–3 次，每次 20–30 分钟。买原碑拓本影印。</p>
+    </div>
+  </div>
+  <div class="homework"><b>省钱方案：</b>硬笔不必买课——教材同步字帖 + 国家平台示范 + 家长对照批改就够小学用；毛笔再考虑报班。</div>
+</div>`;
+
+const O_CODE=`
+<div class="card">
+  <h2><span class="bar" style="background:var(--code)"></span>编程<span class="st st-out">课外</span></h2>
+  <div class="sub">顺序：图形化（Scratch）→ 硬件（micro:bit）→ Python。小学阶段不需要考级驱动。</div>
+  <div class="items">
+    <div class="item">
+      <div class="ihead"><span class="iname">Scratch（MIT 官方）</span><span class="tag t-ch">官网</span><span class="tag t-gr">1–6年级（建议 2 年级起）</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">图形化积木编程，中文界面，浏览器直接用。<b>主线</b>：每两周做完一个小项目（动画、问答、小游戏）。</p>
+      <p class="icase">用法：先模仿官方示例改一改，再自己做；做完讲给家人听"这一步是干什么的"。</p>
+      <p class="ilink"><a href="https://scratch.mit.edu" target="_blank" rel="noopener">scratch.mit.edu</a></p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">Code.org · 分龄课程（含中文）</span><span class="tag t-ch">官网</span><span class="tag t-gr">1–6年级</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">体系化课程 A–F，按年龄递进，含不插电活动。<b>适合当 Scratch 之前的启蒙</b>，也适合作为学校信息课的补充。</p>
+      <p class="ilink"><a href="https://code.org" target="_blank" rel="noopener">code.org</a></p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">micro:bit / 开源硬件（4 年级起可选）</span><span class="tag t-book">硬件</span><span class="tag t-gr">4–6年级</span><span class="tag t-paid">购买（百元级）</span></div>
+      <p class="idesc">让程序"动起来"：灯、马达、传感器。对"看得见结果"的孩子吸引力最大。</p>
+      <p class="icase">用法：先做一个"按钮亮灯"，再做"温度报警器"，一个项目一个概念。</p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">Python 海龟绘图（5 年级起）</span><span class="tag t-ch">工具</span><span class="tag t-gr">5–6年级</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">从图形化过渡到真代码：变量、循环、条件、函数，用它画图形与小游戏。</p>
+      <p class="icase">用法：每周 2 次、每次 30 分钟；先照着画一个正方形，再改成自己的图形。</p>
+    </div>
+  </div>
+  <div class="homework"><b>公众号 / 小红书 / B站怎么用：</b>检索关键词"Scratch 项目教程 小学""micro:bit 入门 项目""不插电 编程 游戏"；只取项目点子，教学还是回到官方文档。</div>
+</div>`;
+
+const O_READ=`
+<div class="card">
+  <h2><span class="bar" style="background:var(--read)"></span>大阅读<span class="st st-out">课外</span></h2>
+  <div class="sub">别同时用三份书单。以教材栏目为准，再用一个分级体系做补充。</div>
+  <div class="items">
+    <div class="item">
+      <div class="ihead"><span class="iname">亲近母语 · 中文分级阅读体系</span><span class="tag t-ch">机构 / 公众号</span><span class="tag t-gr">L1–L6（1–6年级）</span><span class="tag t-paid">部分付费</span></div>
+      <p class="idesc">公开出版《中文分级阅读标准》，按年级给 L1–L6 分级与《中国小学生分级阅读书目》（每年 4 月发布）；出版《日有所诵》《中文分级阅读文库》。</p>
+      <p class="icase">用法：拿年度书目当"选书清单"，挑孩子感兴趣的，不必整套买。</p>
+      <p class="ilink"><a href="https://www.qjmy.cn" target="_blank" rel="noopener">qjmy.cn</a></p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">国家智慧教育读书平台</span><span class="tag t-ch">官方平台</span><span class="tag t-gr">全学段</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">经典阅读、传统文化栏目，免费且无版权风险，作为补充读物入口。</p>
+      <p class="ilink"><a href="https://www.smartedu.cn" target="_blank" rel="noopener">smartedu.cn</a></p>
+    </div>
+  </div>
+  <table style="margin-top:14px">
+    <thead><tr><th>渠道</th><th>能拿到什么</th><th>风险</th></tr></thead>
+    <tbody>
+      <tr><td class="k">教材</td><td>固定书目、跟学期走</td><td>无，最可靠</td></tr>
+      <tr><td class="k">亲近母语</td><td>年度分级书目、导读</td><td>体系完整，部分内容需付费</td></tr>
+      <tr><td class="k">公众号</td><td>书单、导读、共读方法</td><td>软广与带货，书单同质化</td></tr>
+      <tr><td class="k">小红书</td><td>同龄孩子在读什么、避坑</td><td>碎片、易攀比阅读量</td></tr>
+      <tr><td class="k">视频号</td><td>朗读示范、讲书</td><td>别变成"看别人读"</td></tr>
+    </tbody>
+  </table>
+  <div class="homework"><b>一条铁律：</b>任何渠道推荐的书，先判断"孩子能否独立读懂 80%"——读不懂就降一级，不要按年级硬套。</div>
+</div>`;
+
+const O_EXT=`
+<div class="card">
+  <h2><span class="bar" style="background:var(--ext)"></span>英语拓展（自然拼读 + 分级阅读）<span class="st st-out">课外</span></h2>
+  <div class="sub">自然拼读是"见词能读、听音能写"的地基。市面主流两套，<b>二选一</b>，不要混着上。</div>
+  <div class="items">
+    <div class="item">
+      <div class="ihead"><span class="iname">Oxford Phonics World（牛津自然拼读世界）</span><span class="tag t-book">教材·牛津大学出版社</span><span class="tag t-gr">5–9岁 / 1–3年级</span><span class="tag t-paid">购买</span></div>
+      <p class="idesc">5 个级别、每级 8 单元，覆盖 44 个音素：字母表 → 短元音 → 长元音 → 辅音组合 → 字母组合。规则归纳式教学，配读本与音频。</p>
+      <p class="icase">用法：一级约 2–3 个月，每天 15 分钟；配 Oxford Owl 免费电子书同步读。<b>零基础或大童（6 岁以上能坐住）优先这套。</b></p>
+      <p class="ilink"><a href="https://www.oup.com.cn/zh/english-learning/preschool/oxford-phonics-world" target="_blank" rel="noopener">牛津大学出版社中文站</a></p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">Jolly Phonics（英式自然拼读）</span><span class="tag t-book">教材·Jolly Learning</span><span class="tag t-gr">3–6岁 / 幼小衔接</span><span class="tag t-paid">购买</span></div>
+      <p class="idesc">42 个字母音，分 7 组、每组一周；每个音配动作 + 儿歌 + 故事，多感官记忆。英国 DfE 认证体系。</p>
+      <p class="icase">用法：每天 10–15 分钟"玩着学"，半年走完 42 音。<b>低龄、听力词汇不足 500 的孩子更适合。</b></p>
+      <p class="ilink"><a href="https://jollylearning.com/en-gb/our-programmes/jolly-phonics" target="_blank" rel="noopener">jollylearning.com</a></p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">RAZ（Reading A-Z）/ 牛津树 分级阅读</span><span class="tag t-book">分级读物</span><span class="tag t-gr">1–6年级</span><span class="tag t-paid">订阅或购书</span></div>
+      <p class="idesc">RAZ 29 级 aa–Z，虚构与非虚构都有，坡度很缓；牛津树故事性强、更有趣。拼读学完后接其中一套。</p>
+      <p class="icase">用法：每天 1–2 本，同一本连读 2–3 天；级别对照见 <a href="resources.html">资料清单</a>。<b>只用 RAZ 会缺非虚构深度，需补科普读物。</b></p>
+      <p class="ilink"><a href="https://www.learninga-z.com/site/products/raz-kids/overview" target="_blank" rel="noopener">learninga-z.com</a></p>
+    </div>
+  </div>
+  <table style="margin-top:14px">
+    <thead><tr><th>怎么选</th><th>Oxford Phonics World</th><th>Jolly Phonics</th></tr></thead>
+    <tbody>
+      <tr><td class="k">年龄</td><td>5–9 岁，尤其 6 岁以上</td><td>3–6 岁，幼小衔接</td></tr>
+      <tr><td class="k">基础</td><td>认识字母、能坐 15 分钟</td><td>几乎零基础、听力词汇少</td></tr>
+      <tr><td class="k">方式</td><td>先讲规则 → 再练拼读</td><td>动作 + 儿歌 → 边玩边记</td></tr>
+      <tr><td class="k">节奏</td><td>5 级，一年半左右走完</td><td>42 音，约半年走完</td></tr>
+    </tbody>
+  </table>
+  <div class="homework"><b>不要同时开多套：</b>拼读一套教材 + 一套读物，加起来每天 15–20 分钟，坚持比"买得多"有效。</div>
+</div>
+
+<div class="card">
+  <h2><span class="bar" style="background:var(--ext)"></span>免费配套（每天都能用）</h2>
+  <div class="items">
+    <div class="item">
+      <div class="ihead"><span class="iname">Oxford Owl 免费电子书库</span><span class="tag t-ch">官网</span><span class="tag t-gr">3–11岁</span><span class="tag t-free">免费注册</span></div>
+      <p class="idesc">按 Oxford Level / Book Band / Phonics 筛选，能和拼读进度对齐。</p>
+      <p class="ilink"><a href="https://www.oxfordowl.co.uk" target="_blank" rel="noopener">oxfordowl.co.uk</a></p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">LearnEnglish Kids（英国文化教育协会）</span><span class="tag t-ch">官网</span><span class="tag t-gr">5–12岁</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">儿歌、互动游戏、分级故事、绕口令，磨耳朵与跟读最合适，无广告。</p>
+      <p class="ilink"><a href="https://learnenglishkids.britishcouncil.org" target="_blank" rel="noopener">learnenglishkids.britishcouncil.org</a></p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">Starfall</span><span class="tag t-ch">官网</span><span class="tag t-gr">学前–2年级</span><span class="tag t-free">部分免费</span></div>
+      <p class="idesc">自然拼读与高频词互动练习，低年级启蒙，非营利机构运营、无广告。</p>
+      <p class="ilink"><a href="https://www.starfall.com/h/" target="_blank" rel="noopener">starfall.com</a></p>
+    </div>
+  </div>
+</div>`;
+
+const O_THINK=`
+<div class="card">
+  <h2><span class="bar" style="background:var(--think)"></span>数学思维<span class="st st-out">课外</span></h2>
+  <div class="sub">不是提前学，是"换个角度想"。优先用书和游戏，其次才是课。</div>
+  <div class="items">
+    <div class="item">
+      <div class="ihead"><span class="iname">DK "Maths — No Problem!" 练习册</span><span class="tag t-book">图书（英文）</span><span class="tag t-gr">5–11岁</span><span class="tag t-paid">购买</span></div>
+      <p class="idesc">新加坡数学"Maths Mastery"思路：同一知识点用多种方法讲，强调真正理解而非套公式。</p>
+      <p class="icase">用法：作为英文练习册顺便练英语；一次一页，做完讲思路。适合想拓展"一题多解"的孩子。</p>
+      <p class="ilink"><a href="https://www.dk.com" target="_blank" rel="noopener">dk.com 检索 Maths No Problem</a></p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">Math Playground</span><span class="tag t-ch">官网</span><span class="tag t-gr">1–6年级</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">数学游戏与思维题：口算、分数、几何、逻辑，免费无广告压力。</p>
+      <p class="icase">用法：每周 2 次、每次 15 分钟；玩完问"你用了什么办法过关的"。</p>
+      <p class="ilink"><a href="https://www.mathplayground.com" target="_blank" rel="noopener">mathplayground.com</a></p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">calc-master · 家庭口算 App</span><span class="tag t-ch">GitHub</span><span class="tag t-gr">1–4年级</span><span class="tag t-free">开源免费</span></div>
+      <p class="idesc">Flutter 写的口算练习 App，单机、数据本地存，含闯关、错题记录、成长统计、多孩子档案。</p>
+      <p class="icase">用法：每天 5–10 分钟口算用它代替纸质，错题周末重做。</p>
+      <p class="ilink"><a href="https://github.com/opensource-100/calc-master" target="_blank" rel="noopener">github.com/opensource-100/calc-master</a></p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">wrong-notebook · AI 错题本</span><span class="tag t-ch">GitHub</span><span class="tag t-gr">3年级以上</span><span class="tag t-free">开源（可 Docker 部署）</span></div>
+      <p class="idesc">拍照录入错题，自动识别公式、打知识点标签、按遗忘曲线排复习，能生成变式题、组卷打印。数据自己存。</p>
+      <p class="icase">用法：家长拍照入库，孩子只做"重做 + 变式"。<b>需要一点技术基础才能部署。</b></p>
+      <p class="ilink"><a href="https://github.com/margrop/wrong-notebook" target="_blank" rel="noopener">github.com/margrop/wrong-notebook</a></p>
+    </div>
+  </div>
+  <div class="homework"><b>边界：</b>课外思维题每周 2–3 道足够；不刷"偏题怪题"，不因思维课挤掉课内作业与户外时间。</div>
+</div>`;
+
+
+const O_ART=`
+<div class="card">
+  <h2><span class="bar" style="background:var(--mus2)"></span>艺术（音乐 / 美术 / 戏曲）<span class="st st-out">课外</span></h2>
+  <div class="sub">艺术不是"技能考级"，先做到"看得懂、听得进、愿意开口"。三条线各选 1 个入口，每周一次即可。</div>
+  <div class="items">
+    <div class="item">
+      <div class="ihead"><span class="iname">国家中小学智慧教育平台 · 音乐 / 美术同步课</span><span class="tag t-ch">官方平台</span><span class="tag t-gr">1–6年级</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">与教材同课题的欣赏课与示范课，含歌曲、名画赏析、手工制作，免费、无版权风险，做<b>课内艺术的主线</b>。</p>
+      <p class="icase">用法：跟着学校进度，一节 10–15 分钟；课后让孩子唱一遍 / 画一张。</p>
+      <p class="ilink"><a href="https://www.zxx.edu.cn" target="_blank" rel="noopener">zxx.edu.cn → 课程教学 → 音乐 / 美术</a></p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">国家大剧院 · 古典音乐频道</span><span class="tag t-ch">官方平台</span><span class="tag t-gr">3年级以上</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">名曲导赏、音乐会与歌剧片段，讲解语速适合孩子；用来"听得出曲名与乐器"。</p>
+      <p class="icase">用法：每周 1 次、15 分钟，先听曲再看导赏，最后让孩子说"像什么画面"。</p>
+      <p class="ilink"><a href="https://www.ncpa-classic.com" target="_blank" rel="noopener">ncpa-classic.com</a></p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">乐器入门：口风琴 / 竖笛 / 电子琴（三选一）</span><span class="tag t-ch">家庭自选</span><span class="tag t-gr">1年级起</span><span class="tag t-paid">100–800 元</span></div>
+      <p class="idesc">口风琴与竖笛成本低、上手快，学校音乐课常用；电子琴可兼顾识谱与伴奏。<b>先租或买最便宜的一件，坚持半年再换。</b></p>
+      <p class="icase">用法：每周 2 次、每次 15 分钟，只练"吹/弹准一个音 + 一小句"，不追求考级进度。</p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">故宫博物院数字文物库（看画）</span><span class="tag t-ch">官方平台</span><span class="tag t-gr">全学段</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">高清书画、陶瓷、器物图像，可放大看笔触与细节；配合《千里江山图》《清明上河图》做名画欣赏。</p>
+      <p class="icase">用法：每周看 1 幅，问三个问题：画里有什么人 / 在做什么 / 你最喜欢哪里。</p>
+      <p class="ilink"><a href="https://digicol.dpm.org.cn" target="_blank" rel="noopener">digicol.dpm.org.cn</a></p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">央视网 · 戏曲频道（京剧 / 越剧 / 黄梅戏名段）</span><span class="tag t-ch">官方平台</span><span class="tag t-gr">3年级以上</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">整折戏与名家名段，先看武戏与脸谱（热闹、无台词也能懂），再看文戏。<b>入口从"好看"开始，不从唱腔开始。</b></p>
+      <p class="icase">用法：每月看 1 折，看完说说剧情与人物；愿意的话学 4 句《说唱脸谱》。</p>
+      <p class="ilink"><a href="https://opera.cctv.com" target="_blank" rel="noopener">opera.cctv.com</a></p>
+    </div>
+  </div>
+  <div class="homework"><b>一周一次就够：</b>音乐（听 / 练 15 分钟）、美术（看 1 幅 + 画 1 张）、戏曲（每月 1 折）三者轮换，不要同时报三个班。艺术先给"看得见的成就感"，考级放最后。</div>
+</div>`;
+
+const O_TECH=`
+<div class="card">
+  <h2><span class="bar" style="background:var(--tech)"></span>科技（科学实验 + 创客）<span class="st st-out">课外</span></h2>
+  <div class="sub">科技不是提前学物理，是"先猜—再做—记录—改进"的完整循环。器材越少越好，一年一两个项目足够。</div>
+  <div class="items">
+    <div class="item">
+      <div class="ihead"><span class="iname">中国数字科技馆（线上展厅 + 科学实验）</span><span class="tag t-ch">官方平台</span><span class="tag t-gr">1–6年级</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">线上展厅、动手做栏目、科普动画；家庭小实验的选题库，材料都是家里能找到的。</p>
+      <p class="icase">用法：每月挑 1 个实验，做完写三行：我猜什么—我怎么做—我看到什么。</p>
+      <p class="ilink"><a href="https://www.cdstm.cn" target="_blank" rel="noopener">cdstm.cn</a></p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">中国科技馆（实体馆 + 线上资源）</span><span class="tag t-ch">官方平台</span><span class="tag t-gr">全学段</span><span class="tag t-free">馆内免费预约</span></div>
+      <p class="idesc">每学期去一次实体馆，按"儿童科学乐园 → 探索与发现"的顺序逛，比看视频有效得多。</p>
+      <p class="ilink"><a href="https://www.cstm.org.cn" target="_blank" rel="noopener">cstm.org.cn</a></p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">micro:bit 入门（BBC 官方，3 年级起）</span><span class="tag t-ch">器材</span><span class="tag t-gr">3–6年级</span><span class="tag t-paid">约 150–260 元</span></div>
+      <p class="idesc">板载按键、LED、加速度计、温度与光感，网页端拖拽编程即可跑；官方项目库有几十个现成项目。</p>
+      <p class="icase">用法：先做"按键亮笑脸"，再做"温度报警器""自动浇水"；每学期 1 个项目，写一页说明。</p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">Arduino 套件（5 年级起）</span><span class="tag t-ch">器材</span><span class="tag t-gr">5–6年级</span><span class="tag t-paid">约 100–300 元</span></div>
+      <p class="idesc">从图形化转到真代码（C/C++），做避障小车、温湿度显示；比 micro:bit 更"工程化"，也更需要家长陪。</p>
+      <p class="icase">用法：跟着套件教程走，每月 1 个小作品；不追求复杂，追求"能自己改一个参数"。</p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">青少年科技创新大赛 / 学校科技节</span><span class="tag t-ch">活动</span><span class="tag t-gr">3年级以上</span><span class="tag t-free">免费参与</span></div>
+      <p class="idesc">有明确的作品要求与答辩环节，是"把项目做完"的外部动力；以学校通知为准。</p>
+      <p class="icase">用法：一年报 1 次就够，作品从日常小问题来（教室噪音、书包重量）。</p>
+    </div>
+  </div>
+  <div class="homework"><b>花钱顺序：</b>书与材料（几十元）→ 场馆门票 → micro:bit（二百元级）→ Arduino 套件。不要一上来买整套"科学实验盒子"，八成用不完。</div>
+</div>`;
+
+const O_SPORT=`
+<div class="card">
+  <h2><span class="bar" style="background:var(--sport)"></span>体育运动<span class="st st-out">课外</span></h2>
+  <div class="sub">先保住"每天户外 1 小时"，再选 1 个主项长期练。运动对近视防控、注意力与情绪的作用，比任何补习都直接。</div>
+  <div class="items">
+    <div class="item">
+      <div class="ihead"><span class="iname">学校体育课 + 国家学生体质健康标准（体测）</span><span class="tag t-ch">课内主线</span><span class="tag t-gr">1–6年级</span><span class="tag t-free">免费</span></div>
+      <p class="idesc">体测项目固定：跳绳（1 分钟）、坐位体前屈、仰卧起坐、50 米跑、肺活量。按标准逐项练，比盲目报班有效。</p>
+      <p class="icase">用法：每月自测一次并记录，只和自己上月比。</p>
+      <p class="ilink"><a href="https://www.zxx.edu.cn" target="_blank" rel="noopener">zxx.edu.cn → 体育与健康</a></p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">跳绳（家庭最划算的体能项目）</span><span class="tag t-ch">器材</span><span class="tag t-gr">1年级起</span><span class="tag t-paid">20–50 元</span></div>
+      <p class="idesc">一根轴承跳绳解决协调、心肺、耐力；不受场地限制，雨天也能在楼道练。</p>
+      <p class="icase">用法：每天 3 组、每组 1 分钟，组间休息 1 分钟；记录一分钟个数。</p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">游泳（暑期集中学，3 年级起）</span><span class="tag t-ch">课程</span><span class="tag t-gr">3–6年级</span><span class="tag t-paid">800–2000 元/期</span></div>
+      <p class="idesc">唯一"能救命"的运动技能，也是脊柱与呼吸系统最友好的项目。先学换气与漂浮，再学姿势。</p>
+      <p class="icase">用法：暑期一期 10–12 次，学会一种泳姿能连续游 25 米即可，不追速度。</p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">球类 / 田径 / 武术（选 1 项主项）</span><span class="tag t-ch">校队或俱乐部</span><span class="tag t-gr">3年级以上</span><span class="tag t-paid">校队免费 / 俱乐部千元级</span></div>
+      <p class="idesc">主项的价值在于"长期 + 有教练 + 有同伴"。优先学校校队与社区俱乐部，通勤 20 分钟内最重要。</p>
+      <p class="icase">用法：每周 2–3 次、每次 40–60 分钟；每学期只加一项，不叠加。</p>
+    </div>
+    <div class="item">
+      <div class="ihead"><span class="iname">家庭日常：骑行 / 羽毛球 / 爬山</span><span class="tag t-ch">亲子</span><span class="tag t-gr">全学段</span><span class="tag t-free">低成本</span></div>
+      <p class="idesc">周末一次 1–2 小时的户外活动，比任何"感统训练"更能改善体态与情绪。</p>
+      <p class="icase">用法：固定周末半天，全家一起；不安排"训练任务"，只保证动起来。</p>
+    </div>
+  </div>
+  <div class="homework"><b>三条安全底线：</b>运动前热身 8 分钟、强度循序渐进、有护具（轮滑/骑行）。<b>近视防控的关键是每天 2 小时户外光照</b>，不是眼保健操。</div>
+</div>`;
+
+const OUT_PANEL=`
+<div class="anchor">
+  <b>课外 8 模块：</b>
+  <a href="#o-call">书法</a><a href="#o-code">编程</a><a href="#o-read">大阅读</a><a href="#o-ext">英语拓展</a><a href="#o-think">数学思维</a><a href="#o-art">艺术</a><a href="#o-tech">科技</a><a href="#o-sport">体育运动</a>
+</div>
+<div id="o-call">${O_CALL}</div>
+<div id="o-code">${O_CODE}</div>
+<div id="o-read">${O_READ}</div>
+<div id="o-ext">${O_EXT}</div>
+<div id="o-think">${O_THINK}</div>
+<div id="o-art">${O_ART}</div>
+<div id="o-tech">${O_TECH}</div>
+<div id="o-sport">${O_SPORT}</div>
+<div class="card">
+  <h2><span class="bar" style="background:var(--brand)"></span>课外怎么排：每周节奏模板</h2>
+  <table>
+    <thead><tr><th>时间</th><th>做什么</th><th>时长</th></tr></thead>
+    <tbody>
+      <tr><td class="k">工作日</td><td>课内作业 + 语文朗读 + 数学口算 + 英语听读</td><td>40–60 分钟</td></tr>
+      <tr><td class="k">工作日</td><td>大阅读（睡前）</td><td>20–30 分钟</td></tr>
+      <tr><td class="k">每天</td><td>书法（硬笔）</td><td>10–15 分钟</td></tr>
+      <tr><td class="k">周二 / 周四</td><td>编程或数学思维（二选一）</td><td>20–30 分钟</td></tr>
+      <tr><td class="k">周六</td><td>毛笔书法 / 科学小实验 / 看展</td><td>40–60 分钟</td></tr>
+      <tr><td class="k">周日</td><td>本周错题复盘 + 自由阅读</td><td>30 分钟</td></tr>
+    </tbody>
+  </table>
+  <div class="homework"><b>只选两个：</b>课外同时开 8 个模块必然放弃。建议"书法 + 大阅读"做长期底盘，编程/英语拓展/数学思维按学期轮换 1–2 个。</div>
+</div>`;
+
+const PANELS={in:IN_PANEL,out:OUT_PANEL};
+let cur="in";
+function renderTabs(){
+  const el=document.getElementById("tabs"); el.innerHTML="";
+  TABS.forEach(t=>{
+    const b=document.createElement("button");
+    b.textContent=t.name;
+    if(t.id===cur) b.classList.add("active");
+    b.onclick=()=>{cur=t.id;render();};
+    el.appendChild(b);
+  });
+}
+function render(){ renderTabs(); document.getElementById("panels").innerHTML=PANELS[cur]; decorate(); }
+
+/* 卡片折叠 + 模块锚点导航 */
+function decorate(){
+  const root=document.getElementById("panels");
+  const cards=[...root.querySelectorAll(".card")];
+  cards.forEach((c,i)=>{
+    if(!c.id) c.id = "m"+(i+1);
+    const h=c.querySelector("h2");
+    if(h && !h.querySelector(".ctog")){
+      const btn=document.createElement("button");
+      btn.type="button"; btn.className="ctog"; btn.textContent="收起";
+      btn.onclick=e=>{e.stopPropagation(); toggleCard(c)};
+      h.appendChild(btn);
+    }
+  });
+  buildNav(cards);
+}
+
+function toggleCard(c,force){
+  const willCollapse = force===undefined ? !c.classList.contains("collapsed") : force;
+  c.classList.toggle("collapsed", willCollapse);
+  const b=c.querySelector(".ctog"); if(b) b.textContent = willCollapse ? "展开" : "收起";
+  syncNav(cardsAll());
+}
+const cardsAll = ()=>[...document.querySelectorAll("#panels .card")];
+
+function buildNav(cards){
+  const nav=document.getElementById("secnav");
+  nav.innerHTML="";
+  if(!cards.length) return;
+  cards.forEach(c=>{
+    const raw=(c.querySelector("h2")||{}).textContent || "";
+    let name=raw.replace(/收起|展开/g,"").trim().replace(/(课内|课外)$/,"");
+    name=name.split(/[：:（(]/)[0];
+    name=name.length>9 ? name.slice(0,8)+"…" : name;
+    if(!name) name="模块";
+    const a=document.createElement("a");
+    a.href="#"+c.id; a.textContent=name;
+    a.onclick=e=>{
+      e.preventDefault();
+      toggleCard(c,false);
+      c.scrollIntoView({behavior:"smooth",block:"start"});
+    };
+    nav.appendChild(a);
+  });
+  const sp=document.createElement("span"); sp.className="spacer"; nav.appendChild(sp);
+  const btn=document.createElement("button");
+  btn.type="button"; btn.id="allTog";
+  btn.onclick=()=>{
+    const cards=cardsAll();
+    const allExpanded=cards.every(c=>!c.classList.contains("collapsed"));
+    cards.forEach(c=>toggleCard(c,allExpanded));
+  };
+  nav.appendChild(btn);
+  syncNav(cards);
+}
+
+function syncNav(cards){
+  const btn=document.getElementById("allTog");
+  if(!btn) return;
+  const allExpanded=cards.every(c=>!c.classList.contains("collapsed"));
+  btn.textContent = allExpanded ? "全部收起" : "全部展开";
+}
+
+/* 吸顶分隔线 */
+const sh=document.getElementById("stickyhead");
+addEventListener("scroll",()=>sh && sh.classList.toggle("stuck",scrollY>8),{passive:true});
+
+render();
+
+const toTop=document.getElementById("toTop");
+addEventListener("scroll",()=>toTop.classList.toggle("show",scrollY>600),{passive:true});
+toTop.onclick=()=>scrollTo({top:0,behavior:"smooth"});
+
+/* 移动端菜单 */
+const navBtn=document.getElementById("navBtn"), navMenu=document.getElementById("navMenu");
+if(navBtn && navMenu){
+  navBtn.onclick=()=>{
+    const open=navMenu.classList.toggle("open");
+    navBtn.setAttribute("aria-expanded", open?"true":"false");
+    navBtn.textContent = open ? "✕" : "☰";
+  };
+  navMenu.addEventListener("click",e=>{ if(e.target.tagName==="A"){ navMenu.classList.remove("open"); navBtn.textContent="☰"; } });
+}
+
+/* 固定头部高度变量 + 吸顶阴影 */
+(function(){
+  const hd=document.querySelector(".sitehdr"); if(!hd) return;
+  const set=()=>{
+    document.documentElement.style.setProperty("--hdrH", hd.offsetHeight+"px");
+    hd.classList.toggle("stuck", hd.getBoundingClientRect().top<=0 && scrollY>4);
+  };
+  set(); addEventListener("resize",set);
+  addEventListener("scroll",()=>hd.classList.toggle("stuck", scrollY>4),{passive:true});
+})();
+</script>
+</body>
+</html>

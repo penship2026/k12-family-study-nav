@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每周打卡 · 起步线K12</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Crect%20width%3D%2224%22%20height%3D%2224%22%20rx%3D%226%22%20fill%3D%22%233d7a5f%22%2F%3E%3Cpath%20d%3D%22M6.5%205.2v13.6%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222.7%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M10.6%208%2020.6%206.2M10.6%2012h10M10.6%2016%2020.6%2017.8%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%2F%3E%3C%2Fsvg%3E">
+<style>
+  :root{
+    --ink:#222; --sub:#6b675e; --line:#c9c3b4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#f6f4ee;color:var(--ink);font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.5}
+  .wrap{max-width:1000px;margin:0 auto;padding:16px}
+  .toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+  .grade-tabs{display:flex;gap:6px;flex-wrap:wrap}
+  .grade-tabs button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 14px;font-size:13px;cursor:pointer}
+  .grade-tabs button.active{background:#3d7a5f;color:#fff;border-color:#3d7a5f}
+  .btn-print{margin-left:auto;border:1px solid #3d7a5f;background:#3d7a5f;color:#fff;border-radius:8px;padding:8px 18px;font-size:13px;cursor:pointer}
+  .btn-back{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 14px;font-size:13px;text-decoration:none;color:var(--ink)}
+  .sheet{background:#fff;border:1px solid var(--line);border-radius:10px;padding:22px 24px}
+  .sheet h1{font-size:19px;text-align:center;letter-spacing:1px}
+  .sheet .sub{text-align:center;color:var(--sub);font-size:12.5px;margin-top:4px}
+  .fill-row{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;margin:16px 0 10px}
+  .fill-row span{white-space:nowrap}
+  .fill-row i{display:inline-block;min-width:76px;border-bottom:1px solid var(--line);font-style:normal}
+  table{width:100%;border-collapse:collapse;table-layout:fixed}
+  th,td{border:1px solid var(--line);padding:0}
+  th{background:#f3f1e9;font-size:12.5px;font-weight:600;padding:7px 4px;text-align:center}
+  td.subj{width:11%;padding:8px 6px;text-align:center;font-size:13px;font-weight:600}
+  td.subj small{display:block;font-weight:400;color:var(--sub);font-size:11px;margin-top:2px}
+  td.content{width:27%;padding:6px 8px;vertical-align:top;font-size:11.5px;color:#9a958a;line-height:1.7}
+  td.cat{width:6%;text-align:center;font-size:11.5px;color:var(--sub)}
+  td.day{width:8%;height:74px;text-align:center;vertical-align:middle}
+  td.day .box{display:inline-block;width:15px;height:15px;border:1px solid var(--line);border-radius:2px}
+  .reflect{margin-top:16px;border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-size:13px}
+  .reflect div{margin-bottom:22px}
+  .reflect div:last-child{margin-bottom:0}
+  .sign{text-align:right;font-size:12.5px;color:var(--sub);margin-top:10px}
+  .hint{font-size:12.5px;color:var(--sub);margin-top:12px}
+  .to-top{position:fixed;right:14px;bottom:calc(18px + env(safe-area-inset-bottom));
+    width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:#fff;border:1px solid var(--line);box-shadow:0 1px 4px rgba(60,50,30,.08);
+    font-size:18px;color:var(--sub);cursor:pointer;z-index:30;opacity:0;pointer-events:none;transition:opacity .2s}
+  .to-top.show{opacity:1;pointer-events:auto}
+  @media print{.to-top{display:none !important}}
+  /* ===== 屏幕：窄屏可横向滑动，不挤压表格 ===== */
+  @media screen and (max-width:820px){
+    .wrap{padding:10px 12px 32px}
+    .toolbar{gap:8px}
+    .grade-tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;order:3;width:100%}
+    .grade-tabs::-webkit-scrollbar{display:none}
+    .grade-tabs button{flex:0 0 auto;min-height:40px}
+    .btn-print{margin-left:0;width:100%;min-height:44px}
+    .sheet{padding:14px 12px}
+    .tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;padding:0 4px}
+    .sheet h1{font-size:15px}
+    .sheet .sub{font-size:11.5px;margin-top:2px}
+    .sheet .sub{font-size:12px}
+    table{min-width:720px}
+    td.day{height:52px}
+    td.day .box{width:20px;height:20px}
+    .fill-row{gap:10px;font-size:12.5px;flex-wrap:wrap}
+    .fill-row i{min-width:60px}
+    .reflect div{margin-bottom:18px}
+    .hint{font-size:12px}
+  }
+  .tscroll{overflow-x:auto}
+  @page{size:A4 landscape;margin:10mm}
+  @media print{
+    body{background:#fff}
+    .no-print{display:none !important}
+    .wrap{max-width:none;padding:0}
+    .sheet{border:none;border-radius:0;padding:0}
+    th,td{border-color:#999}
+    .sheet h1{font-size:15px}
+    .sheet .sub{font-size:11.5px;margin-top:2px}
+    th{padding:5px 3px;font-size:11.5px}
+    td.subj{font-size:11.5px;padding:5px 4px}
+    td.subj small{font-size:10.5px;margin-top:1px}
+    td.content{font-size:11px;line-height:1.55;padding:4px 6px}
+    td.day{height:29px}
+    td.day .box{width:12px;height:12px}
+    .fill-row{margin:6px 0 5px;font-size:11.5px}
+    .reflect{padding:5px 10px;font-size:11.5px}
+    .reflect div{margin-bottom:9px}
+    .sign{margin-top:6px}
+    td.content{font-size:10.5px;line-height:1.5}
+  }
+
+  /* ===== 站点头部（五页统一） ===== */
+  .sitehdr{background:#fff;border-bottom:1px solid var(--line,#e8e3d7);position:sticky;top:0;z-index:60;
+    transition:box-shadow .18s}
+  .hdr{max-width:1120px;margin:0 auto;padding:11px 16px;display:flex;align-items:center;gap:16px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;flex:0 0 auto}
+  .mark{width:34px;height:34px;border-radius:9px;background:var(--brand,#3d7a5f);color:#fff;
+    display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .mark svg{display:block;width:21px;height:21px}
+  .bt{display:flex;flex-direction:column;line-height:1.15}
+  .bt b{font-size:16.5px;letter-spacing:.6px}
+  .bt i{font-style:normal;font-size:11.5px;color:var(--sub,#6b675e);margin-top:3px}
+  .navmenu{margin-left:auto;display:flex;gap:2px;align-items:center}
+  .navmenu a{font-size:13.5px;color:var(--sub,#6b675e);text-decoration:none;padding:8px 12px;
+    border-radius:9px;white-space:nowrap}
+  .navmenu a:hover{background:var(--bg,#f6f4ee);color:var(--ink,#2b2b28)}
+  .navmenu a.on{background:#e7f1ec;color:#2b5a44;font-weight:600}
+  .k12{display:inline-block;margin-left:5px;font-size:11px;font-weight:700;color:#fff;background:var(--brand);border-radius:5px;padding:1px 5px;vertical-align:2px;letter-spacing:.4px}
+  .navbtn{display:none;margin-left:auto;width:42px;height:42px;border:1px solid var(--line,#e8e3d7);
+    background:#fff;border-radius:10px;font-size:17px;cursor:pointer;color:var(--ink,#2b2b28)}
+  .phead{padding:18px 0 6px}
+  .phead h1{font-size:22px;letter-spacing:.4px}
+  .phead .lead{color:var(--sub,#6b675e);font-size:13.5px;margin-top:6px}
+  @media(max-width:760px){
+    .hdr{padding:8px 14px;gap:10px}
+    .navbtn{display:flex;align-items:center;justify-content:center}
+    .navmenu{display:none;position:absolute;left:0;right:0;top:100%;background:#fff;
+      border-bottom:1px solid var(--line,#e8e3d7);box-shadow:0 10px 22px -16px rgba(0,0,0,.35);
+      padding:8px 12px 12px;flex-direction:column;align-items:stretch;gap:2px}
+    .navmenu.open{display:flex}
+    .navmenu a{padding:12px 10px;min-height:44px;display:flex;align-items:center;font-size:14px}
+    .bt b{font-size:15.5px}
+    .bt i{font-size:11px}
+    .mark{width:30px;height:30px;font-size:15px;border-radius:8px}
+    .phead{padding:14px 0 4px}
+    .phead h1{font-size:19px}
+  }
+  @media print{.sitehdr,.navbtn{display:none !important}}
+  .hdr{max-width:1000px}
+</style>
+</head>
+<body>
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<header class="sitehdr">
+  <div class="hdr">
+    <a class="brand" href="index.html">
+      <span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#fff" stroke-linecap="round"><path d="M6.5 5.2v13.6" stroke-width="2.7"/><path d="M10.6 8 20.6 6.2M10.6 12h10M10.6 16 20.6 17.8" stroke-width="2"/></svg></span>
+      <span class="bt"><b>起步线<span class="k12">K12</span></b><i>家庭学习导航 · 小学到高中</i></span>
+    </a>
+    <nav class="navmenu" id="navMenu">
+      <a href="index.html">学习规划</a>
+      <a href="courses.html">课程推荐</a>
+      <a href="resources.html">资料清单</a>
+      <a href="textbooks.html">教材目录</a>
+      <a href="standards.html">能力要求</a>
+      <a href="competitions.html">赛事白名单</a>
+      <a href="weekly-check.html" class="on">每周打卡</a>
+    </nav>
+    <button class="navbtn" id="navBtn" aria-label="打开菜单" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="toolbar no-print">
+    <div class="grade-tabs" id="gradeTabs"></div>
+    <button class="btn-print" onclick="window.print()">打印 / 另存为 PDF</button>
+  </div>
+
+  <div class="sheet">
+    <h1 id="title">小学 ____ 年级 每周学习打卡表</h1>
+    <div class="sub">每天短时高频，完成即打勾；不强求全满，留出玩耍时间</div>
+
+    <div class="fill-row">
+      <span>第 <i></i> 周</span>
+      <span>时间：<i></i> 月 <i></i> 日 至 <i></i> 月 <i></i> 日</span>
+      <span>姓名：<i></i></span>
+    </div>
+
+    <div class="tscroll">
+    <table id="tbl">
+      <thead>
+        <tr>
+          <th style="width:11%">学科</th>
+          <th style="width:6%">类别</th>
+          <th style="width:27%">本周内容（可手写覆盖）</th>
+          <th style="width:8%">周一</th>
+          <th style="width:8%">周二</th>
+          <th style="width:8%">周三</th>
+          <th style="width:8%">周四</th>
+          <th style="width:8%">周五</th>
+          <th style="width:8%">周六</th>
+          <th style="width:8%">周日</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    </div>
+
+    <div class="reflect">
+      <div><b>本周最有进步的一件事：</b></div>
+      <div><b>下周要改进的一点：</b></div>
+      <div><b>孩子自己想说的话：</b></div>
+    </div>
+    <div class="sign">家长签字：____________________</div>
+
+    <p class="hint no-print">提示：上表「本周内容」为该年级的建议任务，打印后可用笔改写为实际内容；周六周日可安排阅读加长与书法集中练习；艺术 / 科技 / 体育运动按「每周一次」的节奏勾选即可。</p>
+  </div>
+</div>
+
+<script>
+/* 与汇聚页一致的学科摘要（课内 5 + 课外 6，简化版） */
+const DATA = {
+  1:{name:"一年级",
+    语文:"拼音 + 1600 识字起步 / 朗读 10 分钟 + 写字 10 个",
+    数学:"20 以内加减 / 口算 10 分钟",
+    英语:"多数地区未开课 / 儿歌磨耳朵 10 分钟",
+    科学:"观察记录 + 科普绘本 / 每周 1 次小实验",
+    体育与健康:"户外 1 小时 + 跳绳",
+    书法:"握笔坐姿 + 基本笔画 / 3–5 个字",
+    大阅读:"亲子共读 + 出声朗读 / 15–20 分钟",
+    编程:"不插电游戏 + Scratch 初体验 / 每周 2 次",
+    艺术:"唱游 + 看戏曲动画 / 每周 2 次",
+    科技:"家庭小实验 / 每周 1 次",
+    体育运动:"户外 1 小时 + 跳绳"},
+  2:{name:"二年级",
+    语文:"1000 字上下 + 完整句子 / 朗读 10 分钟 + 听写",
+    数学:"100 以内加减 + 乘法口诀 / 10–15 分钟",
+    英语:"兴趣启蒙为主 / 字母与常见词",
+    科学:"天气与植物观察 / 每周 1 次记录",
+    体育与健康:"户外 1 小时 + 跳绳连续 30 个",
+    书法:"常用字结构 + 偏旁 / 3–5 个字",
+    大阅读:"短篇童话朗读 + 复述 / 15–20 分钟",
+    编程:"Scratch 让角色动起来 / 每周 2 次",
+    艺术:"唱游 + 画脸谱 / 每周 2 次",
+    科技:"家庭小实验 / 每周 1 次",
+    体育运动:"户外 1 小时 + 跳绳 30 个"},
+  3:{name:"三年级",
+    语文:"2500 字累计 + 写段落 / 朗读 + 每周一段话",
+    数学:"多位数乘除 + 分数初步 / 15 分钟",
+    英语:"字母书写 + 核心句型 / 15 分钟",
+    科学:"水、空气、声音、电 / 每周 1 次实验",
+    体育与健康:"跳绳 + 球类基础 / 每天 1 小时",
+    书法:"硬笔正楷；可选毛笔 / 10 分钟",
+    大阅读:"整本书阅读 + 章节复述 / 20 分钟",
+    编程:"Scratch 小项目 / 每两周 1 个",
+    艺术:"听名曲 + 画一张画 / 每周 1 次",
+    科技:"纸电路 / 水火箭 / 每月 1 个",
+    体育运动:"球类基础 + 游泳（暑期）"},
+  4:{name:"四年级",
+    语文:"1600 字会写 + 读篇 / 默读 + 每周练笔",
+    数学:"运算律 + 小数 + 面积 / 15–20 分钟",
+    英语:"短篇阅读 + 仿写句子 / 15 分钟",
+    科学:"力、光、热与生物 / 每周 1 次实验",
+    体育与健康:"跳绳 3 组 + 每周 2 次球类",
+    书法:"正楷结构 + 卷面整洁 / 10–15 分钟",
+    大阅读:"默读为主 + 简单笔记 / 20–25 分钟",
+    编程:"Scratch 问答/小游戏 / 每周 2 次",
+    艺术:"戏曲武戏 + 名画欣赏 / 每周 1 次",
+    科技:"小制作 + 科技馆 / 每月 1 个",
+    体育运动:"跳绳 3 组 + 每周 2 次球类"},
+  5:{name:"五年级",
+    语文:"3000 字累计 + 整篇习作 / 默读 + 批注",
+    数学:"分数小数 + 方程初步 / 15–20 分钟",
+    英语:"短文阅读 + 话题写作 / 15–20 分钟",
+    科学:"概念图 + 探究小课题 / 每周 1 次",
+    体育与健康:"有氧 3 次 + 核心练习",
+    书法:"结体规律 + 临写背临 / 10–15 分钟",
+    大阅读:"经典名著 + 科普 + 读后感 / 20–25 分钟",
+    编程:"Python 海龟绘图起步 / 每周 2 次",
+    艺术:"学唱 4 句 + 欣赏一折戏",
+    科技:"micro:bit 项目 / 每学期 1 个",
+    体育运动:"主项每周 3 次 + 体测自测"},
+  6:{name:"六年级",
+    语文:"2500 字会写 + 文言启蒙 / 一周一篇习作",
+    数学:"百分数比例 + 专题复习 / 15–20 分钟",
+    英语:"篇章阅读 + 规范写作 / 15–20 分钟",
+    科学:"地球宇宙 + 探究报告 / 每月 1 个课题",
+    体育与健康:"主项长期练 + 体测自测",
+    书法:"楷书巩固 + 完整作品 / 10–15 分钟",
+    大阅读:"深度整本书 + 书评 / 20–30 分钟",
+    编程:"Python 小工具 + 作品集 / 每周 2–3 次"},
+    艺术:"完整作品 + 戏曲赏析",
+    科技:"Arduino / 创客项目 / 每学期 1 个",
+    体育运动:"主项长期练 + 体测自测"
+};
+const ROWS = [
+  ["语文","课内"],["数学","课内"],["英语","课内"],["科学","课内"],["体育与健康","课内"],
+  ["书法","课外"],["大阅读","课外"],["编程","课外"],
+  ["艺术","课外"],["科技","课外"],["体育运动","课外"]
+];
+let cur = 1;
+
+function buildTabs(){
+  const el=document.getElementById("gradeTabs");
+  el.innerHTML="";
+  Object.keys(DATA).forEach(g=>{
+    const b=document.createElement("button");
+    b.textContent=DATA[g].name;
+    if(+g===cur) b.classList.add("active");
+    b.onclick=()=>{cur=+g;render()};
+    el.appendChild(b);
+  });
+}
+
+function render(){
+  buildTabs();
+  const d=DATA[cur];
+  document.getElementById("title").textContent=`小学 ${d.name.replace("年级","")} 年级 每周学习打卡表`;
+  const tb=document.getElementById("tbody");
+  tb.innerHTML="";
+  ROWS.forEach(([s,cat])=>{
+    const tr=document.createElement("tr");
+    tr.className = cat==="课内" ? "r-in" : "r-out";
+    tr.innerHTML=`<td class="subj">${s}<small>${cat}</small></td>
+      <td class="cat">${cat}</td>
+      <td class="content">${d[s]}</td>` +
+      Array(7).fill('<td class="day"><span class="box"></span></td>').join("");
+    tb.appendChild(tr);
+  });
+}
+render();
+
+const toTop=document.getElementById("toTop");
+addEventListener("scroll",()=>toTop.classList.toggle("show",scrollY>400),{passive:true});
+toTop.onclick=()=>scrollTo({top:0,behavior:"smooth"});
+
+/* 移动端菜单 */
+const navBtn=document.getElementById("navBtn"), navMenu=document.getElementById("navMenu");
+if(navBtn && navMenu){
+  navBtn.onclick=()=>{
+    const open=navMenu.classList.toggle("open");
+    navBtn.setAttribute("aria-expanded", open?"true":"false");
+    navBtn.textContent = open ? "✕" : "☰";
+  };
+  navMenu.addEventListener("click",e=>{ if(e.target.tagName==="A"){ navMenu.classList.remove("open"); navBtn.textContent="☰"; } });
+}
+
+/* 固定头部高度变量 + 吸顶阴影 */
+(function(){
+  const hd=document.querySelector(".sitehdr"); if(!hd) return;
+  const set=()=>{
+    document.documentElement.style.setProperty("--hdrH", hd.offsetHeight+"px");
+    hd.classList.toggle("stuck", hd.getBoundingClientRect().top<=0 && scrollY>4);
+  };
+  set(); addEventListener("resize",set);
+  addEventListener("scroll",()=>hd.classList.toggle("stuck", scrollY>4),{passive:true});
+})();
+</script>
+</body>
+</html>

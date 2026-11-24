@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>能力要求 · 起步线K12</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Crect%20width%3D%2224%22%20height%3D%2224%22%20rx%3D%226%22%20fill%3D%22%233d7a5f%22%2F%3E%3Cpath%20d%3D%22M6.5%205.2v13.6%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222.7%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M10.6%208%2020.6%206.2M10.6%2012h10M10.6%2016%2020.6%2017.8%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%2F%3E%3C%2Fsvg%3E">
+<style>
+  :root{
+    --bg:#f6f4ee;--card:#fff;--ink:#2b2b28;--sub:#6b675e;--line:#e8e3d7;
+    --brand:#3d7a5f;--math:#3b6fb6;--eng:#b66a3b;--call:#8a5fa8;--read:#4a8a6a;
+    --pri:#3d7a5f;--jun:#3b6fb6;--sen:#8a5fa8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.65}
+  .wrap{max-width:1060px;margin:0 auto;padding:16px 16px 60px}
+  .topbar{display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+  .btn-back{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 14px;font-size:13px;text-decoration:none;color:var(--ink)}
+  h1{font-size:22px;margin:6px 0}
+  .lead{color:var(--sub);font-size:14px;margin-bottom:12px}
+  .notice{background:#e7f1ec;border-left:3px solid var(--brand);padding:10px 14px;border-radius:8px;font-size:13px;color:#335647;margin:12px 0 16px}
+  .stage-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px;padding:6px 0}
+  .stage-tabs button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 18px;font-size:14px;cursor:pointer;color:var(--sub);font-weight:600}
+  .stage-tabs button.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .stage-tabs .g{font-weight:400;font-size:12px;opacity:.75;margin-left:4px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:0 1px 4px rgba(60,50,30,.06);margin-bottom:16px}
+  .card h2{font-size:17px;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+  .card h2 .bar{width:4px;height:16px;border-radius:2px;flex:none}
+  .card .sub{color:var(--sub);font-size:13px;margin-bottom:12px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top}
+  th{background:#faf8f2;font-weight:600;font-size:13px;color:#4a4740}
+  tr:last-child td{border-bottom:none}
+  td.g{width:76px;font-weight:600;white-space:nowrap}
+  td.s{width:60px;color:var(--sub);font-size:12.5px;white-space:nowrap}
+  .num{font-variant-numeric:tabular-nums}
+  ul.pts{margin:6px 0 0 18px;font-size:13.5px;color:#3c3a34}
+  ul.pts li{margin-bottom:6px}
+  .tip{background:#faf8f2;border:1px dashed var(--line);border-radius:10px;padding:10px 14px;font-size:13px;color:var(--sub);margin-top:12px}
+  .tip b{color:var(--ink)}
+  .keyrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:10px}
+  .keybox{background:#faf8f2;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .keybox .k{font-size:12px;color:var(--sub)}
+  .keybox .v{font-size:16px;font-weight:600;margin-top:2px}
+  .hidden{display:none}
+  .stickyhead{position:sticky;top:var(--hdrH,57px);z-index:20;background:var(--bg);padding:6px 0 2px;
+    border-bottom:1px solid transparent}
+  .sitehdr.stuck{box-shadow:0 8px 18px -14px rgba(0,0,0,.45)}
+  .stickyhead.stuck{border-bottom-color:var(--line);box-shadow:0 4px 10px -8px rgba(0,0,0,.25)}
+  .secnav{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 6px}
+  .secnav a,.secnav button{display:inline-flex;align-items:center;min-height:32px;border:1px solid var(--line);
+    background:#fff;border-radius:999px;padding:4px 12px;font-size:12.5px;color:var(--ink);
+    text-decoration:none;cursor:pointer;white-space:nowrap}
+  .secnav a:hover,.secnav button:hover{border-color:var(--brand);color:var(--brand)}
+  .secnav .spacer{flex:1}
+  .card{scroll-margin-top:calc(var(--hdrH,57px) + 53px)}
+  .card h2 .ctog{margin-left:auto;border:1px solid var(--line);background:var(--bg);border-radius:8px;
+    font-size:11.5px;color:var(--sub);padding:2px 10px;cursor:pointer;font-weight:400;flex:none}
+  .card.collapsed .sub,.card.collapsed .content,.card.collapsed table,
+  .card.collapsed .tip,.card.collapsed .keyrow,.card.collapsed ul.pts,
+  .card.collapsed .src,.card.collapsed p{display:none}
+  .card.collapsed h2{margin-bottom:0}
+  footer{color:var(--sub);font-size:12.5px;text-align:center;margin-top:26px;line-height:1.8}
+  .src{font-size:12.5px;color:var(--sub);margin-top:8px}
+
+  /* ===== 移动端 ===== */
+  @media(max-width:760px){
+    .wrap{padding:12px 14px 48px}
+    h1{font-size:19px}
+    .lead{font-size:13px}
+    .notice{font-size:12.5px;padding:9px 12px}
+    .topbar{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .topbar::-webkit-scrollbar{display:none}
+    .btn-back{flex:0 0 auto;white-space:nowrap;min-height:44px;display:inline-flex;align-items:center}
+    .stage-tabs{flex-wrap:nowrap;overflow-x:auto;padding:8px 0;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-bottom:12px}
+    .stage-tabs::-webkit-scrollbar{display:none}
+    .stage-tabs button{flex:0 0 auto;white-space:nowrap;min-height:44px;padding:9px 16px}
+    .secnav{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+    .secnav::-webkit-scrollbar{display:none}
+    .secnav a,.secnav button{flex:0 0 auto;min-height:40px}
+    .secnav .spacer{display:none}
+    .card{scroll-margin-top:calc(var(--hdrH,57px) + 73px)}
+    .card{padding:14px;border-radius:12px;margin-bottom:12px}
+    .card h2{font-size:16px}
+    .card .sub,.tip,.src{font-size:12.5px}
+    .keyrow{grid-template-columns:repeat(2,1fr);gap:8px}
+    .keybox .v{font-size:14.5px}
+    /* 表格：横向滑动 + 首列吸住 */
+    table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:normal}
+    table th,table td{min-width:0}
+    th,td{padding:8px}
+    td.g,td.s{width:auto}
+    th:first-child,td:first-child{position:sticky;left:0;background:#faf8f2;z-index:2}
+    tbody td:first-child{background:#fff}
+    .num{white-space:nowrap}
+    ul.pts{font-size:13px}
+  }
+  .to-top{position:fixed;right:14px;bottom:calc(18px + env(safe-area-inset-bottom));
+    width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:#fff;border:1px solid var(--line);box-shadow:0 1px 4px rgba(60,50,30,.08);
+    font-size:18px;color:var(--sub);cursor:pointer;z-index:30;opacity:0;pointer-events:none;transition:opacity .2s}
+  .to-top.show{opacity:1;pointer-events:auto}
+
+  /* ===== 站点头部（五页统一） ===== */
+  .sitehdr{background:#fff;border-bottom:1px solid var(--line,#e8e3d7);position:sticky;top:0;z-index:60;
+    transition:box-shadow .18s}
+  .hdr{max-width:1120px;margin:0 auto;padding:11px 16px;display:flex;align-items:center;gap:16px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;flex:0 0 auto}
+  .mark{width:34px;height:34px;border-radius:9px;background:var(--brand,#3d7a5f);color:#fff;
+    display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .mark svg{display:block;width:21px;height:21px}
+  .bt{display:flex;flex-direction:column;line-height:1.15}
+  .bt b{font-size:16.5px;letter-spacing:.6px}
+  .bt i{font-style:normal;font-size:11.5px;color:var(--sub,#6b675e);margin-top:3px}
+  .navmenu{margin-left:auto;display:flex;gap:2px;align-items:center}
+  .navmenu a{font-size:13.5px;color:var(--sub,#6b675e);text-decoration:none;padding:8px 12px;
+    border-radius:9px;white-space:nowrap}
+  .navmenu a:hover{background:var(--bg,#f6f4ee);color:var(--ink,#2b2b28)}
+  .navmenu a.on{background:#e7f1ec;color:#2b5a44;font-weight:600}
+  .k12{display:inline-block;margin-left:5px;font-size:11px;font-weight:700;color:#fff;background:var(--brand);border-radius:5px;padding:1px 5px;vertical-align:2px;letter-spacing:.4px}
+  .navbtn{display:none;margin-left:auto;width:42px;height:42px;border:1px solid var(--line,#e8e3d7);
+    background:#fff;border-radius:10px;font-size:17px;cursor:pointer;color:var(--ink,#2b2b28)}
+  .phead{padding:18px 0 6px}
+  .phead h1{font-size:22px;letter-spacing:.4px}
+  .phead .lead{color:var(--sub,#6b675e);font-size:13.5px;margin-top:6px}
+  @media(max-width:760px){
+    .hdr{padding:8px 14px;gap:10px}
+    .navbtn{display:flex;align-items:center;justify-content:center}
+    .navmenu{display:none;position:absolute;left:0;right:0;top:100%;background:#fff;
+      border-bottom:1px solid var(--line,#e8e3d7);box-shadow:0 10px 22px -16px rgba(0,0,0,.35);
+      padding:8px 12px 12px;flex-direction:column;align-items:stretch;gap:2px}
+    .navmenu.open{display:flex}
+    .navmenu a{padding:12px 10px;min-height:44px;display:flex;align-items:center;font-size:14px}
+    .bt b{font-size:15.5px}
+    .bt i{font-size:11px}
+    .mark{width:30px;height:30px;font-size:15px;border-radius:8px}
+    .phead{padding:14px 0 4px}
+    .phead h1{font-size:19px}
+  }
+  @media print{.sitehdr,.navbtn{display:none !important}}
+  .hdr{max-width:1060px}
+</style>
+</head>
+<body>
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<header class="sitehdr">
+  <div class="hdr">
+    <a class="brand" href="index.html">
+      <span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#fff" stroke-linecap="round"><path d="M6.5 5.2v13.6" stroke-width="2.7"/><path d="M10.6 8 20.6 6.2M10.6 12h10M10.6 16 20.6 17.8" stroke-width="2"/></svg></span>
+      <span class="bt"><b>起步线<span class="k12">K12</span></b><i>家庭学习导航 · 小学到高中</i></span>
+    </a>
+    <nav class="navmenu" id="navMenu">
+      <a href="index.html">学习规划</a>
+      <a href="courses.html">课程推荐</a>
+      <a href="resources.html">资料清单</a>
+      <a href="textbooks.html">教材目录</a>
+      <a href="standards.html" class="on">能力要求</a>
+      <a href="competitions.html">赛事白名单</a>
+      <a href="weekly-check.html">每周打卡</a>
+    </nav>
+    <button class="navbtn" id="navBtn" aria-label="打开菜单" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="phead">
+    <h1>能力要求</h1>
+  <p class="lead">小学、初中依据《义务教育课程方案和课程标准（2022 年版）》；高中依据《普通高中课程方案和课程标准（2017 年版 2020 年修订）》。</p>
+  </section>
+
+  <div class="notice">
+    两个要点先说明：<b>①义务教育段按"学段"而不是按年级划分</b>；<b>②高中不再是课时制，而是学分制</b>（18 课时 = 1 学分，毕业需 144 学分）。所以小学看"课时比例 + 学段要求"，高中看"学分 + 学业质量水平"。
+  </div>
+
+  <div class="stickyhead" id="stickyhead">
+  <nav class="stage-tabs" id="tabs">
+    <button data-s="pri" class="active">小学<span class="g">1–6 年级</span></button>
+    <button data-s="jun">初中<span class="g">7–9 年级</span></button>
+    <button data-s="sen">高中<span class="g">10–12 年级</span></button>
+  </nav>
+  <nav class="secnav" id="secnav"></nav>
+  </div>
+
+  <!-- ================= 小学 ================= -->
+  <div id="panel-pri">
+    <section class="card">
+      <h2><span class="bar" style="background:var(--pri)"></span>小学总览：三个学段</h2>
+      <div class="sub">1–2 年级第一学段，3–4 第二学段，5–6 第三学段（"六三"学制）。</div>
+      <table>
+        <thead><tr><th>学段</th><th>年级</th><th>英语级别</th><th>阶段定位</th></tr></thead>
+        <tbody>
+          <tr><td class="s">第一学段</td><td class="g">1–2 年级</td><td>未开课</td><td>启蒙打基础，重习惯与兴趣，识字"多认少写"</td></tr>
+          <tr><td class="s">第二学段</td><td class="g">3–4 年级</td><td>一级</td><td>能力成型，英语正式起步，写字转向"熟练正楷"</td></tr>
+          <tr><td class="s">第三学段</td><td class="g">5–6 年级</td><td>二级</td><td>综合运用，走向整本书阅读与有速度的书写</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2><span class="bar" style="background:var(--pri)"></span>学科权重：课时比例（占九年总课时）</h2>
+      <table>
+        <thead><tr><th>科目</th><th>比例</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td class="g">语文</td><td class="num">20%–22%</td><td>占比最高，识字写字、阅读、表达是底层能力</td></tr>
+          <tr><td class="g">数学</td><td class="num">13%–15%</td><td>第二权重</td></tr>
+          <tr><td class="g">体育与健康</td><td class="num">10%–11%</td><td>课时数未增加，但占比居第三</td></tr>
+          <tr><td class="g">艺术</td><td class="num">9%–11%</td><td>含音乐、美术、书法篆刻欣赏</td></tr>
+          <tr><td class="g">科学</td><td class="num">8%–10%</td><td>1–6 年级科学</td></tr>
+          <tr><td class="g">外语</td><td class="num">6%–8%</td><td>3 年级起开设</td></tr>
+          <tr><td class="g">道德与法治</td><td class="num">6%–8%</td><td></td></tr>
+          <tr><td class="g">信息科技</td><td class="num">1%–3%</td><td>3–8 年级开设</td></tr>
+          <tr><td class="g">地方+校本</td><td class="num">14%–18%</td><td>省级/学校规划</td></tr>
+        </tbody>
+      </table>
+      <div class="tip"><b>周课时：</b>1–2 年级 26 节｜3–6 年级 30 节。<b>启示：</b>语文第一、体育第三，"多识字多读书 + 保证运动"比"提前刷数学题"更符合课标设计。</div>
+    </section>
+
+    <section class="card">
+      <h2><span class="bar" style="background:var(--read)"></span>语文：硬指标最清楚</h2>
+      <table>
+        <thead><tr><th>学段</th><th>认识汉字</th><th>会写</th><th>写字与工具要求</th></tr></thead>
+        <tbody>
+          <tr><td class="s">1–2 年级</td><td class="num">1600 左右</td><td class="num">800 左右</td><td>学会汉语拼音；掌握基本笔画与常用偏旁，按笔顺硬笔书写；学音序、部首检字法</td></tr>
+          <tr><td class="s">3–4 年级</td><td class="num">累计 2500</td><td class="num">1600</td><td>硬笔<b>熟练</b>书写正楷，规范端正整洁；用<b>毛笔临摹正楷字帖</b>；初步独立识字</td></tr>
+          <tr><td class="s">5–6 年级</td><td class="num">累计 3000</td><td class="num">2500</td><td>硬笔楷书<b>行款整齐、力求美观、有一定速度</b>；能用<b>毛笔书写楷书</b></td></tr>
+        </tbody>
+      </table>
+      <div class="keyrow">
+        <div class="keybox"><div class="k">古诗文背诵（1–6）</div><div class="v">75 篇</div></div>
+        <div class="keybox"><div class="k">阅读进阶</div><div class="v">朗读 → 概括 → 整本书</div></div>
+        <div class="keybox"><div class="k">表达进阶</div><div class="v">口头 → 写段 → 写篇</div></div>
+      </div>
+      <div class="tip"><b>关键提醒：</b>课标明确"第一学段<b>多认少写</b>，会认的字不一定同时要求会写"。低年级写字慢、写不好看不必焦虑，先把认读的量上去。</div>
+    </section>
+
+    <section class="card">
+      <h2><span class="bar" style="background:var(--math)"></span>数学：三个学段的能力台阶</h2>
+      <table>
+        <thead><tr><th>学段</th><th>核心素养表现</th><th>能力要求</th></tr></thead>
+        <tbody>
+          <tr><td class="s">1–2 年级</td><td>数感、量感、符号意识、运算能力、几何直观、空间观念、数据意识、应用意识</td><td>认识万以内的数，进行简单整数四则运算；辨认简单图形，认识长方形正方形特征；体验长度测量；按标准分类；认识货币、时间单位与基本方向</td></tr>
+          <tr><td class="s">3–4 年级</td><td>增加推理意识、模型意识</td><td>理解运算意义与关系，探索运算律；小数与分数初步；图形周长面积；用统计表/条形图整理数据；从生活中提出数学问题</td></tr>
+          <tr><td class="s">5–6 年级</td><td>符号意识、运算能力、推理意识、量感、空间观念、几何直观、数据意识</td><td>经历<b>用字母表示数</b>；理解小数分数意义并探索<b>运算一致性</b>；面积体积计算；用有序数对确定位置，认识平移旋转轴对称；条形/折线统计图；理解百分数</td></tr>
+        </tbody>
+      </table>
+      <div class="tip">小学核心素养共 <b>11 项</b>，总目标是"三会"：会用数学的<b>眼光</b>看世界、用数学的<b>思维</b>想世界、用数学的<b>语言</b>表达世界。表里反复出现"经历…过程"，说明过程体验优先于结果正确。</div>
+    </section>
+
+    <section class="card">
+      <h2><span class="bar" style="background:var(--eng)"></span>英语：一级、二级</h2>
+      <table>
+        <thead><tr><th>级别</th><th>年级</th><th>语言能力要点</th></tr></thead>
+        <tbody>
+          <tr><td class="s">一级</td><td class="g">3–4 年级</td><td>感知单词短语的重音与升降调；有意识<b>模仿</b>发音；能<b>大声跟读</b>音视频；积累表达个人喜好与基本信息的简单句式</td></tr>
+          <tr><td class="s">二级</td><td class="g">5–6 年级</td><td>领悟基本语调表达的意义；理解常见词语、基本句式和常用时态；听懂日常简单指令与对话；能进行简单交流</td></tr>
+        </tbody>
+      </table>
+      <div class="tip"><b>启示：</b>3–4 年级核心动作是"模仿 + 大声跟读"，不是抄单词、做语法题。这正好对应自然拼读 + 分级听读的路线。</div>
+    </section>
+
+    <section class="card">
+      <h2><span class="bar" style="background:var(--call)"></span>书法（写字）：藏在语文课标里</h2>
+      <ul class="pts">
+        <li>义务教育课标<b>没有独立的"书法"学科</b>，写字要求在语文课标"识字与写字"中；书法篆刻的<b>欣赏</b>内容在艺术课标。</li>
+        <li>教育部明确：<b>3–6 年级语文课每周安排 1 课时书法课</b>。</li>
+        <li>硬笔路径：基本笔画偏旁（1–2）→ 熟练正楷（3–4）→ 行款整齐、美观、有速度（5–6）。</li>
+        <li>毛笔路径：<b>3–4 年级临摹正楷字帖</b> → <b>5–6 年级能用毛笔书写楷书</b>。毛笔三四年级起步正合课标节奏。</li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- ================= 初中 ================= -->
+  <div id="panel-jun" class="hidden">
+    <section class="card">
+      <h2><span class="bar" style="background:var(--jun)"></span>初中总览：第四学段，抽象能力跃升</h2>
+      <div class="sub">7–9 年级为第四学段。课标对这一阶段的共同描述是：从"经验感悟"转向"概念理解"，学科开始分化。</div>
+      <table>
+        <thead><tr><th>维度</th><th>小学（第三学段）</th><th>初中（第四学段）</th></tr></thead>
+        <tbody>
+          <tr><td class="g">学习方式</td><td>具体、直观、以活动体验为主</td><td>抽象、系统、以概念体系为主</td></tr>
+          <tr><td class="g">思维要求</td><td>推理<b>意识</b>、数据<b>意识</b>、模型<b>意识</b></td><td>推理<b>能力</b>、数据<b>观念</b>、模型<b>观念</b>、<b>抽象能力</b></td></tr>
+          <tr><td class="g">学科结构</td><td>以综合科目为主（科学含理化生内容）</td><td>物理、化学、生物学<b>分科开设</b>；历史、地理分科</td></tr>
+          <tr><td class="g">评价</td><td>校内为主</td><td>出现<b>学业水平考试</b>（中考）</td></tr>
+        </tbody>
+      </table>
+      <div class="tip"><b>一句话：</b>初中最大的变化不是"内容变多"，而是"要求会抽象、会推理、会建模"。课标原文的说法是——小学侧重"经验的感悟"，初中侧重"概念的理解"。</div>
+    </section>
+
+    <section class="card">
+      <h2><span class="bar" style="background:var(--jun)"></span>学科设置与课时（7–9 年级）</h2>
+      <table>
+        <thead><tr><th>科目</th><th>开设</th><th>课时比例</th></tr></thead>
+        <tbody>
+          <tr><td class="g">语文</td><td>7–9 年级</td><td class="num">20%–22%（九年合计）</td></tr>
+          <tr><td class="g">数学</td><td>7–9 年级</td><td class="num">13%–15%（九年合计）</td></tr>
+          <tr><td class="g">外语</td><td>7–9 年级</td><td class="num">6%–8%（九年合计）</td></tr>
+          <tr><td class="g">物理、化学、生物学</td><td>7–9 年级</td><td class="num">8%–10%（与小学科学合计）</td></tr>
+          <tr><td class="g">历史、地理</td><td>7–9 年级</td><td class="num">3%–4%（九年合计）</td></tr>
+          <tr><td class="g">道德与法治</td><td>7–9 年级</td><td class="num">6%–8%（九年合计）</td></tr>
+          <tr><td class="g">体育与健康</td><td>7–9 年级</td><td class="num">10%–11%（九年合计）</td></tr>
+          <tr><td class="g">艺术</td><td>7–9 年级</td><td class="num">9%–11%（九年合计）</td></tr>
+          <tr><td class="g">信息科技</td><td>3–8 年级</td><td class="num">1%–3%（九年合计）</td></tr>
+          <tr><td class="g">劳动</td><td>7–9 年级</td><td>含在地方/校本</td></tr>
+        </tbody>
+      </table>
+      <div class="tip">周课时 <b>34 节</b>（7–9 年级）。物理、化学的具体起始年级由省级课程方案确定，各地略有差异。</div>
+    </section>
+
+    <section class="card">
+      <h2><span class="bar" style="background:var(--read)"></span>语文（第四学段）</h2>
+      <table>
+        <thead><tr><th>维度</th><th>要求</th></tr></thead>
+        <tbody>
+          <tr><td class="g">识字写字</td><td>累计认识常用汉字 <b>3500 左右</b>；日常记录用规范通行的<b>行楷</b>，提高书写速度；有探究汉字规律的意识</td></tr>
+          <tr><td class="g">阅读</td><td>养成默读习惯，一般现代文每分钟<b>不少于 500 字</b>；会用略读与浏览；能理清思路、理解分析主要内容、体味推敲重要词句；阅读简单议论文能区分观点与材料；了解叙述、描写、说明、议论、抒情等表达方式</td></tr>
+          <tr><td class="g">写作</td><td>能写记叙文、说明文、议论文；能根据表达需要选择文体与表达方式，在规定时间内完成不少于 500 字的习作</td></tr>
+          <tr><td class="g">古诗文</td><td>7–9 年级背诵 <b>60 篇（段）</b>（1–9 年级合计 135 篇）</td></tr>
+          <tr><td class="g">名著</td><td>每学年阅读两三部名著，形成自己的阅读经验</td></tr>
+        </tbody>
+      </table>
+      <div class="tip"><b>家长最容易忽略：</b>"每分钟不少于 500 字"的默读速度和"规定时间内写 500 字"，直接决定中考语文的答题节奏，小学高年级就该铺垫。</div>
+    </section>
+
+    <section class="card">
+      <h2><span class="bar" style="background:var(--math)"></span>数学（第四学段）</h2>
+      <table>
+        <thead><tr><th>领域</th><th>内容与能力要求</th></tr></thead>
+        <tbody>
+          <tr><td class="g">数与代数</td><td>有理数、实数；整式与分式运算；方程与不等式；<b>函数</b>（一次函数、二次函数、反比例函数）；形成<b>抽象能力</b>、运算能力、推理能力</td></tr>
+          <tr><td class="g">图形与几何</td><td>图形性质与判定（三角形、四边形、圆）；图形的<b>平移、旋转、轴对称、相似</b>；图形与坐标；形成几何直观、空间观念、推理能力</td></tr>
+          <tr><td class="g">统计与概率</td><td>抽样与数据分析；平均数、方差等统计量；随机事件与<b>概率</b>初步；形成<b>数据观念</b></td></tr>
+          <tr><td class="g">综合与实践</td><td>以项目式学习为主，经历"发现问题—建立模型—求解—检验"全过程；形成<b>模型观念</b>、应用意识与创新意识</td></tr>
+        </tbody>
+      </table>
+      <div class="tip"><b>核心素养从 11 项变为 9 项：</b>小学的"数感、量感、符号意识、推理<b>意识</b>、数据<b>意识</b>、模型<b>意识</b>"在初中升级为"<b>抽象能力</b>、推理<b>能力</b>、数据<b>观念</b>、模型<b>观念</b>"——用词从"意识"变"能力/观念"，就是要求从"有感觉"到"能运用"。</div>
+    </section>
+
+    <section class="card">
+      <h2><span class="bar" style="background:var(--eng)"></span>英语（三级）与其他学科</h2>
+      <table>
+        <thead><tr><th>科目/级别</th><th>要求</th></tr></thead>
+        <tbody>
+          <tr><td class="g">英语·三级</td><td>识别不同语调与节奏表达的意义；听懂发音清晰、语速较慢的简短表达并<b>获取关键信息</b>；积累常用习惯用语与词语搭配；了解句子结构特征；能围绕话题进行交流与写作</td></tr>
+          <tr><td class="g">物理</td><td>物质、运动与相互作用、能量三大主题；强调<b>实验探究</b>与科学思维，不是背公式</td></tr>
+          <tr><td class="g">化学</td><td>物质的组成与结构、性质与变化；以实验为基础，形成宏观—微观—符号三重表征</td></tr>
+          <tr><td class="g">生物学</td><td>生命观念、科学思维、探究实践、态度责任；从"记知识点"转向"理解生命系统"</td></tr>
+          <tr><td class="g">历史/地理</td><td>时序与因果关系；地图与空间定位；史料实证意识</td></tr>
+          <tr><td class="g">道德与法治</td><td>法治观念、政治认同、道德修养、责任意识</td></tr>
+        </tbody>
+      </table>
+      <div class="tip"><b>初中真正的分水岭：</b>不是难度，而是"科目变多 + 要求自主管理"。小学靠家长盯，初中必须逐步把计划权交给孩子。</div>
+    </section>
+  </div>
+
+  <!-- ================= 高中 ================= -->
+  <div id="panel-sen" class="hidden">
+    <section class="card">
+      <h2><span class="bar" style="background:var(--sen)"></span>高中总览：学分制，144 学分毕业</h2>
+      <div class="sub">普通高中三年制：每学年 52 周，教学 40 周、社会实践 1 周、假期 11 周；每周 35 课时，每课时 45 分钟；<b>18 课时 = 1 学分</b>。</div>
+      <table>
+        <thead><tr><th>课程类别</th><th>学分要求</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td class="g">必修</td><td class="num">88</td><td>国家设置，所有学生必须全部修习</td></tr>
+          <tr><td class="g">选择性必修</td><td class="num">≥ 42</td><td>参加高考的学生须在指定范围内选科修习</td></tr>
+          <tr><td class="g">选修（含校本）</td><td class="num">≥ 14</td><td>学校统筹开设，学生自主选择</td></tr>
+          <tr><td class="g">毕业最低</td><td class="num">144</td><td>修满规定课时、考试（考核）合格即可获得学分</td></tr>
+        </tbody>
+      </table>
+      <div class="keyrow">
+        <div class="keybox"><div class="k">毕业总学分</div><div class="v">144</div></div>
+        <div class="keybox"><div class="k">必修学分</div><div class="v">88</div></div>
+        <div class="keybox"><div class="k">1 学分</div><div class="v">18 课时</div></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2><span class="bar" style="background:var(--sen)"></span>各科必修学分一览</h2>
+      <div class="sub">高中不再用"课时比例"衡量，改看学分——学分多少直接反映该科的法定分量。</div>
+      <table>
+        <thead><tr><th>科目</th><th>必修学分</th><th>选择性必修</th><th>选修</th></tr></thead>
+        <tbody>
+          <tr><td class="g">语文</td><td class="num">8</td><td>0–6</td><td>0–6</td></tr>
+          <tr><td class="g">数学</td><td class="num">8</td><td>0–6</td><td>0–6</td></tr>
+          <tr><td class="g">外语</td><td class="num">6</td><td>0–8</td><td>0–6</td></tr>
+          <tr><td class="g">思想政治</td><td class="num">6</td><td>0–6</td><td>0–4</td></tr>
+          <tr><td class="g">物理</td><td class="num">6</td><td>0–6</td><td>0–4</td></tr>
+          <tr><td class="g">体育与健康</td><td class="num">12</td><td>0–18</td><td>0–4</td></tr>
+          <tr><td class="g">技术（信息+通用）</td><td class="num">6</td><td>0–18</td><td>0–4</td></tr>
+          <tr><td class="g">艺术（音乐/美术）</td><td class="num">6</td><td>0–18</td><td>0–4</td></tr>
+          <tr><td class="g">历史</td><td class="num">4</td><td>0–6</td><td>0–4</td></tr>
+          <tr><td class="g">地理</td><td class="num">4</td><td>0–6</td><td>0–4</td></tr>
+          <tr><td class="g">化学</td><td class="num">4</td><td>0–6</td><td>0–4</td></tr>
+          <tr><td class="g">生物学</td><td class="num">4</td><td>0–6</td><td>0–4</td></tr>
+          <tr><td class="g">综合实践活动</td><td class="num">8</td><td>—</td><td>—</td></tr>
+          <tr><td class="g">劳动</td><td class="num">6</td><td>—</td><td>—</td></tr>
+          <tr><td class="g">合计</td><td class="num">88</td><td>≥ 42</td><td>≥ 14</td></tr>
+        </tbody>
+      </table>
+      <div class="tip"><b>值得注意：</b>体育与健康必修 <b>12 学分</b>，是高中所有科目里最高的，且必须三年持续开设；劳动 6 学分中含志愿服务 2 学分（三年不少于 40 小时）。</div>
+    </section>
+
+    <section class="card">
+      <h2><span class="bar" style="background:var(--sen)"></span>学业质量：五级水平，对应两类考试</h2>
+      <table>
+        <thead><tr><th>水平</th><th>对应课程</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr><td class="s">水平 1–2</td><td>必修课程</td><td><b>学业水平合格性考试</b>的命题依据；合格是毕业的重要依据</td></tr>
+          <tr><td class="s">水平 3–4</td><td>必修 + 选择性必修</td><td><b>学业水平等级性考试</b>（计入高考）的命题依据</td></tr>
+          <tr><td class="s">水平 5</td><td>选修课程</td><td>面向学科特长与拓展提高，供高校选拔参考</td></tr>
+        </tbody>
+      </table>
+      <div class="tip">学业质量不是"分数"，而是"学完这门课后应达到的素养水平描述"。所以高中除了看成绩，还要看"能不能用这门学科的方式解决问题"。</div>
+    </section>
+
+    <section class="card">
+      <h2><span class="bar" style="background:var(--read)"></span>三门主科的课标要点</h2>
+      <table>
+        <thead><tr><th>科目</th><th>课程结构与核心要求</th></tr></thead>
+        <tbody>
+          <tr><td class="g">语文</td><td>必修 <b>8 学分</b>、选择性必修 <b>6 学分</b>，以<b>学习任务群</b>组织（共 18 个，分必修、选择性必修、选修三类）；<b>整本书阅读与研讨</b>贯穿三年；强调思辨性阅读与表达、跨媒介阅读、语言积累与梳理</td></tr>
+          <tr><td class="g">数学</td><td>必修 <b>8 学分</b>，四条主线：函数、几何与代数、概率与统计、数学建模活动与数学探究活动；选择性必修 <b>6 学分</b>；选修分 A/B/C/D/E 类；核心素养在初中"能力/观念"基础上进一步要求<b>建模与探究</b></td></tr>
+          <tr><td class="g">外语</td><td>必修 <b>6 学分</b>、选择性必修最多 <b>8 学分</b>；可在英语、日语、俄语、德语、法语、西班牙语中选第一外语；强调<b>语篇</b>理解与表达，词汇量与阅读篇幅显著提升</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2><span class="bar" style="background:var(--sen)"></span>高中其他变化（家长需要知道的）</h2>
+      <ul class="pts">
+        <li><b>选科：</b>选择性必修与国家统一高考直接挂钩，高二前后确定选科方向，会反过来影响三年学习重心。</li>
+        <li><b>研究性学习：</b>综合实践活动 8 学分中，研究性学习占 <b>6 学分</b>，要求完成 2 个课题研究或项目设计，以开展跨学科研究为主。</li>
+        <li><b>技术课：</b>信息技术与通用技术必修内容各按 3 学分设计，合计 6 学分。</li>
+        <li><b>艺术：</b>音乐、美术两科可相互替代，具体开哪科由学校确定，必修 6 学分。</li>
+        <li><b>劳动：</b>必修 6 学分，其中志愿服务 2 学分在课外进行，三年不少于 40 小时。</li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- ================= 跨阶段 ================= -->
+  <section class="card">
+    <h2><span class="bar" style="background:var(--brand)"></span>跨学段的三次能力跃迁</h2>
+    <div class="sub">把三张表叠起来看，12 年的要求在三个地方发生质变。</div>
+    <table>
+      <thead><tr><th>维度</th><th>小学</th><th>初中</th><th>高中</th></tr></thead>
+      <tbody>
+        <tr><td class="g">语文</td><td>识字 + 朗读 + 复述</td><td>默读速度 + 文体意识 + 议论文</td><td>整本书 + 思辨表达 + 任务群</td></tr>
+        <tr><td class="g">数学</td><td>数感 + 运算 + 直观（"意识"）</td><td>抽象 + 推理 + 函数（"能力/观念"）</td><td>建模 + 探究 + 选科深化</td></tr>
+        <tr><td class="g">英语</td><td>跟读模仿 + 简单交流</td><td>获取关键信息 + 篇章理解</td><td>语篇分析 + 学术性阅读</td></tr>
+        <tr><td class="g">管理方式</td><td>家长主导，习惯养成</td><td>逐步移交，自主排计划</td><td>学生自主，选科与规划</td></tr>
+        <tr><td class="g">评价方式</td><td>校内过程性</td><td>中考（学业水平考试）</td><td>合格考 + 等级考（高考）</td></tr>
+      </tbody>
+    </table>
+    <div class="tip"><b>对家庭的启示：</b>小学阶段最重要的产出不是分数，而是"能自己读、能自己练、能自己检查"三个习惯——因为到初中，家长的介入空间会被科目数量迅速压缩。</div>
+  </section>
+
+  <section class="card">
+    <h2><span class="bar" style="background:var(--brand)"></span>三条使用提醒</h2>
+    <ul class="pts">
+      <li><b>课标是底线，不是上限。</b>达到该学段要求即为合格，兴趣与特长可以在这之上自由生长，不必把每条都做成"提前学"。</li>
+      <li><b>不要用刷题替代"经历过程"。</b>数学强调"经历、探索、建模"，语文强调"整本书阅读"，这些刷题刷不出来。</li>
+      <li><b>按学段校准期待，别按年级硬套。</b>同年级孩子差异很大，判断标准是"能否独立读懂 80%"，而不是"同班同学到哪了"。</li>
+    </ul>
+    <div class="src">资料来源：教育部《义务教育课程方案和课程标准（2022 年版）》（教材〔2022〕2 号）；教育部《普通高中课程方案和课程标准（2017 年版 2020 年修订）》（教材〔2020〕3 号）。具体要求以原文与学校教学安排为准。</div>
+  </section>
+
+  <footer>本页为课程标准的学习性梳理，便于家庭对照使用。</footer>
+</div>
+
+<script>
+const tabs=[...document.querySelectorAll('#tabs button')];
+const panels={pri:document.getElementById('panel-pri'),jun:document.getElementById('panel-jun'),sen:document.getElementById('panel-sen')};
+tabs.forEach(b=>{
+  b.onclick=()=>{
+    tabs.forEach(x=>x.classList.toggle('active',x===b));
+    Object.entries(panels).forEach(([k,el])=>el.classList.toggle('hidden',k!==b.dataset.s));
+    decorate(panels[b.dataset.s]);
+  };
+});
+
+/* 章节锚点 + 卡片折叠 */
+function decorate(panel){
+  const cards=[...panel.querySelectorAll(".card")];
+  cards.forEach((c,i)=>{
+    if(!c.id) c.id=panel.id+"-c"+(i+1);
+    const h=c.querySelector("h2");
+    if(h && !h.querySelector(".ctog")){
+      const btn=document.createElement("button");
+      btn.type="button"; btn.className="ctog"; btn.textContent="收起";
+      btn.onclick=e=>{e.stopPropagation(); toggleCard(c)};
+      h.appendChild(btn);
+    }
+  });
+  buildNav(cards,panel);
+}
+function toggleCard(c,force){
+  const willCollapse = force===undefined ? !c.classList.contains("collapsed") : force;
+  c.classList.toggle("collapsed", willCollapse);
+  const b=c.querySelector(".ctog"); if(b) b.textContent = willCollapse ? "展开" : "收起";
+  syncNav();
+}
+const activeCards=()=>{
+  const p=Object.values(panels).find(el=>!el.classList.contains("hidden"));
+  return p ? [...p.querySelectorAll(".card")] : [];
+};
+function buildNav(cards){
+  const nav=document.getElementById("secnav"); nav.innerHTML="";
+  if(!cards.length) return;
+  cards.forEach(c=>{
+    const raw=(c.querySelector("h2")||{}).textContent||"";
+    let name=raw.replace(/收起|展开/g,"").trim().replace(/(课内|课外)$/,"");
+    name=name.split(/[：:（(]/)[0];
+    name=name.length>9 ? name.slice(0,8)+"…" : name;
+    if(!name) name="模块";
+    const a=document.createElement("a");
+    a.href="#"+c.id; a.textContent=name;
+    a.onclick=e=>{e.preventDefault(); toggleCard(c,false); c.scrollIntoView({behavior:"smooth",block:"start"});};
+    nav.appendChild(a);
+  });
+  const sp=document.createElement("span"); sp.className="spacer"; nav.appendChild(sp);
+  const btn=document.createElement("button"); btn.type="button"; btn.id="allTog";
+  btn.onclick=()=>{
+    const cards=activeCards();
+    const allExp=cards.every(c=>!c.classList.contains("collapsed"));
+    cards.forEach(c=>toggleCard(c,allExp));
+  };
+  nav.appendChild(btn);
+  syncNav();
+}
+function syncNav(){
+  const btn=document.getElementById("allTog"); if(!btn) return;
+  const cards=activeCards();
+  btn.textContent = cards.every(c=>!c.classList.contains("collapsed")) ? "全部收起" : "全部展开";
+}
+
+const sh=document.getElementById("stickyhead");
+addEventListener("scroll",()=>sh.classList.toggle("stuck",scrollY>8),{passive:true});
+decorate(panels.pri);
+
+const toTop=document.getElementById("toTop");
+addEventListener("scroll",()=>toTop.classList.toggle("show",scrollY>600),{passive:true});
+toTop.onclick=()=>scrollTo({top:0,behavior:"smooth"});
+
+/* 移动端菜单 */
+const navBtn=document.getElementById("navBtn"), navMenu=document.getElementById("navMenu");
+if(navBtn && navMenu){
+  navBtn.onclick=()=>{
+    const open=navMenu.classList.toggle("open");
+    navBtn.setAttribute("aria-expanded", open?"true":"false");
+    navBtn.textContent = open ? "✕" : "☰";
+  };
+  navMenu.addEventListener("click",e=>{ if(e.target.tagName==="A"){ navMenu.classList.remove("open"); navBtn.textContent="☰"; } });
+}
+
+/* 固定头部高度变量 + 吸顶阴影 */
+(function(){
+  const hd=document.querySelector(".sitehdr"); if(!hd) return;
+  const set=()=>{
+    document.documentElement.style.setProperty("--hdrH", hd.offsetHeight+"px");
+    hd.classList.toggle("stuck", hd.getBoundingClientRect().top<=0 && scrollY>4);
+  };
+  set(); addEventListener("resize",set);
+  addEventListener("scroll",()=>hd.classList.toggle("stuck", scrollY>4),{passive:true});
+})();
+</script>
+</body>
+</html>
