@@ -8,6 +8,7 @@ cd "$(dirname "$0")"
 
 FOLDER_TOKEN="IESMf1R7PlhitZdvmSMcWpFunic"   # 云盘「想法创意/小学学习规划汇聚页」
 DOC_TOKEN="N27Ad1yZDoROmLxRActc2qftnog"      # 在线说明文档（README.md 导入版）
+DOCS_TOKEN="XskDfpW68lO2K5dmi59cPqOLnJb"     # 云盘「docs」（创作记录等站外文档）
 
 case "${1:-}" in
   pull)
@@ -26,13 +27,14 @@ for k in ("unchanged","modified","new_remote"):
 ' > /tmp/.study_tokens.tsv
 
     shopt -s nullglob
-    for f in *.html *.md; do
+    for f in *.html *.md docs/*.html docs/*.md; do
+      case "$f" in docs/*) target="$DOCS_TOKEN" ;; *) target="$FOLDER_TOKEN" ;; esac
       tok=$(awk -F'\t' -v p="$f" '$1==p{print $2}' /tmp/.study_tokens.tsv)
       if [ -n "${tok:-}" ]; then
         lark-cli drive +upload --file "./$f" --file-token "$tok" --format json >/tmp/.up.json || { echo "失败: $f"; cat /tmp/.up.json; exit 1; }
         echo "覆盖 $f"
       else
-        lark-cli drive +upload --file "./$f" --folder-token "$FOLDER_TOKEN" --format json >/tmp/.up.json || { echo "失败: $f"; cat /tmp/.up.json; exit 1; }
+        lark-cli drive +upload --file "./$f" --folder-token "$target" --format json >/tmp/.up.json || { echo "失败: $f"; cat /tmp/.up.json; exit 1; }
         echo "新增 $f"
       fi
     done
